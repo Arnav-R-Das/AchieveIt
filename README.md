@@ -55,3 +55,8 @@ But facing certain issues prompted me to put recreate my task managemnt system i
 #
 
 ### DELETE
+
+#
+
+### OTHER
+- WIP: **DARK MODE**
