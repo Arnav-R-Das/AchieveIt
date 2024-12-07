@@ -84,7 +84,6 @@ body {
     border-bottom: var(--row-1-border-bottom) solid var(--color-85);
 
     background-color: var(--color-95);
-    text-align: center;
 }
 
 #row-1 {
@@ -95,27 +94,26 @@ body {
     justify-content: center;
 
     background-color: var(--color-95);
-    text-align: center;
 }
 
-#row-1 div {
+#clock-container {
     height: var(--row-1-height);
     width: 50%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
     align-items: center;
 }
 
-#row-1 div div {
+.clock {
     height: 50%;
+    width: 100%;
     border-right: 1px solid var(--color-85);
-
-    justify-content: center;
-    align-items: center;
+    
+    text-align: center;
+    align-content: center;
 }
 
-#row-1 div div:last-child {
+.clock:last-child {
     border-right: none;
 }
 

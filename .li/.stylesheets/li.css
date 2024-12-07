@@ -6,22 +6,22 @@
 
     --standard-gutter: 5px;
 
-    --nav-tab-width: 40px;
+    --nav-tab-width: 50px;
     --nav-tab-border-right: 1px;
 
     --container-width: calc(100% - (var(--nav-tab-width) + var(--nav-tab-border-right)));
 
-        --row-1-height: 40px;
+        --row-1-height: 50px;
         --row-1-border-bottom: 1px;
 
-        --row-2-height: 40px;
+        --row-2-height: 35px;
 
             --row-2-div-width: calc(((100% - var(--y-axis-width)) / 2) - var(--row-2-div-border-right));
             --row-2-div-border-right: var(--standard-gutter);
 
         --row-3-height: calc(100vh - (var(--row-1-height) + var(--row-1-border-bottom) + var(--row-2-height) + var(--row-4-height) + var(--row-4-border-top)));
 
-            --y-axis-width: 40px;
+            --y-axis-width: 35px;
 
                 --y-axis-div-heigth: calc(50% - var(--standard-gutter));
                 
@@ -30,8 +30,8 @@
                 --matrix-div-width: calc(50% - (var(--matrix-div-margin) + var(--matrix-div-border-right)));
                 --matrix-div-height: calc((var(--row-3-height) / 2) - (var(--matrix-div-margin) + var(--matrix-div-border-bottom)));
                 --matrix-div-margin: 0px;
-                --matrix-div-border-right: var(--standard-gutter);
-                --matrix-div-border-bottom: var(--standard-gutter);
+                --matrix-div-border-right: calc(var(--standard-gutter) * 2);
+                --matrix-div-border-bottom: calc(var(--standard-gutter) * 2);
 
         --row-4-height: 60px;
         --row-4-border-top: 1px;
@@ -66,10 +66,9 @@ body {
 
 #nav-tab {
     width: var(--nav-tab-width);
-    border-right: var(--nav-tab-border-right) solid var(--color-100);
+    border-right: var(--nav-tab-border-right) solid var(--color-85);
 
-    background-color: var(--color-0);
-    color: var(--color-100);
+    background-color: var(--color-95);
 }
 
 /************************ CONTAINER ***********************/
@@ -82,30 +81,40 @@ body {
 
 #row-1 {
     height: var(--row-1-height);
-    border-bottom: var(--row-1-border-bottom) solid var(--color-100);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
+
+    background-color: var(--color-95);
+}
+
+#row-1 {
+    height: var(--row-1-height);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
 
-    background-color: var(--color-0);
-    color: var(--color-100);
-    text-align: center;
+    background-color: var(--color-95);
 }
 
-#row-1 div {
+#clock-container {
     height: var(--row-1-height);
     width: 50%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    align-items: center;
 }
 
-#row-1 div div {
-    height: var(--row-1-height);
-    width: 25%;
+.clock {
+    height: 50%;
+    width: 100%;
+    border-right: 1px solid var(--color-85);
+    
+    text-align: center;
+    align-content: center;
+}
 
-    justify-content: center;
-    align-items: center;
+.clock:last-child {
+    border-right: none;
 }
 
 /************************* ROW-2 **************************/
@@ -116,13 +125,12 @@ body {
     flex-flow: row nowrap;
     justify-content: end;
 
-    background-color: var(--color-0);
-    color: var(--color-100);
+    background-color: var(--color-95);
 }
 
 #row-2 > div {
     width: var(--row-2-div-width);
-    border-right: var(--row-2-div-border-right) solid var(--color-0);
+    border-right: var(--row-2-div-border-right) solid var(--color-95);
     margin: auto 0px;
 
     text-align: center;
@@ -140,8 +148,7 @@ body {
 #y-axis {
     width: var(--y-axis-width);
 
-    background-color: var(--color-0);
-    color: var(--color-100);
+    background-color: var(--color-95);
 }
 
 #y-axis > div {
@@ -167,89 +174,93 @@ body {
     width: var(--matrix-div-width);
     height: var(--matrix-div-height);
     margin: var(--matrix-div-margin);
-    border-right: var(--matrix-div-border-right) solid var(--color-0);
-    border-bottom: var(--matrix-div-border-bottom) solid var(--color-0);
+    border-right: var(--matrix-div-border-right) solid var(--color-95);
+    border-bottom: var(--matrix-div-border-bottom) solid var(--color-95);
 
-    background-color: var(--color-85);
-    overflow-wrap: break-word;
+    background-color: var(--color-100);
+    overflow-wrap: anywhere;
     overflow-y: scroll;
 }
 
-/************************* COPIED *************************/
+/*************************** UL ***************************/
 
-.matrix > div > table {
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*************************** LI ***************************/
+
+li {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    height: calc(14px + 5px + 5px);
+    margin: 0px 0px;
+    padding: 5px 0px;
+    border-bottom: 1px solid var(--color-85);
+}
+
+.time {
+    translate: 0% 50%;
+    height: 14px;
+    min-width: 100px;
+    border-right: 1px solid var(--color-85);
+
+    overflow: hidden;
+    text-align: center;
+}
+
+.task {
+    translate: 0% 50%;
+    height: 14px;
+    width: 100%;
+    padding: 0px 20px;
+    overflow: hidden;
+}
+
+/*********************** DELETETASK ***********************/
+ 
+.deleteTask {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    translate: -50% 25%;
+
+    width: 25px;
+    height: 25px;
     margin: 0px;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-tr {
-    height: 30px;
-    max-height: 30px;
-    width: 100%;
-    max-width: 100%;
-}
-
-td {
-    background-color: hsl(0, 0%, 100%);
-}
-
-.deadline {
-    width: 80px;
-
-    border: 1px solid hsl(0, 0%, 75%);
-}
-
-.schedule {
-    width: 80px;
-
-    flex-shrink: 0;
-    border: 1px solid hsl(0, 0%, 75%);
-}
-
-.tasks {
-    width: calc(100% - (80px + 80px));
-    border: 1px solid hsl(0, 0%, 75%);
-}
-
-.update {
-    display: none;
-
-    width: 99px;
-    border: 1px solid hsl(0, 0%, 100%);
-
-
-
-    text-align: right;
-}
-
-.update > button {
-    max-height: 30px;
-    width: 30px;
-
     border: none;
-    background-color: hsl(100, 100%, 50%);
-    outline: 3px solid hsl(100, 100%, 50%);
-    color: hsl(0, 0%, 100%);
+
+    outline: 1px solid red;
+    border-radius: 50%;
+    background-color: var(--color-100);
+    color: hsl(0, 100%, 65%);
+    visibility: hidden;
+    cursor: pointer;
 }
 
-tr:hover > .tasks {
-    width: calc(100% - (80px + 80px + 100px));
+li:hover > .deleteTask {
+    visibility: visible;
 }
 
-tr:hover > .update {
-    display: block;
+.deleteTask:hover {
+    background-color: hsl(0, 100%, 65%);
+    color: var(--color-100);
 }
 
 /************************* ROW-4 **************************/
 
 #row-4 {
     height: var(--row-4-height);
-    border-top: var(--row-4-border-top) solid var(--color-100);
+    border-top: var(--row-4-border-top) solid var(--color-85);
 
     display: flex;
     justify-content: center;
-    background-color: var(--color-0);
+    background-color: var(--color-95);
 }
 
 /*********************** TASKINPUT ************************/
@@ -271,7 +282,7 @@ tr:hover > .update {
 }
 
 #taskInput:focus {
-    outline: 5px solid var(--color-50);
+    outline: 2px solid var(--color-50);
 }
 
 /************************ DRAGGING ************************/
