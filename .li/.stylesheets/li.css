@@ -193,62 +193,86 @@ ul {
 /*************************** LI ***************************/
 
 li {
-    position: relative;
     display: flex;
     flex-flow: row nowrap;
-    align-items: baseline;
-    height: calc(14px + 5px + 5px);
+
+    position: relative;
+    
+    height: calc(14px + 10px + 10px);
     margin: 0px 0px;
-    padding: 5px 0px;
+    padding: 0px 0px;
+    
     border-bottom: 1px solid var(--color-85);
 }
 
 .time {
-    translate: 0% 50%;
-    height: 14px;
+    height: calc(14px + 10px + 10px);
     min-width: 100px;
-    border-right: 1px solid var(--color-85);
+    margin: 0 0;
+
 
     overflow: hidden;
     text-align: center;
+    align-content: center;
 }
 
 .task {
-    translate: 0% 50%;
     height: 14px;
     width: 100%;
+    margin: 10px 0;
     padding: 0px 20px;
+
     overflow: hidden;
 }
 
-/*********************** DELETETASK ***********************/
- 
-.deleteTask {
+.update {
     position: absolute;
-    z-index: 1;
     top: 0;
     right: 0;
-    translate: -50% 25%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 
-    width: 25px;
-    height: 25px;
-    margin: 0px;
-    border: none;
+    height: calc(14px + 10px + 10px);
 
-    outline: 1px solid red;
-    border-radius: 50%;
-    background-color: var(--color-100);
-    color: hsl(0, 100%, 65%);
     visibility: hidden;
-    cursor: pointer;
+    background-color: var(--color-100);
+    box-shadow: -20px 0px 10px -5px var(--color-100);
 }
 
-li:hover > .deleteTask {
+li:hover > .update {
     visibility: visible;
 }
 
-.deleteTask:hover {
-    background-color: hsl(0, 100%, 65%);
+/*********************** DELETETASK ***********************/
+
+
+.update-buttons {
+    z-index: 10;
+    width: 23px;
+    height: 23px;
+    margin-right: 10px;
+
+    border: none;
+    outline: 1px solid var(--color-85);
+    border-radius: 50%;
+    background-color: var(--color-100);
+    color: var(--color-85);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.update-buttons:first-child {
+    margin-left: 20px;
+}
+
+.update-buttons:last-child {
+    margin-right: 20px;
+}
+
+.update-buttons:hover {
+    background-color: var(--color-85);
     color: var(--color-100);
 }
 
