@@ -6,8 +6,9 @@ const quadrant4 = document.getElementById('quadrant4');
 
 
 // Load tasks from LocalStorage
-// const allTasks = loadTasks();
-// displayTasks();
+// const demoTasks = loadTasks();
+const demoTasks = [];
+displayTasks();
 
 // selectAllLi();
 
@@ -20,10 +21,10 @@ function preprocessInput() {
     let newTask = taskInput.value;
 
     // Split Input
-    newTask = newTask.split(";");
+    let validateTask = newTask.split(";");
 
     // Validate Input
-    let len = newTask.length;
+    var len = validateTask.length;
     if (len != 4) {
         if (len < 4) {
             len = 4 - len;
@@ -46,68 +47,138 @@ function preprocessInput() {
     else {
 
         // Trim Whitespace
-        let i = 0;
+        var i = 0;
         for (; i < 4; i++) {
-            newTask[i] = newTask[i].trim();
+            validateTask[i] = validateTask[i].trim();
         }
 
         // Validate Task
-        if (newTask[0] == "") {
+        if (validateTask[0] == "") {
             alert("Can't add an empty task. \nEnter a task.");
         }
         else {
 
             // Validate Deadline
-            if (newTask[1] != "d" && newTask[1] != "") {
-                alert("Please correct the format of DEADLINE");
-            }
-            else {
+            // if (validateDate(validateTask[1])) {
+            //     alert("Please correct the format of DEADLINE");
+            // }
+            // else {
 
                 // Validate Schedule
-                if (newTask[2] != "s" && newTask[2] != "") {
-                    alert("Please correct the format of SCHEDULE");
-                }
-                else {
+                // if (validateDate(validateTask[2])) {
+                //     alert("Please correct the format of SCHEDULE");
+                // }
+                // else {
 
                     // Validate Impact
-                    if (newTask[3] != "/" && newTask[3] != "") {
-                        alert("Please correct the format of IMPACT \n\nFor tasks with Long-term Impact \n>>> Enter / \n\n For tasks with No Long-term Impact \n>>> Leave it empty");
+                    if (validateTask[3] != "/" && validateTask[3] != "") {
+                        alert("Please correct the format of IMPACT \n\nFor tasks with Long-term Impact \n>>> Enter / \n\nFor tasks with No Long-term Impact \n>>> Leave it empty");
                     }
                     else {
-                        // allTasks.push(newTask);
-                        // saveTasks();
-                        // displayTasks();
+
+                        // Concatinate Validated Task
+                        let validTask = "";
+                        var i = 0;
+                        validTask = validTask.concat(" ", validateTask[i]).trim();
+                        i++;
+                        for (; i < 4; i++) {
+                            validTask = validTask.concat(";", validateTask[i]);
+                        }
+
+                        demoTasks.push(validTask);
+                        saveTasks();
+                        displayTasks();
                         taskInput.value = '';
                     }
-                }
-            }
+
+                // }
+            // }
         }
     }
+}
+
+function validateDate(x) {
 
     /*
+    // Month
+    let month = x.toLowerCase();
+    switch(month) {
+        case "jan":
+        case "01":
+        case "1":
+            alert("January");
+            break;
 
-    if (newTask) {
+        case "feb":
+        case "02":
+        case "2":
+            alert("February");
+            break;
+
+        case "mar":
+        case "03":
+        case "3":
+            alert("March");
+            break;
         
-        if (newTask[1] == undefined || newTask[1] == "") {
-            alert("Enter a Quadrant (1, 2, 3 or 4)");
-        }
-        else if (newTask[1] == 1 || newTask[1] == 2 || newTask[1] == 3 || newTask[1] == 4) {
-            allTasks.push(newTask);
-            saveTasks();
-            displayTasks();
-            taskInput.value = '';
-        }
-        else {
-            alert("Incorrect input/format. Please check again.");
-        }
-    }
-    else {
-        alert("Can't add a blank task.");
+        case "apr":
+        case "04":
+        case "4":
+            alert("April");
+            break;
+
+        case "may":
+        case "05":
+        case "5":
+            alert("May");
+            break;
+
+        case "jun":
+        case "06":
+        case "6":
+            alert("June");
+            break;
+
+        case "jul":
+        case "07":
+        case "7":
+            alert("July");
+            break;
+
+        case "aug":
+        case "08":
+        case "8":
+            alert("August");
+            break;
+
+        case "sep":
+        case "09":
+        case "9":
+            alert("September");
+            break;
+
+        case "oct":
+        case "10":
+            alert("October");
+            break;
+
+        case "nov":
+        case "11":
+            alert("November");
+            break;
+
+        case "dec":
+        case "12":
+            alert("December");
+            break;
+
+        default:
+            alert("Not found");
     }
     */
 }
 
-/**************************** DisplayTasks ****************************
+/**************************** DisplayTasks ****************************/
 
 function displayTasks() {
 
@@ -115,31 +186,72 @@ function displayTasks() {
     [quadrant1, quadrant2, quadrant3, quadrant4].forEach(q => q.innerHTML = '');
 
     // Loop
-    for (i = 0, len = allTasks.length; i < len; i++) {
+    for (var i = 0, len = demoTasks.length; i < len; i++) {
 
         // Split input into elements of array
-        let splitInput = allTasks[i].split(";");
+        let splitiofallTasks = demoTasks[i].split(";");
 
         // Identify quadrant
-        let quadrant = splitInput[1] == 1 ? quadrant1 : splitInput[1] == 2 ? quadrant2 : splitInput[1] == 3 ? quadrant3 : quadrant4;
+        var quadrant;
+
+        // Deadline
+        if (splitiofallTasks[1] != "") {
+            if (splitiofallTasks[3] == "/") {
+                quadrant = quadrant1;
+            }
+            else {
+                quadrant = quadrant3;
+            }
+        }
+        // No Deadline
+        else {
+            if (splitiofallTasks[3] == "/") {
+                quadrant = quadrant2;
+            }
+            else {
+                quadrant = quadrant4;
+            }
+        }
 
         // CreateElement 'li'
         const listItem = document.createElement('li');
-        listItem.textContent = splitInput[0];
+        
+        // CreateElement Deadline
+        if (splitiofallTasks[1] != "") {
+            const divDeadline = document.createElement('div');
+            divDeadline.textContent = splitiofallTasks[1];
+            divDeadline.className = 'time';
+            listItem.appendChild(divDeadline);
+        }
+        
+        // CreateElement Schedule
+        const divSchedule = document.createElement('div');
+        divSchedule.textContent = splitiofallTasks[2];
+        divSchedule.className = 'time';
+        listItem.appendChild(divSchedule);
+        
+        // CreateElement Task
+        const divTask = document.createElement('div');
+        divTask.textContent = splitiofallTasks[0];
+        divTask.className = 'task';
+        listItem.appendChild(divTask);
+
+        // Append li to quadrant
         quadrant.appendChild(listItem);
 
+        /*
         // Add Delete Button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'X';
         deleteButton.className = 'deleteTask';
         deleteButton.addEventListener('click', () => {
-            allTasks.splice(i, 1);
+            demoTasks.splice(i, 1);
             saveTasks();
             displayTasks();
         })
         listItem.appendChild(deleteButton);
 
-        // Move to Today's tasks
+        // Add Today's tasks Button
         const TodaysTaskButton = document.createElement('button');
         TodaysTaskButton.textContent = 'T';
         TodaysTaskButton.className = 'deleteTask';
@@ -147,25 +259,28 @@ function displayTasks() {
         })
         listItem.appendChild(TodaysTaskButton);
 
-        // Move to Archive
+        // Add Archive Button
         const ArchiveButton = document.createElement('button');
         ArchiveButton.textContent = 'A';
         ArchiveButton.className = 'deleteTask';
         ArchiveButton.addEventListener('click', () => {
         })
         listItem.appendChild(ArchiveButton);
+        */
     }
 }
 
-/**************************** LocalStorage ****************************
+/**************************** LocalStorage ****************************/
 
 function saveTasks() {
-    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    localStorage.setItem('demoTasks', JSON.stringify(demoTasks));
 }
 
+/*
 function loadTasks() {
-    return JSON.parse(localStorage.getItem('allTasks')) || [];
+    return JSON.parse(localStorage.getItem('demoTasks')) || [];
 }
+*/
 
 /**************************** Drag & Drop *****************************
 
