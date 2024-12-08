@@ -76,6 +76,11 @@ function displayTasks() {
         archiveButton.textContent = 'A';
         archiveButton.className = 'update-buttons';
         archiveButton.addEventListener('click', () => {
+            let allTasksQuadrant = splitTask[1] != "" && splitTask[3] == "/" ? archivedTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? archivedTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+            allTasksQuadrant.push(todaysTasks[index]);
+            todaysTasks.splice(index, 1);
+            saveTasks();
+            displayTasks();
         });
         divUpdate.appendChild(archiveButton);
 

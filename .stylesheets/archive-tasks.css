@@ -1,0 +1,312 @@
+/************************* :ROOT **************************/
+
+:root {
+
+    /* STRUCTURE */
+
+    --standard-gutter: 5px;
+
+    --nav-tab-width: 50px;
+    --nav-tab-border-right: 1px;
+
+    --container-width: calc(100% - (var(--nav-tab-width) + var(--nav-tab-border-right)));
+
+        --row-1-height: 50px;
+        --row-1-border-bottom: 1px;
+
+        --row-2-height: 35px;
+
+            --row-2-div-width: calc(((100% - var(--y-axis-width)) / 2) - var(--row-2-div-border-right));
+            --row-2-div-border-right: var(--standard-gutter);
+
+        --row-3-height: calc(100vh - (var(--row-1-height) + var(--row-1-border-bottom) + var(--row-2-height) + var(--row-4-height) + var(--row-4-border-top)));
+
+            --y-axis-width: 35px;
+
+                --y-axis-div-heigth: calc(50% - var(--standard-gutter));
+                
+            --matrix-width: calc(100% - var(--y-axis-width));
+
+                --matrix-div-width: calc(50% - (var(--matrix-div-margin) + var(--matrix-div-border-right)));
+                --matrix-div-height: calc((var(--row-3-height) / 2) - (var(--matrix-div-margin) + var(--matrix-div-border-bottom)));
+                --matrix-div-margin: 0px;
+                --matrix-div-border-right: calc(var(--standard-gutter) * 2);
+                --matrix-div-border-bottom: calc(var(--standard-gutter) * 2);
+
+        --row-4-height: 60px;
+        --row-4-border-top: 1px;
+                
+            --taskInput-width: calc(100% - (4px + ((var(--standard-gutter) * 2) * 2) + var(--taskInput-padding-left)));
+            --taskInput-height: calc(var(--row-4-height) - (4px + ((var(--standard-gutter) * 2) * 2)));
+            --taskInput-padding-left: 15px;
+
+    /* COLORS */
+        --color-0: hsl(0, 0%, 0%);
+        --color-50: hsl(0, 0%, 50%);
+        --color-85: hsl(0, 0%, 85%);
+        --color-95: hsl(0, 0%, 95%);
+        --color-100: hsl(0, 0%, 100%);
+        --color-a-hover: hsl(0, 0%, 15%);
+        --color-a-active: hsl(100, 100%, 50%);
+
+}
+
+/************************** BODY **************************/
+
+body {
+    margin: 0px;
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 14px;
+
+    font-family: monospace, sans-serif;
+}
+
+/************************ NAV-TAB *************************/
+
+#nav-tab {
+    width: var(--nav-tab-width);
+    border-right: var(--nav-tab-border-right) solid var(--color-85);
+
+    background-color: var(--color-95);
+}
+
+/************************ CONTAINER ***********************/
+
+#container {
+    width: var(--container-width);
+}
+
+/************************* ROW-1 **************************/
+
+#row-1 {
+    height: var(--row-1-height);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
+
+    background-color: var(--color-95);
+}
+
+#row-1 {
+    height: var(--row-1-height);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    background-color: var(--color-95);
+}
+
+#clock-container {
+    height: var(--row-1-height);
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.clock {
+    height: 50%;
+    width: 100%;
+    border-right: 1px solid var(--color-85);
+    
+    text-align: center;
+    align-content: center;
+}
+
+.clock:last-child {
+    border-right: none;
+}
+
+/************************* ROW-2 **************************/
+
+#row-2 {
+    height: var(--row-2-height);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: end;
+
+    background-color: var(--color-95);
+}
+
+#row-2 > div {
+    width: var(--row-2-div-width);
+    border-right: var(--row-2-div-border-right) solid var(--color-95);
+    margin: auto 0px;
+
+    text-align: center;
+}
+
+/************************* ROW-3 **************************/
+
+#row-3 {
+    height: var(--row-3-height);
+    display: flex;
+}
+
+/************************* Y-AXIS *************************/
+
+#y-axis {
+    width: var(--y-axis-width);
+
+    background-color: var(--color-95);
+}
+
+#y-axis > div {
+    height: var(--y-axis-div-heigth);
+    
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+    margin: auto;
+}
+
+/************************* MATRIX *************************/
+
+.matrix {
+    width: var(--matrix-width);
+
+    display: flex;
+    flex-flow: row wrap;
+    background-color: var(--color-95);
+}
+
+.matrix > div {
+    width: var(--matrix-div-width);
+    height: var(--matrix-div-height);
+    margin: var(--matrix-div-margin);
+    border-right: var(--matrix-div-border-right) solid var(--color-95);
+    border-bottom: var(--matrix-div-border-bottom) solid var(--color-95);
+
+    background-color: var(--color-100);
+    overflow-wrap: anywhere;
+    overflow-y: scroll;
+}
+
+/*************************** UL ***************************/
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*************************** LI ***************************/
+
+li {
+    display: flex;
+    flex-flow: row nowrap;
+
+    position: relative;
+    
+    height: calc(14px + 10px + 10px);
+    margin: 0px 0px;
+    padding: 0px 0px;
+    
+    border-bottom: 1px solid var(--color-85);
+}
+
+.time {
+    height: calc(14px + 10px + 10px);
+    min-width: 100px;
+    margin: 0 0;
+
+    overflow: hidden;
+    text-align: center;
+    align-content: center;
+}
+
+.task {
+    height: 14px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0px 30px;
+
+    overflow: hidden;
+}
+
+.update {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    height: calc(14px + 10px + 10px);
+
+    visibility: hidden;
+    background-color: var(--color-100);
+    box-shadow: -20px 0px 10px -5px var(--color-100);
+}
+
+li:hover > .update {
+    visibility: visible;
+}
+
+.update-buttons {
+    z-index: 10;
+    width: 22px;
+    height: 23px;
+    margin-right: 10px;
+
+    border: none;
+    outline: 1px solid var(--color-85);
+    border-radius: 50%;
+    background-color: var(--color-100);
+    color: var(--color-85);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.update-buttons:first-child {
+    margin-left: 20px;
+}
+
+.update-buttons:last-child {
+    margin-right: 20px;
+}
+
+.update-buttons:hover {
+    background-color: var(--color-85);
+    color: var(--color-100);
+}
+
+/************************* ROW-4 **************************/
+
+#row-4 {
+    height: var(--row-4-height);
+    border-top: var(--row-4-border-top) solid var(--color-85);
+
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-95);
+}
+
+/*********************** TASKINPUT ************************/
+
+#taskInput {
+    width: var(--taskInput-width);
+    height: var(--taskInput-height);
+    padding-left: var(--taskInput-padding-left);
+
+    margin: auto 0;
+    outline: 1px solid var(--color-85);
+    border: none;
+    border-radius: 20px;
+    background-color: var(--color-100);
+}
+
+#taskInput:hover {
+    box-shadow: 0px 0px 5px var(--color-50);
+}
+
+#taskInput:focus {
+    outline: 2px solid var(--color-50);
+}
+
+/************************ DRAGGING ************************/
+
+.dragging {
+    opacity: 0;
+}

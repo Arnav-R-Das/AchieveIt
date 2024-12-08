@@ -50,7 +50,7 @@ But facing certain issues prompted me to put recreate my task managemnt system i
 
 #
 
-### WIP: ARCHIVE
+### ARCHIVE
 
 #
 
