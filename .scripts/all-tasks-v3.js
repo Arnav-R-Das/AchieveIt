@@ -4,7 +4,6 @@ const quadrant2 = document.getElementById('quadrant2');
 const quadrant3 = document.getElementById('quadrant3');
 const quadrant4 = document.getElementById('quadrant4');
 
-
 // Load tasks from LocalStorage
 const todaysTasks = JSON.parse(localStorage.getItem('todaysTasks')) || [];
 const allTasksQuadrant1 = JSON.parse(localStorage.getItem('allTasksQuadrant1')) || [];

@@ -21,7 +21,7 @@
                 --row-1-height: 50px;
                 --row-1-border-bottom: 1px;
 
-                --row-2-height: calc(100vh - (var(--row-1-height) + var(--row-1-border-bottom) + var(--row-3-height) + var(--row-3-border-top)));
+                --row-2-height: calc(100vh - (var(--row-1-height) + var(--row-1-border-bottom)));
                 --row-2-display: flex;
                     
                     --matrix-width: 100%;
@@ -33,12 +33,6 @@
                         --matrix-div-border-radius: var(--standard-border-radius);
                         --matrix-div-outline: 1px;
                         --matrix-div-outline-offset: calc(0px - var(--matrix-div-border));
-
-                --row-3-height: 60px;
-                --row-3-border-top: 1px;
-                
-                    --taskInput-width: calc(100% - (var(--y-axis-width) + 10px));
-                    --taskInput-height: calc(var(--row-3-height) - 5px);
 
     /* COLORS */
         --color-0: hsl(0, 0%, 0%);
@@ -90,7 +84,37 @@ body {
     border-bottom: var(--row-1-border-bottom) solid var(--color-85);
 
     background-color: var(--color-95);
+}
+
+#row-1 {
+    height: var(--row-1-height);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    background-color: var(--color-95);
+}
+
+#clock-container {
+    height: var(--row-1-height);
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.clock {
+    height: 50%;
+    width: 100%;
+    border-right: 1px solid var(--color-85);
+    
     text-align: center;
+    align-content: center;
+}
+
+.clock:last-child {
+    border-right: none;
 }
 
 /************************* ROW-2 **************************/
@@ -133,72 +157,83 @@ ul {
 /*************************** LI ***************************/
 
 li {
-    margin: 0px 0px;
-    padding: 5px 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-flow: row nowrap;
 
-    background-color: var(--color-100);
+    position: relative;
+    
+    height: calc(14px + 10px + 10px);
+    margin: 0px 0px;
+    padding: 0px 0px;
+    
     border-bottom: 1px solid var(--color-85);
 }
 
-li:hover > .deleteTask {
+.time {
+    height: calc(14px + 10px + 10px);
+    min-width: 100px;
+    margin: 0 0;
+
+    overflow: hidden;
+    text-align: center;
+    align-content: center;
+}
+
+.task {
+    height: 14px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0px 30px;
+
+    overflow: hidden;
+}
+
+.update {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    height: calc(14px + 10px + 10px);
+
+    visibility: hidden;
+    background-color: var(--color-100);
+    box-shadow: -20px 0px 10px -5px var(--color-100);
+}
+
+li:hover > .update {
     visibility: visible;
 }
 
-/*********************** DELETETASK ***********************/
+.update-buttons {
+    z-index: 10;
+    width: 22px;
+    height: 23px;
+    margin-right: 10px;
 
-.deleteTask {
-    z-index: 1;
-    width: 25px;
-    height: 25px;
-    margin: 0px;
     border: none;
+    outline: 1px solid var(--color-85);
     border-radius: 50%;
-
     background-color: var(--color-100);
-    color: hsl(0, 100%, 65%);
-    visibility: hidden;
+    color: var(--color-85);
+    font-weight: bold;
     cursor: pointer;
 }
 
-.deleteTask:hover {
-    background-color: hsl(0, 100%, 65%);
+.update-buttons:first-child {
+    margin-left: 20px;
+}
+
+.update-buttons:last-child {
+    margin-right: 20px;
+}
+
+.update-buttons:hover {
+    background-color: var(--color-85);
     color: var(--color-100);
-}
-
-/************************* ROW-3 **************************/
-
-#row-3 {
-    height: var(--row-3-height);
-    border-top: var(--row-3-border-top) solid var(--color-85);
-    display: flex;
-    justify-content: center;
-
-    background-color: var(--color-95);
-}
-
-/*********************** TASKINPUT ************************/
-
-#taskInput {
-    width: calc(100% - (4px + ((var(--standard-gutter) * 2) * 2) + 15px));
-    height: calc(var(--row-3-height) - (4px + ((var(--standard-gutter) * 2) * 2)));
-    margin: auto 0;
-
-    background-color: var(--color-100);
-    outline: 1px solid var(--color-85);
-    border: none;
-    border-radius: 20px;
-    padding-left: 15px;
-}
-
-#taskInput:hover {
-    box-shadow: 0px 0px 5px var(--color-50);
-}
-
-#taskInput:focus {
-    outline: 2px solid var(--color-50);
 }
 
 /************************ DRAGGING ************************/
