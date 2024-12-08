@@ -42,7 +42,7 @@ But facing certain issues prompted me to put recreate my task managemnt system i
 
 #
 
-### WIP: SHORTLIST
+### SHORTLIST
 - Choose MITs for the day <br>
   Transfer them from All Tasks to Today's tasks
 - Reduces the feeling of overwhelm

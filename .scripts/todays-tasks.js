@@ -63,6 +63,11 @@ function displayTasks() {
         todayButton.textContent = 'T';
         todayButton.className = 'update-buttons';
         todayButton.addEventListener('click', () => {
+            let allTasksQuadrant = splitTask[1] != "" && splitTask[3] == "/" ? allTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? allTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? allTasksQuadrant3 : allTasksQuadrant4;
+            allTasksQuadrant.push(todaysTasks[index]);
+            todaysTasks.splice(index, 1);
+            saveTasks();
+            displayTasks();
         });
         divUpdate.appendChild(todayButton);
 
