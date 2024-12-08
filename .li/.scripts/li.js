@@ -213,10 +213,11 @@ function displayTasks() {
             }
         }
 
-        // CreateElement 'li'
+        // CreateElement - li
         const listItem = document.createElement('li');
+        quadrant.appendChild(listItem);
         
-        // CreateElement Deadline
+        // CreateElement - div - divDeadline
         if (splitiofallTasks[1] != "") {
             const divDeadline = document.createElement('div');
             divDeadline.textContent = splitiofallTasks[1];
@@ -224,49 +225,59 @@ function displayTasks() {
             listItem.appendChild(divDeadline);
         }
         
-        // CreateElement Schedule
+        // CreateElement - div - divSchedule
         const divSchedule = document.createElement('div');
         divSchedule.textContent = splitiofallTasks[2];
         divSchedule.className = 'time';
         listItem.appendChild(divSchedule);
         
-        // CreateElement Task
+        // CreateElement - div - divTask
         const divTask = document.createElement('div');
         divTask.textContent = splitiofallTasks[0];
         divTask.className = 'task';
         listItem.appendChild(divTask);
 
-        // Append li to quadrant
-        quadrant.appendChild(listItem);
+        // CreateElement - div - divUpdate
+        const divUpdate = document.createElement('div');
+        divUpdate.className = 'update';
+        listItem.appendChild(divUpdate);
 
-        /*
+        // Add Today's tasks Button
+        const todayButton = document.createElement('button');
+        todayButton.textContent = 'T';
+        todayButton.className = 'update-buttons';
+        todayButton.addEventListener('click', () => {
+        })
+        divUpdate.appendChild(todayButton);
+
+        // Add Archive Button
+        const archiveButton = document.createElement('button');
+        archiveButton.textContent = 'A';
+        archiveButton.className = 'update-buttons';
+        archiveButton.addEventListener('click', () => {
+        })
+        divUpdate.appendChild(archiveButton);
+
+        // Add Edit Button
+        const editButton = document.createElement('button');
+        editButton.textContent = 'E';
+        editButton.className = 'update-buttons';
+        editButton.addEventListener('click', () => {
+        })
+        divUpdate.appendChild(editButton);
+
         // Add Delete Button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'X';
-        deleteButton.className = 'deleteTask';
-        deleteButton.addEventListener('click', () => {
-            demoTasks.splice(i, 1);
+        deleteButton.className = 'update-buttons';
+        deleteButton.addEventListener('click', (index) =>{
+            demoTasks.splice(index, 1);
             saveTasks();
             displayTasks();
-        })
-        listItem.appendChild(deleteButton);
+        });
+        divUpdate.appendChild(deleteButton);
 
-        // Add Today's tasks Button
-        const TodaysTaskButton = document.createElement('button');
-        TodaysTaskButton.textContent = 'T';
-        TodaysTaskButton.className = 'deleteTask';
-        TodaysTaskButton.addEventListener('click', () => {
-        })
-        listItem.appendChild(TodaysTaskButton);
-
-        // Add Archive Button
-        const ArchiveButton = document.createElement('button');
-        ArchiveButton.textContent = 'A';
-        ArchiveButton.className = 'deleteTask';
-        ArchiveButton.addEventListener('click', () => {
-        })
-        listItem.appendChild(ArchiveButton);
-        */
+        // Append li to quadrant
     }
 }
 
