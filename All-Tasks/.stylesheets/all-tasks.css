@@ -194,35 +194,81 @@ ul {
 
 li {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-flow: row nowrap;
+
+    position: relative;
+    
+    height: calc(14px + 10px + 10px);
     margin: 0px 0px;
-    padding: 5px 20px;
+    padding: 0px 0px;
+    
     border-bottom: 1px solid var(--color-85);
-    background-color: var(--color-100);
 }
 
-li:hover > .deleteTask {
+.time {
+    height: calc(14px + 10px + 10px);
+    min-width: 100px;
+    margin: 0 0;
+
+    overflow: hidden;
+    text-align: center;
+    align-content: center;
+}
+
+.task {
+    height: 14px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0px 30px;
+
+    overflow: hidden;
+}
+
+.update {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    height: calc(14px + 10px + 10px);
+
+    visibility: hidden;
+    background-color: var(--color-100);
+    box-shadow: -20px 0px 10px -5px var(--color-100);
+}
+
+li:hover > .update {
     visibility: visible;
 }
 
-/*********************** DELETETASK ***********************/
- 
-.deleteTask {
-    z-index: 1;
-    width: 25px;
-    height: 25px;
-    margin: 0px;
+.update-buttons {
+    z-index: 10;
+    width: 22px;
+    height: 23px;
+    margin-right: 10px;
+
     border: none;
+    outline: 1px solid var(--color-85);
     border-radius: 50%;
     background-color: var(--color-100);
-    color: hsl(0, 100%, 65%);
-    visibility: hidden;
+    color: var(--color-85);
+    font-weight: bold;
     cursor: pointer;
 }
 
-.deleteTask:hover {
-    background-color: hsl(0, 100%, 65%);
+.update-buttons:first-child {
+    margin-left: 20px;
+}
+
+.update-buttons:last-child {
+    margin-right: 20px;
+}
+
+.update-buttons:hover {
+    background-color: var(--color-85);
     color: var(--color-100);
 }
 
