@@ -210,7 +210,6 @@ li {
     min-width: 100px;
     margin: 0 0;
 
-
     overflow: hidden;
     text-align: center;
     align-content: center;
@@ -220,7 +219,7 @@ li {
     height: 14px;
     width: 100%;
     margin: 10px 0;
-    padding: 0px 20px;
+    padding: 0px 30px;
 
     overflow: hidden;
 }
@@ -245,12 +244,9 @@ li:hover > .update {
     visibility: visible;
 }
 
-/*********************** DELETETASK ***********************/
-
-
 .update-buttons {
     z-index: 10;
-    width: 23px;
+    width: 22px;
     height: 23px;
     margin-right: 10px;
 
