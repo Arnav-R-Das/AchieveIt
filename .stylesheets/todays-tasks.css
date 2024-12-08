@@ -20,15 +20,6 @@
                         --matrix-div-border-radius: var(--standard-border-radius);
                         --matrix-div-outline: 1px;
                         --matrix-div-outline-offset: calc(0px - var(--matrix-div-border));
-
-    /* COLORS */
-        --color-0: hsl(0, 0%, 0%);
-        --color-50: hsl(0, 0%, 50%);
-        --color-85: hsl(0, 0%, 85%);
-        --color-95: hsl(0, 0%, 95%);
-        --color-100: hsl(0, 0%, 100%);
-        --color-a-hover: hsl(0, 0%, 15%);
-        --color-a-active: hsl(100, 100%, 50%);
 }
 
 /************************ CONTAINER ***********************/
@@ -54,8 +45,8 @@
     height: var(--matrix-div-height);
     width: var(--matrix-div-width);
     
-    border: var(--matrix-div-border) solid var(--color-95);
+    border: var(--matrix-div-border) solid var(--color-background-main);
     border-radius: var(--matrix-div-border-radius);
-    outline: var(--matrix-div-outline) solid var(--color-85);
+    outline: var(--matrix-div-outline) solid var(--color-border);
     outline-offset: var(--matrix-div-outline-offset);
 }

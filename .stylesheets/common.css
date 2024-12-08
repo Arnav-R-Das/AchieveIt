@@ -42,15 +42,17 @@
             --taskInput-padding-left: 15px;
             --taskInput-border-radius: var(--standard-border-radius);
 
-    /* COLORS */
-        --color-0: hsl(0, 0%, 0%);
-        --color-50: hsl(0, 0%, 50%);
-        --color-85: hsl(0, 0%, 85%);
-        --color-95: hsl(0, 0%, 95%);
-        --color-100: hsl(0, 0%, 100%);
-        --color-a-hover: hsl(0, 0%, 15%);
-        --color-a-active: hsl(100, 100%, 50%);
+    /* COLORS
+        --color-font: hsl(0, 0%, 0%);
+        --color-border: hsl(0, 0%, 85%);
+        --color-background-main: hsl(0, 0%, 95%);
+        --color-background-list: hsl(0, 0%, 100%);
+        */
 
+        --color-font: hsl(0, 0%, 100%);
+        --color-border: hsl(0, 0%, 20%);
+        --color-background-main: hsl(0, 0%, 0%);
+        --color-background-list: hsl(0, 0%, 10%);
 }
 
 /************************** BODY **************************/
@@ -62,16 +64,17 @@ body {
     font-size: 14px;
 
     font-family: monospace, sans-serif;
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
+    color: var(--color-font);
 }
 
 /************************ NAV-TAB *************************/
 
 #nav-tab {
     width: var(--nav-tab-width);
-    border-right: var(--nav-tab-border-right) solid var(--color-85);
+    border-right: var(--nav-tab-border-right) solid var(--color-border);
 
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 /************************ CONTAINER ***********************/
@@ -84,19 +87,19 @@ body {
 
 #row-1 {
     height: var(--row-1-height);
-    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-border);
 
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 #row-1 {
     height: var(--row-1-height);
-    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
+    border-bottom: var(--row-1-border-bottom) solid var(--color-border);
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
 
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 #clock-container {
@@ -110,7 +113,7 @@ body {
 .clock {
     height: 50%;
     width: 100%;
-    border-right: 1px solid var(--color-85);
+    border-right: 1px solid var(--color-border);
     
     text-align: center;
     align-content: center;
@@ -128,12 +131,12 @@ body {
     flex-flow: row nowrap;
     justify-content: end;
 
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 #row-2 > div {
     width: var(--row-2-div-width);
-    border-right: var(--row-2-div-border-right) solid var(--color-95);
+    border-right: var(--row-2-div-border-right) solid var(--color-background-main);
     margin: auto 0px;
 
     text-align: center;
@@ -151,7 +154,7 @@ body {
 #y-axis {
     width: var(--y-axis-width);
 
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 #y-axis > div {
@@ -170,17 +173,17 @@ body {
 
     display: flex;
     flex-flow: row wrap;
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 .matrix > div {
     width: var(--matrix-div-width);
     height: var(--matrix-div-height);
     margin: var(--matrix-div-margin);
-    border-right: var(--matrix-div-border-right) solid var(--color-95);
-    border-bottom: var(--matrix-div-border-bottom) solid var(--color-95);
+    border-right: var(--matrix-div-border-right) solid var(--color-background-main);
+    border-bottom: var(--matrix-div-border-bottom) solid var(--color-background-main);
 
-    background-color: var(--color-100);
+    background-color: var(--color-background-list);
     overflow-wrap: anywhere;
     overflow-y: scroll;
 }
@@ -205,7 +208,7 @@ li {
     margin: 0px 0px;
     padding: 0px 0px;
     
-    border-bottom: 1px solid var(--color-85);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .time {
@@ -239,8 +242,8 @@ li {
     height: calc(14px + 10px + 10px);
 
     visibility: hidden;
-    background-color: var(--color-100);
-    box-shadow: -20px 0px 10px -5px var(--color-100);
+    background-color: var(--color-background-list);
+    box-shadow: -20px 0px 10px -5px var(--color-background-list);
 }
 
 li:hover > .update {
@@ -254,10 +257,10 @@ li:hover > .update {
     margin-right: 10px;
 
     border: none;
-    outline: 1px solid var(--color-85);
+    outline: 1px solid var(--color-border);
     border-radius: 50%;
-    background-color: var(--color-100);
-    color: var(--color-85);
+    background-color: var(--color-background-list);
+    color: var(--color-border);
     font-weight: bold;
     cursor: pointer;
 }
@@ -271,19 +274,19 @@ li:hover > .update {
 }
 
 .update-buttons:hover {
-    background-color: var(--color-85);
-    color: var(--color-100);
+    background-color: var(--color-border);
+    color: var(--color-background-list);
 }
 
 /************************* ROW-4 **************************/
 
 #row-4 {
     height: var(--row-4-height);
-    border-top: var(--row-4-border-top) solid var(--color-85);
+    border-top: var(--row-4-border-top) solid var(--color-border);
 
     display: flex;
     justify-content: center;
-    background-color: var(--color-95);
+    background-color: var(--color-background-main);
 }
 
 /*********************** TASKINPUT ************************/
@@ -295,9 +298,9 @@ li:hover > .update {
     border-radius: var(--taskInput-border-radius);
 
     margin: auto 0;
-    outline: 1px solid var(--color-85);
+    outline: 1px solid var(--color-border);
     border: none;
-    background-color: var(--color-100);
+    background-color: var(--color-background-list);
 }
 
 #taskInput:hover {
