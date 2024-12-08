@@ -6,14 +6,17 @@ const quadrant4 = document.getElementById('quadrant4');
 
 
 // Load tasks from LocalStorage
-// const demoTasks = loadTasks();
-const demoTasks = [];
+const allTasksQuadrant1 = JSON.parse(localStorage.getItem('allTasksQuadrant1')) || [];
+const allTasksQuadrant2 = JSON.parse(localStorage.getItem('allTasksQuadrant2')) || [];
+const allTasksQuadrant3 = JSON.parse(localStorage.getItem('allTasksQuadrant3')) || [];
+const allTasksQuadrant4 = JSON.parse(localStorage.getItem('allTasksQuadrant4')) || [];
+
 displayTasks();
 
 // selectAllLi();
 
 
-/**********************************************************************/
+/************************** PreprocessInput ***************************/
 
 function preprocessInput() {
 
@@ -85,7 +88,29 @@ function preprocessInput() {
                             validTask = validTask.concat(";", validateTask[i]);
                         }
 
-                        demoTasks.push(validTask);
+                        // Deadline
+                        if (validateTask[1] != "") {
+                            // Long-term Impact
+                            if (validateTask[3] == "/") {
+                                allTasksQuadrant1.push(validTask);
+                            }
+                            // No Long-term Impact
+                            else {
+                                allTasksQuadrant3.push(validTask);
+                            }
+                        }
+                        // No Deadline
+                        else {
+                            // Long-term Impact
+                            if (validateTask[3] == "/") {
+                                allTasksQuadrant2.push(validTask);
+                            }
+                            // No Long-term Impact
+                            else {
+                                allTasksQuadrant4.push(validTask);
+                            }
+                        }
+
                         saveTasks();
                         displayTasks();
                         taskInput.value = '';
@@ -185,113 +210,105 @@ function displayTasks() {
     // Delete all existing 'li'
     [quadrant1, quadrant2, quadrant3, quadrant4].forEach(q => q.innerHTML = '');
 
-    // Loop
-    for (var i = 0, len = demoTasks.length; i < len; i++) {
+    let quadrants = [allTasksQuadrant1, allTasksQuadrant2, allTasksQuadrant3, allTasksQuadrant4];
+    
+    for (var i = 0; i < 4; i++) {
+        for (var j = 0, len = quadrants[i].length; j < len; j++) {
 
-        // Split input into elements of array
-        let splitiofallTasks = demoTasks[i].split(";");
+            // Split input into elements of array
+            let splitTask = quadrants[i][j].split(";");
 
-        // Identify quadrant
-        var quadrant;
+            // Index
+            let index = j;
 
-        // Deadline
-        if (splitiofallTasks[1] != "") {
-            if (splitiofallTasks[3] == "/") {
-                quadrant = quadrant1;
+            // Identify quadrant
+            let quadrant = i == 0 ? quadrant1 : i == 1 ? quadrant2 : i == 2 ? quadrant3 : quadrant4;
+
+            // CreateElement - li
+            const listItem = document.createElement('li');
+            quadrant.appendChild(listItem);
+            
+            // CreateElement - div - divDeadline
+            if (splitTask[1] != "") {
+                const divDeadline = document.createElement('div');
+                divDeadline.textContent = splitTask[1];
+                divDeadline.className = 'time';
+                listItem.appendChild(divDeadline);
             }
-            else {
-                quadrant = quadrant3;
-            }
+            
+            // CreateElement - div - divSchedule
+            const divSchedule = document.createElement('div');
+            divSchedule.textContent = splitTask[2];
+            divSchedule.className = 'time';
+            listItem.appendChild(divSchedule);
+            
+            // CreateElement - div - divTask
+            const divTask = document.createElement('div');
+            divTask.textContent = splitTask[0];
+            divTask.className = 'task';
+            listItem.appendChild(divTask);
+
+            // CreateElement - div - divUpdate
+            const divUpdate = document.createElement('div');
+            divUpdate.className = 'update';
+            listItem.appendChild(divUpdate);
+
+            // Add Today's tasks Button
+            const todayButton = document.createElement('button');
+            todayButton.textContent = 'T';
+            todayButton.className = 'update-buttons';
+            todayButton.addEventListener('click', () => {
+            })
+            divUpdate.appendChild(todayButton);
+
+            // Add Archive Button
+            const archiveButton = document.createElement('button');
+            archiveButton.textContent = 'A';
+            archiveButton.className = 'update-buttons';
+            archiveButton.addEventListener('click', () => {
+            })
+            divUpdate.appendChild(archiveButton);
+
+            // Add Edit Button
+            const editButton = document.createElement('button');
+            editButton.textContent = 'E';
+            editButton.className = 'update-buttons';
+            editButton.addEventListener('click', () => {
+            })
+            divUpdate.appendChild(editButton);
+
+            // Add Delete Button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.className = 'update-buttons';
+            // deleteButton.addEventListener("click", function() {myFunction(quadrant, index)});
+            // function myFunction(x, y) {
+            //     var i = x == quadrant1 ? allTasksQuadrant1 : x == quadrant2 ? allTasksQuadrant2 : x == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+            //     i.splice(y, 1);
+            //     saveTasks();
+            //     displayTasks();
+            // }
+
+            deleteButton.addEventListener("click", () => {
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                i.splice(index, 1);
+                saveTasks();
+                displayTasks();
+            });
+            
+            divUpdate.appendChild(deleteButton);
         }
-        // No Deadline
-        else {
-            if (splitiofallTasks[3] == "/") {
-                quadrant = quadrant2;
-            }
-            else {
-                quadrant = quadrant4;
-            }
-        }
-
-        // CreateElement - li
-        const listItem = document.createElement('li');
-        quadrant.appendChild(listItem);
-        
-        // CreateElement - div - divDeadline
-        if (splitiofallTasks[1] != "") {
-            const divDeadline = document.createElement('div');
-            divDeadline.textContent = splitiofallTasks[1];
-            divDeadline.className = 'time';
-            listItem.appendChild(divDeadline);
-        }
-        
-        // CreateElement - div - divSchedule
-        const divSchedule = document.createElement('div');
-        divSchedule.textContent = splitiofallTasks[2];
-        divSchedule.className = 'time';
-        listItem.appendChild(divSchedule);
-        
-        // CreateElement - div - divTask
-        const divTask = document.createElement('div');
-        divTask.textContent = splitiofallTasks[0];
-        divTask.className = 'task';
-        listItem.appendChild(divTask);
-
-        // CreateElement - div - divUpdate
-        const divUpdate = document.createElement('div');
-        divUpdate.className = 'update';
-        listItem.appendChild(divUpdate);
-
-        // Add Today's tasks Button
-        const todayButton = document.createElement('button');
-        todayButton.textContent = 'T';
-        todayButton.className = 'update-buttons';
-        todayButton.addEventListener('click', () => {
-        })
-        divUpdate.appendChild(todayButton);
-
-        // Add Archive Button
-        const archiveButton = document.createElement('button');
-        archiveButton.textContent = 'A';
-        archiveButton.className = 'update-buttons';
-        archiveButton.addEventListener('click', () => {
-        })
-        divUpdate.appendChild(archiveButton);
-
-        // Add Edit Button
-        const editButton = document.createElement('button');
-        editButton.textContent = 'E';
-        editButton.className = 'update-buttons';
-        editButton.addEventListener('click', () => {
-        })
-        divUpdate.appendChild(editButton);
-
-        // Add Delete Button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'X';
-        deleteButton.className = 'update-buttons';
-        deleteButton.addEventListener('click', (index) =>{
-            demoTasks.splice(index, 1);
-            saveTasks();
-            displayTasks();
-        });
-        divUpdate.appendChild(deleteButton);
-
-        // Append li to quadrant
     }
 }
 
 /**************************** LocalStorage ****************************/
 
 function saveTasks() {
-    localStorage.setItem('demoTasks', JSON.stringify(demoTasks));
+    localStorage.setItem('allTasksQuadrant1', JSON.stringify(allTasksQuadrant1));
+    localStorage.setItem('allTasksQuadrant2', JSON.stringify(allTasksQuadrant2));
+    localStorage.setItem('allTasksQuadrant3', JSON.stringify(allTasksQuadrant3));
+    localStorage.setItem('allTasksQuadrant4', JSON.stringify(allTasksQuadrant4));
 }
-
-/*
-function loadTasks() {
-    return JSON.parse(localStorage.getItem('demoTasks')) || [];
-}
-*/
 
 /**************************** Drag & Drop *****************************
 
