@@ -6,10 +6,15 @@ const quadrant4 = document.getElementById('quadrant4');
 
 
 // Load tasks from LocalStorage
+const todaysTasks = JSON.parse(localStorage.getItem('todaysTasks')) || [];
 const allTasksQuadrant1 = JSON.parse(localStorage.getItem('allTasksQuadrant1')) || [];
 const allTasksQuadrant2 = JSON.parse(localStorage.getItem('allTasksQuadrant2')) || [];
 const allTasksQuadrant3 = JSON.parse(localStorage.getItem('allTasksQuadrant3')) || [];
 const allTasksQuadrant4 = JSON.parse(localStorage.getItem('allTasksQuadrant4')) || [];
+const archivedTasksQuadrant1 = JSON.parse(localStorage.getItem('archivedTasksQuadrant1')) || [];
+const archivedTasksQuadrant2 = JSON.parse(localStorage.getItem('archivedTasksQuadrant2')) || [];
+const archivedTasksQuadrant3 = JSON.parse(localStorage.getItem('archivedTasksQuadrant3')) || [];
+const archivedTasksQuadrant4 = JSON.parse(localStorage.getItem('archivedTasksQuadrant4')) || [];
 
 displayTasks();
 
@@ -258,6 +263,11 @@ function displayTasks() {
             todayButton.textContent = 'T';
             todayButton.className = 'update-buttons';
             todayButton.addEventListener('click', () => {
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                todaysTasks.push(i[index]);
+                i.splice(index, 1);
+                saveTasks();
+                displayTasks();
             })
             divUpdate.appendChild(todayButton);
 
@@ -266,6 +276,12 @@ function displayTasks() {
             archiveButton.textContent = 'A';
             archiveButton.className = 'update-buttons';
             archiveButton.addEventListener('click', () => {
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                var j = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? archivedTasksQuadrant2 : quadrant == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+                j.push(i[index]);
+                i.splice(index, 1);
+                saveTasks();
+                displayTasks();
             })
             divUpdate.appendChild(archiveButton);
 
@@ -301,10 +317,15 @@ function displayTasks() {
 /**************************** LocalStorage ****************************/
 
 function saveTasks() {
+    localStorage.setItem('todaysTasks', JSON.stringify(todaysTasks));
     localStorage.setItem('allTasksQuadrant1', JSON.stringify(allTasksQuadrant1));
     localStorage.setItem('allTasksQuadrant2', JSON.stringify(allTasksQuadrant2));
     localStorage.setItem('allTasksQuadrant3', JSON.stringify(allTasksQuadrant3));
     localStorage.setItem('allTasksQuadrant4', JSON.stringify(allTasksQuadrant4));
+    localStorage.setItem('archivedTasksQuadrant1', JSON.stringify(archivedTasksQuadrant1));
+    localStorage.setItem('archivedTasksQuadrant2', JSON.stringify(archivedTasksQuadrant2));
+    localStorage.setItem('archivedTasksQuadrant3', JSON.stringify(archivedTasksQuadrant3));
+    localStorage.setItem('archivedTasksQuadrant4', JSON.stringify(archivedTasksQuadrant4));
 }
 
 /**************************** Drag & Drop *****************************
