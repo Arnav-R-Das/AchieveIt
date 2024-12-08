@@ -7,8 +7,8 @@ But facing certain issues prompted me to put recreate my task managemnt system i
 ### ADD
 - **QUICKLY ADD** tasks <br>
   Minimal use of the mouse, because typing is faster
-- WIP: Add **DEADLINES**
-- WIP: **SCHEDULE** tasks
+- Add **DEADLINES**
+- **SCHEDULE** tasks
 - WIP: Add **SUB-TASKS**
   - Breakdown bigger tasks into smaller chunks
   - Reduce friction
@@ -27,7 +27,7 @@ But facing certain issues prompted me to put recreate my task managemnt system i
 
 #
 
-### WIP: EDIT / UPDATE
+### EDIT / UPDATE
 
 #
 
