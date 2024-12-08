@@ -4,31 +4,18 @@
 
     /* STRUCTURE */
 
-        --standard-border-radius: 20px;
-        --standard-gutter: 5px;
-
-        --body-margin: 0;
-        --body-display: flex;
-        --body-flex-flow: row nowrap;
-
-            --nav-tab-height: 100vh;
-            --nav-tab-width: 50px;
-            --nav-tab-border-right: 1px;
-
-            --container-height: 100vh;
-            --container-width: calc(100% - (var(--nav-tab-width) + var(--nav-tab-border-right)));
+        --container-height: 100vh;
+        --container-width: calc(100% - (var(--nav-tab-width) + var(--nav-tab-border-right)));
 
                 --row-1-height: 50px;
                 --row-1-border-bottom: 1px;
 
                 --row-2-height: calc(100vh - (var(--row-1-height) + var(--row-1-border-bottom)));
-                --row-2-display: flex;
                     
                     --matrix-width: 100%;
 
                         --matrix-div-height: calc((var(--row-2-height)) - (var(--matrix-div-border) * 2));
                         --matrix-div-width: calc(100% - ((var(--matrix-div-margin) * 2) + (var(--matrix-div-border) * 2)));
-                        --matrix-div-margin: 0px;
                         --matrix-div-border: calc(var(--standard-gutter) * 2);
                         --matrix-div-border-radius: var(--standard-border-radius);
                         --matrix-div-outline: 1px;
@@ -42,32 +29,6 @@
         --color-100: hsl(0, 0%, 100%);
         --color-a-hover: hsl(0, 0%, 15%);
         --color-a-active: hsl(100, 100%, 50%);
-
-    /* FONTS */
-        --font-family-standard: monospace, sans-serif;
-        --font-size-standard: 14px;
-
-}
-
-/************************** BODY **************************/
-
-body {
-    margin: var(--body-margin);
-    display: var(--body-display);
-    flex-flow: var(--body-flex-flow);
-    
-    font-family: var(--font-family-standard);
-    font-size: var(--font-size-standard);
-}
-
-/************************ NAV-TAB *************************/
-
-#nav-tab {
-    height: var(--nav-tab-height);
-    width: var(--nav-tab-width);
-    border-right: var(--nav-tab-border-right) solid var(--color-85);
-
-    background-color: var(--color-95);
 }
 
 /************************ CONTAINER ***********************/
@@ -77,167 +38,24 @@ body {
     width: var(--container-width);
 }
 
-/************************* ROW-1 **************************/
+/************************* ROW-3 **************************/
 
-#row-1 {
-    height: var(--row-1-height);
-    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
-
-    background-color: var(--color-95);
-}
-
-#row-1 {
-    height: var(--row-1-height);
-    border-bottom: var(--row-1-border-bottom) solid var(--color-85);
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-
-    background-color: var(--color-95);
-}
-
-#clock-container {
-    height: var(--row-1-height);
-    width: 50%;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-}
-
-.clock {
-    height: 50%;
-    width: 100%;
-    border-right: 1px solid var(--color-85);
-    
-    text-align: center;
-    align-content: center;
-}
-
-.clock:last-child {
-    border-right: none;
-}
-
-/************************* ROW-2 **************************/
-
-#row-2 {
+#row-3 {
     height: var(--row-2-height);
-    display: var(--row-2-display);
 }
 
 /************************* MATRIX *************************/
 
 .matrix {
     width: var(--matrix-width);
-
-    background-color: var(--color-95);
 }
 
 .matrix > div {
     height: var(--matrix-div-height);
     width: var(--matrix-div-width);
-    margin: var(--matrix-div-margin);
+    
     border: var(--matrix-div-border) solid var(--color-95);
     border-radius: var(--matrix-div-border-radius);
     outline: var(--matrix-div-outline) solid var(--color-85);
     outline-offset: var(--matrix-div-outline-offset);
-
-    background-color: var(--color-100);
-    overflow-wrap: anywhere;
-    overflow-y: scroll;
-}
-
-/*************************** UL ***************************/
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-/*************************** LI ***************************/
-
-li {
-    display: flex;
-    flex-flow: row nowrap;
-
-    position: relative;
-    
-    height: calc(14px + 10px + 10px);
-    margin: 0px 0px;
-    padding: 0px 0px;
-    
-    border-bottom: 1px solid var(--color-85);
-}
-
-.time {
-    height: calc(14px + 10px + 10px);
-    min-width: 100px;
-    margin: 0 0;
-
-    overflow: hidden;
-    text-align: center;
-    align-content: center;
-}
-
-.task {
-    height: 14px;
-    width: 100%;
-    margin: 10px 0;
-    padding: 0px 30px;
-
-    overflow: hidden;
-}
-
-.update {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-
-    height: calc(14px + 10px + 10px);
-
-    visibility: hidden;
-    background-color: var(--color-100);
-    box-shadow: -20px 0px 10px -5px var(--color-100);
-}
-
-li:hover > .update {
-    visibility: visible;
-}
-
-.update-buttons {
-    z-index: 10;
-    width: 22px;
-    height: 23px;
-    margin-right: 10px;
-
-    border: none;
-    outline: 1px solid var(--color-85);
-    border-radius: 50%;
-    background-color: var(--color-100);
-    color: var(--color-85);
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.update-buttons:first-child {
-    margin-left: 20px;
-}
-
-.update-buttons:last-child {
-    margin-right: 20px;
-}
-
-.update-buttons:hover {
-    background-color: var(--color-85);
-    color: var(--color-100);
-}
-
-/************************ DRAGGING ************************/
-
-.dragging {
-    opacity: 0;
 }

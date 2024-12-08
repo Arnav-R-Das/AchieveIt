@@ -4,6 +4,7 @@
 
     /* STRUCTURE */
 
+    --standard-border-radius: 20px;
     --standard-gutter: 5px;
 
     --nav-tab-width: 50px;
@@ -39,6 +40,7 @@
             --taskInput-width: calc(100% - (4px + ((var(--standard-gutter) * 2) * 2) + var(--taskInput-padding-left)));
             --taskInput-height: calc(var(--row-4-height) - (4px + ((var(--standard-gutter) * 2) * 2)));
             --taskInput-padding-left: 15px;
+            --taskInput-border-radius: var(--standard-border-radius);
 
     /* COLORS */
         --color-0: hsl(0, 0%, 0%);
@@ -60,6 +62,7 @@ body {
     font-size: 14px;
 
     font-family: monospace, sans-serif;
+    background-color: var(--color-95);
 }
 
 /************************ NAV-TAB *************************/
@@ -289,11 +292,11 @@ li:hover > .update {
     width: var(--taskInput-width);
     height: var(--taskInput-height);
     padding-left: var(--taskInput-padding-left);
+    border-radius: var(--taskInput-border-radius);
 
     margin: auto 0;
     outline: 1px solid var(--color-85);
     border: none;
-    border-radius: 20px;
     background-color: var(--color-100);
 }
 
