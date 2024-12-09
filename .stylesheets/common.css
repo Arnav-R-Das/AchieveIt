@@ -42,17 +42,12 @@
             --taskInput-padding-left: 15px;
             --taskInput-border-radius: var(--standard-border-radius);
 
-    /* COLORS
+    /* COLORS */
         --color-font: hsl(0, 0%, 0%);
         --color-border: hsl(0, 0%, 85%);
         --color-background-main: hsl(0, 0%, 95%);
         --color-background-list: hsl(0, 0%, 100%);
-        */
 
-        --color-font: hsl(0, 0%, 100%);
-        --color-border: hsl(0, 0%, 20%);
-        --color-background-main: hsl(0, 0%, 0%);
-        --color-background-list: hsl(0, 0%, 10%);
 }
 
 /************************** BODY **************************/
@@ -73,9 +68,44 @@ body {
 #nav-tab {
     width: var(--nav-tab-width);
     border-right: var(--nav-tab-border-right) solid var(--color-border);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 
     background-color: var(--color-background-main);
 }
+
+#nav-tab div {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+#nav-tab div button {
+    height: 40px;
+    width: 40px;
+
+    font-family: monospace, sans-serif;
+    background-color: var(--color-background-main);
+    color: var(--color-font);
+    border: none;
+    border-radius: 5px;
+}
+
+#nav-tab div:first-child button {
+    margin-top: 5px;
+}
+
+#nav-tab div:last-child button {
+    margin-bottom: 5px;
+}
+
+
+#nav-tab div button:hover {
+    background-color: var(--color-border);
+}
+
 
 /************************ CONTAINER ***********************/
 
@@ -301,6 +331,7 @@ li:hover > .update {
     outline: 1px solid var(--color-border);
     border: none;
     background-color: var(--color-background-list);
+    color: var(--color-font);
 }
 
 #taskInput:hover {

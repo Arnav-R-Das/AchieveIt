@@ -37,27 +37,69 @@
         <!-- NAV-TAB -->
             <div id = "nav-tab">
 
-                <a
-                    href = "http://penguin.linux.test/My-Projects/Todo-List/All-Tasks/"
-                    target = "_self"
-                >
-                   All
-                </a>
+                <div>
+                    <button
+                        onclick = "
+                            document.location = 'http://penguin.linux.test/My-Projects/Todo-List/All-Tasks/'
+                        "
+                    >
+                        All
+                    </button>
+                    <button
+                        onclick = "
+                            document.location = 'http://penguin.linux.test/My-Projects/Todo-List/Todays-Tasks/'
+                        "
+                    >
+                        Tdy
+                    </button>
+                    <button
+                        onclick = "
+                            document.location = 'http://penguin.linux.test/My-Projects/Todo-List/Archived-Tasks/'
+                        "
+                    >
+                        Arc
+                    </button>
+                </div>
 
-                <a
-                    href = "http://penguin.linux.test/My-Projects/Todo-List/Todays-Tasks/"
-                    target = "_self"
-                >
-                   Today
-                </a>
+                <div>
+                    <button
+                        id = "darkMode"
+                        style = "
+                            display: block;
+                        "
+                        onclick = "
+                            document.getElementById('darkMode').style.display = 'none';
+                            document.getElementById('lightMode').style.display = 'block';
 
-                <a
-                    href = "http://penguin.linux.test/My-Projects/Todo-List/Archived-Tasks/"
-                    target = "_self"
-                >
-                   Archive
-                </a>
-                
+                            var r = document.querySelector(':root');
+                            r.style.setProperty('--color-font', 'hsl(0, 0%, 100%)');
+                            r.style.setProperty('--color-border', 'hsl(0, 0%, 25%)');
+                            r.style.setProperty('--color-background-main', 'hsl(0, 0%, 0%)');
+                            r.style.setProperty('--color-background-list', 'hsl(0, 0%, 10%)');
+                        "
+                    >
+                        Dar
+                    </button>
+                    <button
+                        id = "lightMode"
+                        style = "
+                            display: none;
+                        "
+                        onclick = "
+                            document.getElementById('lightMode').style.display = 'none';
+                            document.getElementById('darkMode').style.display = 'block';
+
+                            var r = document.querySelector(':root');
+                            r.style.setProperty('--color-font', 'hsl(0, 0%, 0%)');
+                            r.style.setProperty('--color-border', 'hsl(0, 0%, 85%)');
+                            r.style.setProperty('--color-background-main', 'hsl(0, 0%, 95%)');
+                            r.style.setProperty('--color-background-list', 'hsl(0, 0%, 100%)');
+                        "
+                    >
+                        Lig
+                    </button>
+                </div>
+
             </div>
         
         <!-- CONTAINER -->
