@@ -1,4 +1,15 @@
-const taskList = document.getElementById('taskList');
+
+/******************************* Import *******************************
+
+import {
+    taskInput
+}
+from 'common.js';
+*/
+
+/************************** Local Variables ***************************/
+
+const taskList = document.getElementById('quadrant');
 
 // Load tasks from LocalStorage
 const todaysTasks = JSON.parse(localStorage.getItem('todaysTasks')) || [];
@@ -34,17 +45,17 @@ function displayTasks() {
         // CreateElement - li - listitem
         const listItem = document.createElement('li');
         taskList.appendChild(listItem);
-        
+            
         // CreateElement - div - divDeadline
         const divDeadline = document.createElement('div');
         divDeadline.textContent = splitTask[1];
-        divDeadline.className = 'time';
+        divDeadline.className = 'deadline-and-schedule';
         listItem.appendChild(divDeadline);
         
         // CreateElement - div - divSchedule
         const divSchedule = document.createElement('div');
         divSchedule.textContent = splitTask[2];
-        divSchedule.className = 'time';
+        divSchedule.className = 'deadline-and-schedule';
         listItem.appendChild(divSchedule);
         
         // CreateElement - div - divTask

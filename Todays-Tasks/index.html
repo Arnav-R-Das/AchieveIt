@@ -67,16 +67,7 @@
                         style = "
                             display: block;
                         "
-                        onclick = "
-                            document.getElementById('darkMode').style.display = 'none';
-                            document.getElementById('lightMode').style.display = 'block';
-
-                            var r = document.querySelector(':root');
-                            r.style.setProperty('--color-font', 'hsl(0, 0%, 100%)');
-                            r.style.setProperty('--color-border', 'hsl(0, 0%, 25%)');
-                            r.style.setProperty('--color-background-main', 'hsl(0, 0%, 0%)');
-                            r.style.setProperty('--color-background-list', 'hsl(0, 0%, 10%)');
-                        "
+                        onclick = "darkMode()"
                     >
                         Dar
                     </button>
@@ -85,16 +76,7 @@
                         style = "
                             display: none;
                         "
-                        onclick = "
-                            document.getElementById('lightMode').style.display = 'none';
-                            document.getElementById('darkMode').style.display = 'block';
-
-                            var r = document.querySelector(':root');
-                            r.style.setProperty('--color-font', 'hsl(0, 0%, 0%)');
-                            r.style.setProperty('--color-border', 'hsl(0, 0%, 85%)');
-                            r.style.setProperty('--color-background-main', 'hsl(0, 0%, 95%)');
-                            r.style.setProperty('--color-background-list', 'hsl(0, 0%, 100%)');
-                        "
+                        onclick = "lightMode()"
                     >
                         Lig
                     </button>
@@ -108,14 +90,20 @@
                 <!-- ROW-1 -->
                     <div id = "row-1">
                         <div id = "clock-container">
-                            <div class = "clock">
-                                W12
+                            <div
+                                id = "week" 
+                                class = "clock"
+                            >
                             </div>
-                            <div class = "clock">
-                                MAR 23
+                            <div
+                                id = "date" 
+                                class = "clock"
+                            >
                             </div>
-                            <div class = "clock">
-                                06:00 AM
+                            <div
+                                id = "time" 
+                                class = "clock"
+                            >
                             </div>
                         </div>
                     </div>
@@ -126,7 +114,7 @@
                         <!-- MATRIX -->
                             <div class = "matrix">
 
-                                <div id = "quadrant-1">
+                                <div id = "quadrant">
                                     <ul id = "taskList">
                                     </ul>
                                 </div>
@@ -138,6 +126,8 @@
             </div>
 
         <!-- JAVASCRIPT -->
+            <script src = "../.scripts/common.js">
+            </script>
             <script src = "../.scripts/todays-tasks.js">
             </script>
 

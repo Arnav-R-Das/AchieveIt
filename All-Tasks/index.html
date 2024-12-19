@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html
+    lang = "en"
+>
 
     <head>
 
@@ -7,15 +9,8 @@
             <title>
                 All Tasks
             </title>
-        
-        <!-- CSS -->
-            <link
-                href = "../.stylesheets/common.css"
-                rel = "stylesheet"
-                type = "text/css"
-            >
 
-        <!-- OTHER-->
+        <!--META-->
             <meta
                 charset = "utf-8"
                 name = "viewport"
@@ -24,14 +19,22 @@
                     initial-scale = 1
                 "
             >
+        
+        <!-- CSS -->
+            <link
+                href = "../.stylesheets/common.css"
+                rel = "stylesheet"
+                type = "text/css"
+            >
 
     </head>
 
     <body>
 
         <!-- NAV-TAB -->
-            <div id = "nav-tab">
-
+            <div
+                id = "nav-tab"
+            >
                 <div>
                     <button
                         onclick = "
@@ -55,137 +58,141 @@
                         Arc
                     </button>
                 </div>
-
                 <div>
                     <button
                         id = "darkMode"
+                        onclick = "darkMode()"
                         style = "
                             display: block;
-                        "
-                        onclick = "
-                            document.getElementById('darkMode').style.display = 'none';
-                            document.getElementById('lightMode').style.display = 'block';
-
-                            var r = document.querySelector(':root');
-                            r.style.setProperty('--color-font', 'hsl(0, 0%, 100%)');
-                            r.style.setProperty('--color-border', 'hsl(0, 0%, 25%)');
-                            r.style.setProperty('--color-background-main', 'hsl(0, 0%, 0%)');
-                            r.style.setProperty('--color-background-list', 'hsl(0, 0%, 10%)');
                         "
                     >
                         Dar
                     </button>
                     <button
                         id = "lightMode"
+                        onclick = "lightMode()"
                         style = "
                             display: none;
-                        "
-                        onclick = "
-                            document.getElementById('lightMode').style.display = 'none';
-                            document.getElementById('darkMode').style.display = 'block';
-
-                            var r = document.querySelector(':root');
-                            r.style.setProperty('--color-font', 'hsl(0, 0%, 0%)');
-                            r.style.setProperty('--color-border', 'hsl(0, 0%, 85%)');
-                            r.style.setProperty('--color-background-main', 'hsl(0, 0%, 95%)');
-                            r.style.setProperty('--color-background-list', 'hsl(0, 0%, 100%)');
                         "
                     >
                         Lig
                     </button>
                 </div>
-                
             </div>
 
         <!-- CONTAINER -->
-            <div id = "container">
+            <div
+                id = "container"
+            >
 
                 <!-- ROW-1 -->
-                    <div id = "row-1">
-                        <div id = "clock-container">
-                            <div class = "clock">
-                                W12
+                    <div
+                        id = "row-1"
+                    >
+                        <div
+                            id = "clock-container"
+                        >
+                            <div
+                                id = "week" 
+                                class = "clock"
+                            >
                             </div>
-                            <div class = "clock">
-                                MAR 23
+                            <div
+                                id = "date" 
+                                class = "clock"
+                            >
                             </div>
-                            <div class = "clock">
-                                06:00 AM
+                            <div
+                                id = "time" 
+                                class = "clock"
+                            >
                             </div>
                         </div>
                     </div>
 
                 <!-- ROW-2 -->
-                    <div id = "row-2">
-
+                    <div
+                        id = "row-2"
+                    >
                         <div>
                             Deadline
                         </div>
                         <div>
                             No Deadline
                         </div>
-                        
                     </div>
 
                 <!-- ROW-3 -->
-                    <div id = "row-3">
+                    <div
+                        id = "row-3"
+                    >
 
                         <!-- Y-AXIS -->
-                            <div id = "y-axis">
-
+                            <div
+                                id = "y-axis"
+                            >
                                 <div>
                                     Long-term Impact
                                 </div>
-                                
                                 <div>
                                     No Long-term Impact
                                 </div>
-
                             </div>
 
                         <!-- MATRIX -->
-                            <div class = "matrix">
-
+                            <div
+                                class = "matrix"
+                            >
                                 <div>
-                                    <ul id = "quadrant1">
+                                    <ul
+                                        id = "quadrant1"
+                                    >
                                     </ul>
                                 </div>
-
                                 <div>
-                                    <ul id = "quadrant2">
+                                    <ul
+                                        id = "quadrant2"
+                                    >
                                     </ul>
                                 </div>
-
                                 <div>
-                                    <ul id = "quadrant3">
+                                    <ul
+                                        id = "quadrant3"
+                                    >
                                     </ul>
                                 </div>
-
                                 <div>
-                                    <ul id = "quadrant4">
+                                    <ul
+                                        id = "quadrant4"
+                                    >
                                     </ul>
                                 </div>
-
                             </div>
 
                     </div>
 
                 <!-- ROW-4 -->
-                    <div id = "row-4">
-
+                    <div
+                        id = "row-4"
+                    >
                         <input
                             id = "taskInput"
                             type = "text"
-                            placeholder = 'Task;   Deadline;   Schedule;   Impact'
+                            placeholder = "Task;   Deadline;   Schedule;   Impact"
                             onchange = "preprocessInput()"    
                         >
-                    
                     </div>
 
             </div>
 
         <!-- JAVASCRIPT -->
-            <script src = "../.scripts/all-tasks-v3.js">
+            <script
+                src = "../.scripts/common.js"
+            >
+            </script>
+            <script
+                src = "../.scripts/all-tasks-v3.js"
+            >
             </script>
 
     </body>

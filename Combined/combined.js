@@ -1,12 +1,4 @@
 
-/******************************* Import *******************************
-
-import {
-    taskInput
-}
-from 'common.js';
-*/
-
 /************************** Local Variables ***************************/
 
 const quadrant1 = document.getElementById('quadrant1');
@@ -24,18 +16,19 @@ const archivedTasksQuadrant1 = JSON.parse(localStorage.getItem('archivedTasksQua
 const archivedTasksQuadrant2 = JSON.parse(localStorage.getItem('archivedTasksQuadrant2')) || [];
 const archivedTasksQuadrant3 = JSON.parse(localStorage.getItem('archivedTasksQuadrant3')) || [];
 const archivedTasksQuadrant4 = JSON.parse(localStorage.getItem('archivedTasksQuadrant4')) || [];
+const colorMode = JSON.parse(localStorage.getItem('colorMode')) || [];
+
+/*********************** Initial Function calls ***********************/
 
 displayTasks();
-
 // selectAllLi();
-
 
 /************************** PreprocessInput ***************************/
 
 function preprocessInput() {
 
     // Take input
-    let newTask = taskInput.value;
+    let newTask = userInput.value;
 
     // Split Input
     let validateTask = newTask.split(";");
@@ -106,28 +99,28 @@ function preprocessInput() {
                         if (validateTask[1] != "") {
                             // Long-term Impact
                             if (validateTask[3] == "/") {
-                                archivedTasksQuadrant1.push(validTask);
+                                allTasksQuadrant1.push(validTask);
                             }
                             // No Long-term Impact
                             else {
-                                archivedTasksQuadrant3.push(validTask);
+                                allTasksQuadrant3.push(validTask);
                             }
                         }
                         // No Deadline
                         else {
                             // Long-term Impact
                             if (validateTask[3] == "/") {
-                                archivedTasksQuadrant2.push(validTask);
+                                allTasksQuadrant2.push(validTask);
                             }
                             // No Long-term Impact
                             else {
-                                archivedTasksQuadrant4.push(validTask);
+                                allTasksQuadrant4.push(validTask);
                             }
                         }
 
                         saveTasks();
                         displayTasks();
-                        taskInput.value = '';
+                        userInput.value = '';
                     }
 
                 // }
@@ -136,16 +129,15 @@ function preprocessInput() {
     }
 }
 
+/*
 function validateDate(x) {
-
-    /*
     // Month
     let month = x.toLowerCase();
     switch(month) {
-        case "jan":
+        case "":
         case "01":
         case "1":
-            alert("January");
+            alert("uary");
             break;
 
         case "feb":
@@ -214,8 +206,8 @@ function validateDate(x) {
         default:
             alert("Not found");
     }
-    */
 }
+*/
 
 /**************************** DisplayTasks ****************************/
 
@@ -224,11 +216,11 @@ function displayTasks() {
     // Delete all existing 'li'
     [quadrant1, quadrant2, quadrant3, quadrant4].forEach(q => q.innerHTML = '');
 
-    let quadrants = [archivedTasksQuadrant1, archivedTasksQuadrant2, archivedTasksQuadrant3, archivedTasksQuadrant4];
+    let quadrants = [allTasksQuadrant1, allTasksQuadrant2, allTasksQuadrant3, allTasksQuadrant4];
     
     for (var i = 0; i < 4; i++) {
         for (var j = 0, len = quadrants[i].length; j < len; j++) {
-            
+
             // Split input into elements of array
             let splitTask = quadrants[i][j].split(";");
 
@@ -272,8 +264,8 @@ function displayTasks() {
             todayButton.textContent = 'T';
             todayButton.className = 'update-buttons';
             todayButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? archivedTasksQuadrant2 : quadrant == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
-                todaysTasks.push(i[index]);
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                j = todaysTasks.push(i[index]);
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -285,8 +277,8 @@ function displayTasks() {
             archiveButton.textContent = 'A';
             archiveButton.className = 'update-buttons';
             archiveButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? archivedTasksQuadrant2 : quadrant == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
-                var j = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                var j = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? j = archivedTasksQuadrant2 : quadrant == quadrant3 ? j = archivedTasksQuadrant3 : j = archivedTasksQuadrant4;
                 j.push(i[index]);
                 i.splice(index, 1);
                 saveTasks();
@@ -299,9 +291,9 @@ function displayTasks() {
             editButton.textContent = 'E';
             editButton.className = 'update-buttons';
             editButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? archivedTasksQuadrant2 : quadrant == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
-                taskInput.value = i[index];
-                taskInput.focus();
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                userInput.value = i[index];
+                userInput.focus();
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -313,7 +305,7 @@ function displayTasks() {
             deleteButton.textContent = 'X';
             deleteButton.className = 'update-buttons';
             deleteButton.addEventListener("click", () => {
-                var i = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? archivedTasksQuadrant2 : quadrant == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -337,8 +329,9 @@ function saveTasks() {
     localStorage.setItem('archivedTasksQuadrant4', JSON.stringify(archivedTasksQuadrant4));
 }
 
-/**************************** Drag & Drop *****************************
+/**************************** Drag & Drop *****************************/
 
+/*
 let draggedItem = null;
 
 function selectAllLi() {
@@ -402,3 +395,253 @@ function getDragAfterElement(list, y) {
 }
 
 */
+
+/******************************* Views ********************************/
+
+
+
+/**************************** Color Modes *****************************/
+
+if (colorMode[0]) {
+    darkMode();
+}
+else {
+    lightMode();
+}
+
+function darkMode() {
+
+    document.getElementById('darkMode').style.display = 'none';
+    document.getElementById('lightMode').style.display = 'block';
+
+    document.querySelector(':root').style.setProperty('--color-font', 'hsl(0, 0%, 100%)');
+    document.querySelector(':root').style.setProperty('--color-border', 'hsl(0, 0%, 25%)');
+    document.querySelector(':root').style.setProperty('--color-background-main', 'hsl(0, 0%, 0%)');
+    document.querySelector(':root').style.setProperty('--color-background-list', 'hsl(0, 0%, 10%)');
+
+    colorMode[0] = true;
+    localStorage.setItem('colorMode', JSON.stringify(colorMode));
+
+}
+
+function lightMode() {
+
+    document.getElementById('lightMode').style.display = 'none';
+    document.getElementById('darkMode').style.display = 'block';
+
+    document.querySelector(':root').style.setProperty('--color-font', 'hsl(0, 0%, 0%)');
+    document.querySelector(':root').style.setProperty('--color-border', 'hsl(0, 0%, 85%)');
+    document.querySelector(':root').style.setProperty('--color-background-main', 'hsl(0, 0%, 95%)');
+    document.querySelector(':root').style.setProperty('--color-background-list', 'hsl(0, 0%, 100%)');
+
+    colorMode[0] = false;
+    localStorage.setItem('colorMode', JSON.stringify(colorMode));
+
+}
+
+/******************************* Clock ********************************/
+
+setInterval(() => {
+
+    let today = new Date();
+
+    // let yearRN = today.getFullYear();
+    switch(today.getMonth()) {
+        case 0:
+            monthRN = "JAN";
+            break;
+        case 1:
+            monthRN = "FEB";
+            break;
+        case 2:
+            monthRN = "MAR";
+            break;
+        case 3:
+            monthRN = "APR";
+            break;
+        case 4:
+            monthRN = "MAY";
+            break;
+        case 5:
+            monthRN = "JUN";
+            break;
+        case 6:
+            monthRN = "JUL";
+            break;
+        case 7:
+            monthRN = "AUG";
+            break;
+        case 8:
+            monthRN = "SEP";
+            break;
+        case 9:
+            monthRN = "OCT";
+            break;
+        case 10:
+            monthRN = "NOV";
+            break;
+        case 11:
+            monthRN = "DEC";
+            break;
+    }
+    // let dayRN = today().getDay();
+    let dateRN = today.getDate();
+    switch (dateRN) {
+        case 0:
+            dateRN = "00";
+            break;
+        case 1:
+            dateRN = "01";
+            break;
+        case 2:
+            dateRN = "02";
+            break;
+        case 3:
+            dateRN = "03";
+            break;
+        case 4:
+            dateRN = "04";
+            break;
+        case 5:
+            dateRN = "05";
+            break;
+        case 6:
+            dateRN = "06";
+            break;
+        case 7:
+            dateRN = "07";
+            break;
+        case 8:
+            dateRN = "08";
+            break;
+        case 9:
+            dateRN = "09";
+            break;
+    }
+    let meridiemRN = "PM";
+    switch(today.getHours()) {
+        case 0:
+            hourRN = "12";
+            meridiemRN = "AM";
+            break;
+        case 1:
+            hourRN = "01";
+            meridiemRN = "AM";
+            break;
+        case 2:
+            hourRN = "02";
+            meridiemRN = "AM";
+            break;
+        case 3:
+            hourRN = "03";
+            meridiemRN = "AM";
+            break;
+        case 4:
+            hourRN = "04";
+            meridiemRN = "AM";
+            break;
+        case 5:
+            hourRN = "05";
+            meridiemRN = "AM";
+            break;
+        case 6:
+            hourRN = "06";
+            meridiemRN = "AM";
+            break;
+        case 7:
+            hourRN = "07";
+            meridiemRN = "AM";
+            break;
+        case 8:
+            hourRN = "08";
+            meridiemRN = "AM";
+            break;
+        case 9:
+            hourRN = "09";
+            meridiemRN = "AM";
+            break;
+        case 10:
+            hourRN = "10";
+            meridiemRN = "AM";
+            break;
+        case 11:
+            hourRN = "11";
+            meridiemRN = "AM";
+            break;
+        case 12:
+            hourRN = "12";
+            break;
+        case 13:
+            hourRN = "01";
+            break;
+        case 14:
+            hourRN = "02";
+            break;
+        case 15:
+            hourRN = "03";
+            break;
+        case 16:
+            hourRN = "04";
+            break;
+        case 17:
+            hourRN = "05";
+            break;
+        case 18:
+            hourRN = "06";
+            break;
+        case 19:
+            hourRN = "07";
+            break;
+        case 20:
+            hourRN = "08";
+            break;
+        case 21:
+            hourRN = "09";
+            break;
+        case 22:
+            hourRN = "10";
+            break;
+        case 23:
+            hourRN = "11";
+            break;
+    }
+    let minutesRN = today.getMinutes();
+    switch (minutesRN) {
+        case 0:
+            minutesRN = "00";
+            break;
+        case 1:
+            minutesRN = "01";
+            break;
+        case 2:
+            minutesRN = "02";
+            break;
+        case 3:
+            minutesRN = "03";
+            break;
+        case 4:
+            minutesRN = "04";
+            break;
+        case 5:
+            minutesRN = "05";
+            break;
+        case 6:
+            minutesRN = "06";
+            break;
+        case 7:
+            minutesRN = "07";
+            break;
+        case 8:
+            minutesRN = "08";
+            break;
+        case 9:
+            minutesRN = "09";
+            break;
+    }
+    // let secondsRN = today.getSeconds();
+    
+    document.getElementById('week').textContent = "W?";
+    document.getElementById('date').textContent = monthRN + " " + dateRN;
+    document.getElementById('time').textContent = hourRN + ":" + minutesRN + " " + meridiemRN;
+
+}, 1000);

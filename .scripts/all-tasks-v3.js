@@ -1,4 +1,15 @@
-const taskInput = document.getElementById('taskInput');
+
+/******************************* Import *******************************
+
+import {
+    taskInput
+}
+from 'common.js';
+
+*/
+
+/************************** Local Variables ***************************/
+
 const quadrant1 = document.getElementById('quadrant1');
 const quadrant2 = document.getElementById('quadrant2');
 const quadrant3 = document.getElementById('quadrant3');
@@ -36,18 +47,18 @@ function preprocessInput() {
         if (len < 4) {
             len = 4 - len;
             if (len == 1) {
-                alert("There is a missing semicolon ( ; ) \n\nCorrect format: \n>>> Task ; Deadline ; Schedule ; Impact");
+                alert("1 missing semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
             }
             else {
-                alert("There are " + len + " missing semicolons ( ; ) \n\nCorrect format: \n>>> Task ; Deadline ; Schedule ; Impact");}
+                alert(len + " missing semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");}
         }
         else {
             len = len - 4;
             if (len == 1) {
-                alert("There is an extra semicolon ( ; ) \n\nCorrect format: \n>>> Task ; Deadline ; Schedule ; Impact");
+                alert("1 extra semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
             }
             else {
-                alert("There are " + len + " extra semicolons ( ; ) \n\nCorrect format: \n>>> Task ; Deadline ; Schedule ; Impact");
+                alert(len + " extra semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
             }
         }
     }
@@ -79,7 +90,7 @@ function preprocessInput() {
 
                     // Validate Impact
                     if (validateTask[3] != "/" && validateTask[3] != "") {
-                        alert("Please correct the format of IMPACT \n\nFor tasks with Long-term Impact \n>>> Enter / \n\nFor tasks with No Long-term Impact \n>>> Leave it empty");
+                        alert("For tasks with Long-term Impact \n>>> Enter / \n\nFor tasks with No Long-term Impact \n>>> Leave it empty");
                     }
                     else {
 
@@ -236,14 +247,14 @@ function displayTasks() {
             if (splitTask[1] != "") {
                 const divDeadline = document.createElement('div');
                 divDeadline.textContent = splitTask[1];
-                divDeadline.className = 'time';
+                divDeadline.className = 'deadline-and-schedule';
                 listItem.appendChild(divDeadline);
             }
             
             // CreateElement - div - divSchedule
             const divSchedule = document.createElement('div');
             divSchedule.textContent = splitTask[2];
-            divSchedule.className = 'time';
+            divSchedule.className = 'deadline-and-schedule';
             listItem.appendChild(divSchedule);
             
             // CreateElement - div - divTask

@@ -1,12 +1,14 @@
 Hey! <br>
 When it comes to task managment, I just love using good ol' pen-n-paper. <br>
-But facing certain issues prompted me to put recreate my task managemnt system into a web app.
+But facing certain issues prompted me to put recreate my task management system into a web app.
 
 #
 
 ### ADD
 - **QUICKLY ADD** tasks <br>
-  Minimal use of the mouse, because typing is faster
+  - Minimal use of the mouse, because typing is faster
+  - WIP: Various shorthands for minimized keystrokes
+  - WIP: Shortcuts
 - Add **DEADLINES**
 - **SCHEDULE** tasks
 - WIP: Add **SUB-TASKS**
@@ -60,3 +62,5 @@ But facing certain issues prompted me to put recreate my task managemnt system i
 
 ### OTHER
 - **DARK MODE**
+- WIP: **CLOCK** <br>
+  A clock on top to quickly and easily check current Week, Month, Date and Time
