@@ -30,7 +30,6 @@ displayTasks();
 
 function displayTasks() {
 
-
     // Delete all existing 'li'
     taskList.innerHTML = '';
 

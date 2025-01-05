@@ -1,3 +1,4 @@
+
 /************************* :ROOT **************************/
 
 :root {
@@ -11,15 +12,15 @@
 
         --body-margin: 0;
 
-            --nav-tab-height: 100vh;
-/**/        --nav-tab-width: calc(var(--navtab-div-button-width) + (var(--navtab-div-button-margin) * 2));
-            --nav-tab-border-right: 1px;
+            --navbar-height: 100vh;
+/**/        --navbar-width: calc(var(--navbar-div-button-width) + (var(--navbar-div-button-margin) * 2));
+            --navbar-border-right: 1px;
 
-                --navtab-div-button-height: var(--navtab-div-button-width);
-/**/            --navtab-div-button-width: 40px;
-/**/            --navtab-div-button-margin: 5px;
+                --navbar-div-button-height: var(--navbar-div-button-width);
+/**/            --navbar-div-button-width: 40px;
+/**/            --navbar-div-button-margin: 5px;
 
-/**/        --container-width: calc(100% - (var(--navtab-div-button-width) + (var(--navtab-div-button-margin) * 2)));
+/**/        --main-container-width: calc(100% - (var(--navbar-div-button-width) + (var(--navbar-div-button-margin) * 2)));
 
 /**/            --timebar-height: 50px;
 /**/            --timebar-border-bottom: 1px;
@@ -30,34 +31,52 @@
                         --clock-container-div-width: 100%;
                         --clock-container-div-border-right: 1px;
 
-/**/            --matrix-x-axis-height: 35px;
+/**/            --views-height: calc(100vh - (var(--timebar-height) + var(--timebar-border-bottom) + var(--inputbar-height) + var(--inputbar-border-top)));
+                --views-width: 100%;
 
-/**/                --matrix-x-axis-div-width: calc(((100% - var(--matrix-y-axis-width)) / 2) - var(--matrix-x-axis-div-margin-right));
-                    --matrix-x-axis-div-margin: auto 0;
-/**/                --matrix-x-axis-div-margin-right: calc(var(--standard-gutter) * 2); 
+/**/                --matrix-header-height: 35px;
 
-/**/            --matrix-subcontainer-height: calc(100vh - (var(--timebar-height) + var(--timebar-border-bottom) + var(--matrix-x-axis-height) + var(--inputbar-height) + var(--inputbar-border-top)));
+/**/                    --matrix-header-div-width: calc(((100% - var(--matrix-y-axis-width)) / 2) - var(--matrix-header-div-margin-right));
+                        --matrix-header-div-margin: auto 0;
+/**/                    --matrix-header-div-margin-right: calc(var(--standard-gutter) * 2); 
 
-/**/                --matrix-y-axis-width: 35px;
+/**/                --matrix-container-height: calc(var(--views-height) - var(--matrix-header-height));
 
-/**/                    --matrix-y-axis-div-height: var(--quadrant-height);
-/**/                    --matrix-y-axis-div-padding-top: var(--quadrant-margin-bottom);
+/**/                    --matrix-y-axis-width: var(--matrix-header-height);
 
-/**/                --matrix-width: calc(100% - var(--matrix-y-axis-width));
+/**/                        --matrix-y-axis-div-height: var(--quadrant-height);
+/**/                        --matrix-y-axis-div-padding-top: var(--quadrant-margin-bottom);
 
-/**/                    --quadrant-height: calc((var(--matrix-subcontainer-height) / 2) - (var(--quadrant-margin) + var(--quadrant-margin-bottom)));
-/**/                    --quadrant-width: calc(50% - (var(--quadrant-margin) + var(--quadrant-margin-right)));
-/**/                    --quadrant-margin: 0px;
-/**/                    --quadrant-margin-right: calc(var(--standard-gutter) * 2);
-/**/                    --quadrant-margin-bottom: calc(var(--standard-gutter) * 2);
+/**/                    --matrix-width: calc(100% - var(--matrix-y-axis-width));
 
-                            --quadrant-ul-padding: 0;
-                            --quadrant-ul-margin: 0;
+/**/                        --quadrant-height: calc((var(--matrix-container-height) / 2) - (var(--quadrant-margin) + var(--quadrant-margin-bottom)));
+/**/                        --quadrant-width: calc(50% - (var(--quadrant-margin) + var(--quadrant-margin-right)));
+/**/                        --quadrant-margin: 0px;
+/**/                        --quadrant-margin-right: calc(var(--standard-gutter) * 2);
+/**/                        --quadrant-margin-bottom: calc(var(--standard-gutter) * 2);
 
-/**/                            --taskbox-height: calc(var(--standard-font-size) + 10px + 10px);
-                                --taskbox-padding: 0 0;
-                                --taskbox-border-bottom: 1px;
-                                --taskbox-margin: 0 0;
+                                --quadrant-ul-padding: 0;
+                                --quadrant-ul-margin: 0;
+
+                    --singlelist-header-height: var(--matrix-header-height);
+
+                        --singlelist-header-container-height: 100%;
+                        --singlelist-header-container-width: var(--singlelist-box-width);
+                        --singlelist-header-container-margin: 0 var(--singlelist-box-margin-right) 0 var(--singlelist-box-margin-left);
+
+                    --singlelist-container-height: var(--matrix-container-height);
+
+/**/                    --singlelist-box-height: calc(var(--singlelist-container-height) - (var(--singlelist-box-margin) + var(--singlelist-box-margin-bottom)));
+/**/                    --singlelist-box-width: calc(100% - (var(--singlelist-box-margin) + var(--singlelist-box-margin-left) + var(--singlelist-box-margin-right)));
+/**/                    --singlelist-box-margin: 0px;
+/**/                    --singlelist-box-margin-left: calc(var(--standard-gutter) * 2);
+/**/                    --singlelist-box-margin-right: calc(var(--standard-gutter) * 2);
+/**/                    --singlelist-box-margin-bottom: calc(var(--standard-gutter) * 2);
+
+/**/                                --taskli-height: calc(var(--standard-font-size) + 10px + 10px);
+                                    --taskli-padding: 0 0;
+                                    --taskli-border-bottom: 1px;
+                                    --taskli-margin: 0 0;
 
 /**/            --inputbar-height: calc(var(--userInput-height) + (4px + ((var(--standard-gutter) * 2) * 2)));
 /**/            --inputbar-border-top: 1px;
@@ -92,12 +111,12 @@ body {
     color: var(--color-font);
 }
 
-/************************* NAVTAB *************************/
+/************************* NAVBAR *************************/
 
-#navtab {
-    height: var(--nav-tab-height);
-    width: var(--nav-tab-width);
-    border-right: var(--nav-tab-border-right) solid var(--color-border);
+#navbar {
+    height: var(--navbar-height);
+    width: var(--navbar-width);
+    border-right: var(--navbar-border-right) solid var(--color-border);
 
     display: flex;
     flex-flow: column nowrap;
@@ -106,15 +125,15 @@ body {
     background-color: var(--color-background-main);
 }
 
-#navtab div {
+#navbar div {
     display: flex;
     flex-flow: column nowrap;
 }
 
-#navtab div button {
-    height: var(--navtab-div-button-height);
-    width: var(--navtab-div-button-width);
-    margin: var(--navtab-div-button-margin) var(--navtab-div-button-margin) 0;
+#navbar div button {
+    height: var(--navbar-div-button-height);
+    width: var(--navbar-div-button-width);
+    margin: var(--navbar-div-button-margin) var(--navbar-div-button-margin) 0;
 
     font-family: var(--standard-font-family);
     background-color: var(--color-background-main);
@@ -123,21 +142,21 @@ body {
     border-radius: 5px;
 }
 
-#navtab div button:last-child {
-    margin-bottom: var(--navtab-div-button-margin);
+#navbar div button:last-child {
+    margin-bottom: var(--navbar-div-button-margin);
 }
 
-#navtab div button:hover {
+#navbar div button:hover {
     background-color: var(--color-border);
 }
 
-/************************ CONTAINER ***********************/
+/********************* MAIN-CONTAINER *********************/
 
-#container {
-    width: var(--container-width);
+#main-container {
+    width: var(--main-container-width);
 }
 
-/************************ TIMEBAR ************************/
+/************************ TIMEBAR *************************/
 
 #timebar {
     height: var(--timebar-height);
@@ -172,12 +191,17 @@ body {
     border-right: none;
 }
 
-/************************ MATRIX *************************/
+/************************* VIEWS **************************/
 
-#matrix-container {}
+.views {
+    height: var(--views-height);
+    width: var(--views-width);
+}
 
-#matrix-x-axis {
-    height: var(--matrix-x-axis-height);
+/************************* MATRIX *************************/
+
+#matrix-header {
+    height: var(--matrix-header-height);
 
     display: flex;
     flex-flow: row nowrap;
@@ -186,17 +210,17 @@ body {
     background-color: var(--color-background-main);
 }
 
-#matrix-x-axis div {
-    width: var(--matrix-x-axis-div-width);
-    margin: var(--matrix-x-axis-div-margin);
-    margin-right: var(--matrix-x-axis-div-margin-right);
+#matrix-header div {
+    width: var(--matrix-header-div-width);
+    margin: var(--matrix-header-div-margin);
+    margin-right: var(--matrix-header-div-margin-right);
 
     text-align: center;
     font-weight: bold;
 }
 
-#matrix-subcontainer {
-    height: var(--matrix-subcontainer-height);
+#matrix-container {
+    height: var(--matrix-container-height);
 
     display: flex;
 }
@@ -240,20 +264,72 @@ body {
     overflow-y: scroll;
 }
 
-.quadrant ul {
+/*********************** SINGLELIST ***********************/
+
+#singlelist-header {
+    height: var(--singlelist-header-height);
+
+    background-color: var(--color-background-main);
+}
+
+#singlelist-header-container {
+    height: var(--singlelist-header-container-height);
+    width: var(--singlelist-header-container-width);
+    margin: var(--singlelist-header-container-margin);
+
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#singlelist-header-container div {
+    min-width: 100px;
+
+    overflow: hidden;
+    text-align: center;
+    align-content: center;
+    font-weight: bold;
+}
+
+#singlelist-header-container div:last-child {
+    width: 100%;
+}
+
+#singlelist-container {
+    height: var(--singlelist-container-height);
+
+    background-color: var(--color-background-main);
+}
+
+#singlelist-box {
+    height: var(--singlelist-box-height);
+    width: var(--singlelist-box-width);
+    margin: var(--singlelist-box-margin);
+    margin-left: var(--singlelist-box-margin-left);
+    margin-right: var(--singlelist-box-margin-right);
+    margin-bottom: var(--singlelist-box-bottom);
+
+    background-color: var(--color-background-list);
+    outline: 1px solid var(--color-border);
+    border-radius: 20px;
+    overflow-wrap: anywhere;
+    overflow-y: scroll;
+}
+
+
+/*************************** LI ***************************/
+
+.todolist {
     padding: var(--quadrant-ul-padding);
     margin: var(--quadrant-ul-margin);
 
     list-style-type: none;
 }
 
-/************************** LI ***************************/
-
-.taskbox {
-    height: var(--taskbox-height);
-    padding: var(--taskbox-padding);
-    border-bottom: var(--taskbox-border-bottom) solid var(--color-border);
-    margin: var(--taskbox-margin);
+.taskli {
+    height: var(--taskli-height);
+    padding: var(--taskli-padding);
+    border-bottom: var(--taskli-border-bottom) solid var(--color-border);
+    margin: var(--taskli-margin);
 
     display: flex;
     flex-flow: row nowrap;
@@ -261,7 +337,7 @@ body {
     position: relative;
 }
 
-.deadline-and-schedule {
+.col-info {
     height: calc(14px + 10px + 10px);
     min-width: 100px;
     margin: 0 0;
@@ -271,7 +347,7 @@ body {
     align-content: center;
 }
 
-.task {
+.col-task {
     height: 14px;
     width: 100%;
     margin: 10px 0;
@@ -280,7 +356,7 @@ body {
     overflow: hidden;
 }
 
-.update {
+.col-update {
     position: absolute;
     top: 0;
     right: 0;
@@ -296,11 +372,11 @@ body {
     box-shadow: -20px 0px 10px -5px var(--color-background-list);
 }
 
-li:hover > .update {
+li:hover > .col-update {
     visibility: visible;
 }
 
-.update-buttons {
+.col-update-buttons {
     z-index: 10;
     width: 22px;
     height: 23px;
@@ -315,15 +391,15 @@ li:hover > .update {
     cursor: pointer;
 }
 
-.update-buttons:first-child {
+.col-update-buttons:first-child {
     margin-left: 20px;
 }
 
-.update-buttons:last-child {
+.col-update-buttons:last-child {
     margin-right: 20px;
 }
 
-.update-buttons:hover {
+.col-update-buttons:hover {
     background-color: var(--color-border);
     color: var(--color-background-list);
 }

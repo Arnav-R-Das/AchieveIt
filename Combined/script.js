@@ -5,6 +5,7 @@ const quadrant1 = document.getElementById('quadrant1');
 const quadrant2 = document.getElementById('quadrant2');
 const quadrant3 = document.getElementById('quadrant3');
 const quadrant4 = document.getElementById('quadrant4');
+const singlelist = document.getElementById('singlelist');
 
 // Load tasks from LocalStorage
 const todaysTasks = JSON.parse(localStorage.getItem('todaysTasks')) || [];
@@ -27,6 +28,7 @@ var viewController = 0;
 
 /*********************** Initial Function calls ***********************/
 
+viewTdy();
 displayTasks();
 // selectAllLi();
 
@@ -102,27 +104,26 @@ function preprocessInput() {
                             validTask = validTask.concat(";", validateTask[i]);
                         }
 
-                        // Deadline
-                        if (validateTask[1] != "") {
-                            // Long-term Impact
-                            if (validateTask[3] == "/") {
-                                views[viewController][0].push(validTask);
+                        if (viewController == 0 || viewController == 2) {
+                            if (validateTask[1] != "") {
+                                if (validateTask[3] == "/") {
+                                    views[viewController][0].push(validTask);
+                                }
+                                else {
+                                    views[viewController][2].push(validTask);
+                                }
                             }
-                            // No Long-term Impact
                             else {
-                                views[viewController][2].push(validTask);
+                                if (validateTask[3] == "/") {
+                                    views[viewController][1].push(validTask);
+                                }
+                                else {
+                                    views[viewController][3].push(validTask); 
+                                }
                             }
                         }
-                        // No Deadline
-                        else {
-                            // Long-term Impact
-                            if (validateTask[3] == "/") {
-                                views[viewController][1].push(validTask);
-                            }
-                            // No Long-term Impact
-                            else {
-                                views[viewController][3](validTask); 
-                            }
+                        else if (viewController == 1) {
+                            todaysTasks.push(validTask);
                         }
 
                         saveTasks();
@@ -221,60 +222,97 @@ function validateDate(x) {
 function displayTasks() {
 
     // Delete all existing 'li'
-    [quadrant1, quadrant2, quadrant3, quadrant4].forEach(q => q.innerHTML = '');
+    [quadrant1, quadrant2, quadrant3, quadrant4, singlelist].forEach(q => q.innerHTML = '');
 
-    let quadrants = views[viewController];
+    let lists = views[viewController];
     
-    for (var i = 0; i < 4; i++) {
-        for (var j = 0, len = quadrants[i].length; j < len; j++) {
+    for (var i = 0; i < views[viewController].length; i++) {
+        for (var j = 0, len = lists[i].length; j < len; j++) {
+
 
             // Split input into elements of array
-            let splitTask = quadrants[i][j].split(";");
+            let splitTask = lists[i][j].split(";");
 
             // Index
             let index = j;
 
             // Identify quadrant
-            let quadrant = i == 0 ? quadrant1 : i == 1 ? quadrant2 : i == 2 ? quadrant3 : quadrant4;
+            let list;
+            if (viewController == 0 || viewController == 2) {
+                list = i == 0 ? quadrant1 : i == 1 ? quadrant2 : i == 2 ? quadrant3 : quadrant4;
+            }
+            else {
+                list = singlelist;
+            }
 
             // CreateElement - li - listitem
             const listItem = document.createElement('li');
-            listItem.className = 'taskbox';
-            quadrant.appendChild(listItem);
+            listItem.className = 'taskli';
+            list.appendChild(listItem);
             
+            // CreateElement - div - divQuadrant
+            if (viewController == 1) {
+                const divQuadrant = document.createElement('div');
+                if (splitTask[1] != "") {
+                    if (splitTask[3] == "/") {
+                        divQuadrant.textContent = "1";
+                    }
+                    else {
+                        divQuadrant.textContent = "3";
+                    }
+                }
+                else if (splitTask[1] == "") {
+                    if (splitTask[3] == "/") {
+                        divQuadrant.textContent = "2";
+                    }
+                    else {
+                        divQuadrant.textContent = "4";
+                    }
+                }
+                divQuadrant.className = 'col-info';
+                listItem.appendChild(divQuadrant);
+            }
+
             // CreateElement - div - divDeadline
-            if (splitTask[1] != "") {
+            if (splitTask[1] != "" || viewController == 1) {
                 const divDeadline = document.createElement('div');
                 divDeadline.textContent = splitTask[1];
-                divDeadline.className = 'deadline-and-schedule';
+                divDeadline.className = 'col-info';
                 listItem.appendChild(divDeadline);
             }
             
             // CreateElement - div - divSchedule
             const divSchedule = document.createElement('div');
             divSchedule.textContent = splitTask[2];
-            divSchedule.className = 'deadline-and-schedule';
+            divSchedule.className = 'col-info';
             listItem.appendChild(divSchedule);
             
             // CreateElement - div - divTask
             const divTask = document.createElement('div');
             divTask.textContent = splitTask[0];
-            divTask.className = 'task';
+            divTask.className = 'col-task';
             listItem.appendChild(divTask);
 
             // CreateElement - div - divUpdate
             const divUpdate = document.createElement('div');
-            divUpdate.className = 'update';
+            divUpdate.className = 'col-update';
             listItem.appendChild(divUpdate);
 
             // CreateElement - button - todayButton
             const todayButton = document.createElement('button');
             todayButton.textContent = 'T';
-            todayButton.className = 'update-buttons';
+            todayButton.className = 'col-update-buttons';
             todayButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
-                todaysTasks.push(i[index]);
-                i.splice(index, 1);
+                if (viewController == 0 || viewController == 2) {
+                    let i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : views[viewController][3];
+                    todaysTasks.push(i[index]);
+                    i.splice(index, 1);
+                }
+                else {
+                    let i = splitTask[1] != "" && splitTask[3] == "/" ? allTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? allTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? allTasksQuadrant3 : allTasksQuadrant4;
+                    i.push(todaysTasks[index]);
+                    todaysTasks.splice(index, 1);
+                }
                 saveTasks();
                 displayTasks();
             })
@@ -283,17 +321,24 @@ function displayTasks() {
             // CreateElement - button - archiveButton
             const archiveButton = document.createElement('button');
             archiveButton.textContent = 'A';
-            archiveButton.className = 'update-buttons';
+            archiveButton.className = 'col-update-buttons';
             archiveButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
+                var i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : views[viewController][3];
                 if (viewController == 0) {
-                    var j = quadrant == quadrant1 ? views[2][0] : quadrant == quadrant2 ? views[2][1] : quadrant == quadrant3 ? views[2][2] : views[2][3];
+                    var j = list == quadrant1 ? views[2][0] : list == quadrant2 ? views[2][1] : list == quadrant3 ? views[2][2] : views[2][3];
+                    j.push(i[index]);
+                    i.splice(index, 1);
+                }
+                else if (viewController == 1) {
+                    var i = splitTask[1] != "" && splitTask[3] == "/" ? archivedTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? archivedTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+                    i.push(todaysTasks[index]);
+                    todaysTasks.splice(index, 1);
                 }
                 else if (viewController == 2) {
-                    var j = quadrant == quadrant1 ? views[0][0] : quadrant == quadrant2 ? views[0][1] : quadrant == quadrant3 ? views[0][2] : views[0][3];
+                    var j = list == quadrant1 ? views[0][0] : list == quadrant2 ? views[0][1] : list == quadrant3 ? views[0][2] : views[0][3];
+                    j.push(i[index]);
+                    i.splice(index, 1);
                 }
-                j.push(i[index]);
-                i.splice(index, 1);
                 saveTasks();
                 displayTasks();
             })
@@ -302,9 +347,9 @@ function displayTasks() {
             // CreateElement - button - editButton
             const editButton = document.createElement('button');
             editButton.textContent = 'E';
-            editButton.className = 'update-buttons';
+            editButton.className = 'col-update-buttons';
             editButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
+                var i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : list == quadrant4 ? views[viewController][3] : todaysTasks;
                 userInput.value = i[index];
                 userInput.focus();
                 i.splice(index, 1);
@@ -316,9 +361,9 @@ function displayTasks() {
             // CreateElement - button - deleteButton
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'X';
-            deleteButton.className = 'update-buttons';
+            deleteButton.className = 'col-update-buttons';
             deleteButton.addEventListener("click", () => {
-                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
+                var i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : list == quadrant4 ? views[viewController][3] : todaysTasks;
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -413,15 +458,22 @@ function getDragAfterElement(list, y) {
 /******************************* Views ********************************/
 
 function viewAll() {
+    document.getElementById('view-singlelist').style.display = 'none';
+    document.getElementById('view-matrix').style.display = 'block';
     viewController = 0;
     displayTasks();
 }
 
 function viewTdy() {
-    alert("Work in progress");
+    document.getElementById('view-matrix').style.display = 'none';
+    document.getElementById('view-singlelist').style.display = 'block';
+    viewController = 1;
+    displayTasks();
 }
 
 function viewArc() {
+    document.getElementById('view-singlelist').style.display = 'none';
+    document.getElementById('view-matrix').style.display = 'block';
     viewController = 2;
     displayTasks();
 }
