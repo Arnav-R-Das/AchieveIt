@@ -1,13 +1,4 @@
 
-/******************************* Import *******************************
-
-import {
-    taskInput
-}
-from 'common.js';
-
-*/
-
 /************************** Local Variables ***************************/
 
 const quadrant1 = document.getElementById('quadrant1');

@@ -21,46 +21,46 @@
 
 /**/        --container-width: calc(100% - (var(--navtab-div-button-width) + (var(--navtab-div-button-margin) * 2)));
 
-/**/            --row1-height: 50px;
-/**/            --row1-border-bottom: 1px;
+/**/            --timebar-height: 50px;
+/**/            --timebar-border-bottom: 1px;
 
-                    --clocks-width: 50%;
+                    --clock-container-width: 50%;
 
-                        --clocks-div-height: 50%;
-                        --clocks-div-width: 100%;
-                        --clocks-div-border-right: 1px;
+                        --clock-container-div-height: 50%;
+                        --clock-container-div-width: 100%;
+                        --clock-container-div-border-right: 1px;
 
-/**/            --row2-height: 35px;
+/**/            --matrix-x-axis-height: 35px;
 
-/**/                --row2-div-width: calc(((100% - var(--y-axis-width)) / 2) - var(--row2-div-margin-right));
-                    --row2-div-margin: auto 0;
-/**/                --row2-div-margin-right: calc(var(--standard-gutter) * 2); 
+/**/                --matrix-x-axis-div-width: calc(((100% - var(--matrix-y-axis-width)) / 2) - var(--matrix-x-axis-div-margin-right));
+                    --matrix-x-axis-div-margin: auto 0;
+/**/                --matrix-x-axis-div-margin-right: calc(var(--standard-gutter) * 2); 
 
-/**/            --row3-height: calc(100vh - (var(--row1-height) + var(--row1-border-bottom) + var(--row2-height) + var(--row4-height) + var(--row4-border-top)));
+/**/            --matrix-subcontainer-height: calc(100vh - (var(--timebar-height) + var(--timebar-border-bottom) + var(--matrix-x-axis-height) + var(--inputbar-height) + var(--inputbar-border-top)));
 
-/**/                --y-axis-width: 35px;
+/**/                --matrix-y-axis-width: 35px;
 
-/**/                    --y-axis-div-height: calc(50% - (var(--standard-gutter)));
-                        --y-axis-div-padding-bottom: var(--standard-gutter);
+/**/                    --matrix-y-axis-div-height: var(--quadrant-height);
+/**/                    --matrix-y-axis-div-padding-top: var(--quadrant-margin-bottom);
 
-/**/                --matrix-width: calc(100% - var(--y-axis-width));
+/**/                --matrix-width: calc(100% - var(--matrix-y-axis-width));
 
-/**/                    --matrix-div-height: calc((var(--row3-height) / 2) - (var(--matrix-div-margin) + var(--matrix-div-margin-bottom)));
-/**/                    --matrix-div-width: calc(50% - (var(--matrix-div-margin) + var(--matrix-div-margin-right)));
-/**/                    --matrix-div-margin: 0px;
-/**/                    --matrix-div-margin-right: calc(var(--standard-gutter) * 2);
-/**/                    --matrix-div-margin-bottom: calc(var(--standard-gutter) * 2);
+/**/                    --quadrant-height: calc((var(--matrix-subcontainer-height) / 2) - (var(--quadrant-margin) + var(--quadrant-margin-bottom)));
+/**/                    --quadrant-width: calc(50% - (var(--quadrant-margin) + var(--quadrant-margin-right)));
+/**/                    --quadrant-margin: 0px;
+/**/                    --quadrant-margin-right: calc(var(--standard-gutter) * 2);
+/**/                    --quadrant-margin-bottom: calc(var(--standard-gutter) * 2);
 
-                            --quadrant-padding: 0;
-                            --quadrant-margin: 0;
+                            --quadrant-ul-padding: 0;
+                            --quadrant-ul-margin: 0;
 
-/**/                            --quadrant-li-height: calc(var(--standard-font-size) + 10px + 10px);
-                                --quadrant-li-padding: 0 0;
-                                --quadrant-li-border-bottom: 1px;
-                                --quadrant-li-margin: 0 0;
+/**/                            --taskbox-height: calc(var(--standard-font-size) + 10px + 10px);
+                                --taskbox-padding: 0 0;
+                                --taskbox-border-bottom: 1px;
+                                --taskbox-margin: 0 0;
 
-/**/            --row4-height: calc(var(--userInput-height) + (4px + ((var(--standard-gutter) * 2) * 2)));
-/**/            --row4-border-top: 1px;
+/**/            --inputbar-height: calc(var(--userInput-height) + (4px + ((var(--standard-gutter) * 2) * 2)));
+/**/            --inputbar-border-top: 1px;
                         
 /**/                --userInput-width: calc(100% - (4px + ((var(--standard-gutter) * 2) * 2) + var(--userInput-padding-left)));
 /**/                --userInput-height: 36px;
@@ -137,11 +137,11 @@ body {
     width: var(--container-width);
 }
 
-/************************** ROW1 **************************/
+/************************ TIMEBAR ************************/
 
-#row1 {
-    height: var(--row1-height);
-    border-bottom: var(--row1-border-bottom) solid var(--color-border);
+#timebar {
+    height: var(--timebar-height);
+    border-bottom: var(--timebar-border-bottom) solid var(--color-border);
 
     display: flex;
     flex-flow: row nowrap;
@@ -150,32 +150,34 @@ body {
     background-color: var(--color-background-main);
 }
 
-#clocks {
-    width: var(--clocks-width);
+#clock-container {
+    width: var(--clock-container-width);
 
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
 }
 
-#clocks div {
-    height: var(--clocks-div-height);
-    width: var(--clocks-div-width);
-    border-right: var(--clocks-div-border-right) solid var(--color-border);
+#clock-container div {
+    height: var(--clock-container-div-height);
+    width: var(--clock-container-div-width);
+    border-right: var(--clock-container-div-border-right) solid var(--color-border);
     
     text-align: center;
     align-content: center;
     font-weight: bold;
 }
 
-#clocks div:last-child {
+#clock-container div:last-child {
     border-right: none;
 }
 
-/************************** ROW2 **************************/
+/************************ MATRIX *************************/
 
-#row2 {
-    height: var(--row2-height);
+#matrix-container {}
+
+#matrix-x-axis {
+    height: var(--matrix-x-axis-height);
 
     display: flex;
     flex-flow: row nowrap;
@@ -184,34 +186,30 @@ body {
     background-color: var(--color-background-main);
 }
 
-#row2 div {
-    width: var(--row2-div-width);
-    margin: var(--row2-div-margin);
-    margin-right: var(--row2-div-margin-right);
+#matrix-x-axis div {
+    width: var(--matrix-x-axis-div-width);
+    margin: var(--matrix-x-axis-div-margin);
+    margin-right: var(--matrix-x-axis-div-margin-right);
 
     text-align: center;
     font-weight: bold;
 }
 
-/************************* ROW3 **************************/
-
-#row3 {
-    height: var(--row3-height);
+#matrix-subcontainer {
+    height: var(--matrix-subcontainer-height);
 
     display: flex;
 }
 
-/************************* Y-AXIS *************************/
-
-#y-axis {
-    width: var(--y-axis-width);
+#matrix-y-axis {
+    width: var(--matrix-y-axis-width);
 
     background-color: var(--color-background-main);
 }
 
-#y-axis div {
-    height: var(--y-axis-div-height);
-    padding-bottom: var(--y-axis-div-padding-bottom);
+#matrix-y-axis div {
+    height: var(--matrix-y-axis-div-height);
+    padding-top: var(--matrix-y-axis-div-padding-top);
     
     writing-mode: vertical-lr;
     transform: rotate(180deg);
@@ -220,7 +218,7 @@ body {
     font-weight: bold;
 }
 
-.matrix {
+#matrix {
     width: var(--matrix-width);
 
     display: flex;
@@ -229,11 +227,11 @@ body {
 }
 
 .quadrant {
-    height: var(--matrix-div-height);
-    width: var(--matrix-div-width);
-    margin: var(--matrix-div-margin);
-    margin-right: var(--matrix-div-margin-right);
-    margin-bottom: var(--matrix-div-margin-bottom);
+    height: var(--quadrant-height);
+    width: var(--quadrant-width);
+    margin: var(--quadrant-margin);
+    margin-right: var(--quadrant-margin-right);
+    margin-bottom: var(--quadrant-margin-bottom);
 
     background-color: var(--color-background-list);
     outline: 1px solid var(--color-border);
@@ -242,22 +240,20 @@ body {
     overflow-y: scroll;
 }
 
-/*************************** UL ***************************/
-
 .quadrant ul {
-    padding: var(--quadrant-padding);
-    margin: var(--quadrant-margin);
+    padding: var(--quadrant-ul-padding);
+    margin: var(--quadrant-ul-margin);
 
     list-style-type: none;
 }
 
-/*************************** LI ***************************/
+/************************** LI ***************************/
 
-.quadrant ul li {
-    height: var(--quadrant-li-height);
-    padding: var(--quadrant-li-padding);
-    border-bottom: var(--quadrant-li-border-bottom) solid var(--color-border);
-    margin: var(--quadrant-li-margin);
+.taskbox {
+    height: var(--taskbox-height);
+    padding: var(--taskbox-padding);
+    border-bottom: var(--taskbox-border-bottom) solid var(--color-border);
+    margin: var(--taskbox-margin);
 
     display: flex;
     flex-flow: row nowrap;
@@ -332,19 +328,17 @@ li:hover > .update {
     color: var(--color-background-list);
 }
 
-/************************** ROW4 **************************/
+/************************ INPUTBAR ************************/
 
-#row4 {
-    height: var(--row4-height);
-    border-top: var(--row4-border-top) solid var(--color-border);
+#inputbar {
+    height: var(--inputbar-height);
+    border-top: var(--inputbar-border-top) solid var(--color-border);
 
     display: flex;
     justify-content: center;
 
     background-color: var(--color-background-main);
 }
-
-/*********************** USERINPUT ************************/
 
 #userInput {
     height: var(--userInput-height);

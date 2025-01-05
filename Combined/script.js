@@ -18,6 +18,13 @@ const archivedTasksQuadrant3 = JSON.parse(localStorage.getItem('archivedTasksQua
 const archivedTasksQuadrant4 = JSON.parse(localStorage.getItem('archivedTasksQuadrant4')) || [];
 const colorMode = JSON.parse(localStorage.getItem('colorMode')) || [];
 
+const views = [
+    [allTasksQuadrant1, allTasksQuadrant2, allTasksQuadrant3, allTasksQuadrant4],
+    [todaysTasks],
+    [archivedTasksQuadrant1, archivedTasksQuadrant2, archivedTasksQuadrant3, archivedTasksQuadrant4]
+]
+var viewController = 0;
+
 /*********************** Initial Function calls ***********************/
 
 displayTasks();
@@ -99,22 +106,22 @@ function preprocessInput() {
                         if (validateTask[1] != "") {
                             // Long-term Impact
                             if (validateTask[3] == "/") {
-                                allTasksQuadrant1.push(validTask);
+                                views[viewController][0].push(validTask);
                             }
                             // No Long-term Impact
                             else {
-                                allTasksQuadrant3.push(validTask);
+                                views[viewController][2].push(validTask);
                             }
                         }
                         // No Deadline
                         else {
                             // Long-term Impact
                             if (validateTask[3] == "/") {
-                                allTasksQuadrant2.push(validTask);
+                                views[viewController][1].push(validTask);
                             }
                             // No Long-term Impact
                             else {
-                                allTasksQuadrant4.push(validTask);
+                                views[viewController][3](validTask); 
                             }
                         }
 
@@ -209,14 +216,14 @@ function validateDate(x) {
 }
 */
 
-/**************************** DisplayTasks ****************************/
+/**************************** DisplayAllTasks ****************************/
 
 function displayTasks() {
 
     // Delete all existing 'li'
     [quadrant1, quadrant2, quadrant3, quadrant4].forEach(q => q.innerHTML = '');
 
-    let quadrants = [allTasksQuadrant1, allTasksQuadrant2, allTasksQuadrant3, allTasksQuadrant4];
+    let quadrants = views[viewController];
     
     for (var i = 0; i < 4; i++) {
         for (var j = 0, len = quadrants[i].length; j < len; j++) {
@@ -232,6 +239,7 @@ function displayTasks() {
 
             // CreateElement - li - listitem
             const listItem = document.createElement('li');
+            listItem.className = 'taskbox';
             quadrant.appendChild(listItem);
             
             // CreateElement - div - divDeadline
@@ -264,8 +272,8 @@ function displayTasks() {
             todayButton.textContent = 'T';
             todayButton.className = 'update-buttons';
             todayButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
-                j = todaysTasks.push(i[index]);
+                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
+                todaysTasks.push(i[index]);
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -277,8 +285,13 @@ function displayTasks() {
             archiveButton.textContent = 'A';
             archiveButton.className = 'update-buttons';
             archiveButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
-                var j = quadrant == quadrant1 ? archivedTasksQuadrant1 : quadrant == quadrant2 ? j = archivedTasksQuadrant2 : quadrant == quadrant3 ? j = archivedTasksQuadrant3 : j = archivedTasksQuadrant4;
+                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
+                if (viewController == 0) {
+                    var j = quadrant == quadrant1 ? views[2][0] : quadrant == quadrant2 ? views[2][1] : quadrant == quadrant3 ? views[2][2] : views[2][3];
+                }
+                else if (viewController == 2) {
+                    var j = quadrant == quadrant1 ? views[0][0] : quadrant == quadrant2 ? views[0][1] : quadrant == quadrant3 ? views[0][2] : views[0][3];
+                }
                 j.push(i[index]);
                 i.splice(index, 1);
                 saveTasks();
@@ -291,7 +304,7 @@ function displayTasks() {
             editButton.textContent = 'E';
             editButton.className = 'update-buttons';
             editButton.addEventListener('click', () => {
-                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
                 userInput.value = i[index];
                 userInput.focus();
                 i.splice(index, 1);
@@ -305,7 +318,7 @@ function displayTasks() {
             deleteButton.textContent = 'X';
             deleteButton.className = 'update-buttons';
             deleteButton.addEventListener("click", () => {
-                var i = quadrant == quadrant1 ? allTasksQuadrant1 : quadrant == quadrant2 ? allTasksQuadrant2 : quadrant == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                var i = quadrant == quadrant1 ? views[viewController][0] : quadrant == quadrant2 ? views[viewController][1] : quadrant == quadrant3 ? views[viewController][2] : views[viewController][3];
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -375,6 +388,7 @@ function handleDragEnd() {
     
     // Save tasks after drag ends
     saveTasks();
+    displayTasks();
 }
 
 function getDragAfterElement(list, y) {
@@ -398,7 +412,19 @@ function getDragAfterElement(list, y) {
 
 /******************************* Views ********************************/
 
+function viewAll() {
+    viewController = 0;
+    displayTasks();
+}
 
+function viewTdy() {
+    alert("Work in progress");
+}
+
+function viewArc() {
+    viewController = 2;
+    displayTasks();
+}
 
 /**************************** Color Modes *****************************/
 
@@ -486,123 +512,58 @@ setInterval(() => {
     }
     // let dayRN = today().getDay();
     let dateRN = today.getDate();
-    switch (dateRN) {
-        case 0:
-            dateRN = "00";
-            break;
-        case 1:
-            dateRN = "01";
-            break;
-        case 2:
-            dateRN = "02";
-            break;
-        case 3:
-            dateRN = "03";
-            break;
-        case 4:
-            dateRN = "04";
-            break;
-        case 5:
-            dateRN = "05";
-            break;
-        case 6:
-            dateRN = "06";
-            break;
-        case 7:
-            dateRN = "07";
-            break;
-        case 8:
-            dateRN = "08";
-            break;
-        case 9:
-            dateRN = "09";
-            break;
-    }
-    let meridiemRN = "PM";
-    switch(today.getHours()) {
+    let meridiemRN = "AM";
+    let hourRN = today.getHours();
+    switch(hourRN) {
         case 0:
             hourRN = "12";
-            meridiemRN = "AM";
-            break;
-        case 1:
-            hourRN = "01";
-            meridiemRN = "AM";
-            break;
-        case 2:
-            hourRN = "02";
-            meridiemRN = "AM";
-            break;
-        case 3:
-            hourRN = "03";
-            meridiemRN = "AM";
-            break;
-        case 4:
-            hourRN = "04";
-            meridiemRN = "AM";
-            break;
-        case 5:
-            hourRN = "05";
-            meridiemRN = "AM";
-            break;
-        case 6:
-            hourRN = "06";
-            meridiemRN = "AM";
-            break;
-        case 7:
-            hourRN = "07";
-            meridiemRN = "AM";
-            break;
-        case 8:
-            hourRN = "08";
-            meridiemRN = "AM";
-            break;
-        case 9:
-            hourRN = "09";
-            meridiemRN = "AM";
-            break;
-        case 10:
-            hourRN = "10";
-            meridiemRN = "AM";
-            break;
-        case 11:
-            hourRN = "11";
-            meridiemRN = "AM";
             break;
         case 12:
-            hourRN = "12";
+            meridiemRN = "PM";
             break;
         case 13:
-            hourRN = "01";
+            hourRN = "1";
+            meridiemRN = "PM";
             break;
         case 14:
-            hourRN = "02";
+            hourRN = "2";
+            meridiemRN = "PM";
             break;
         case 15:
-            hourRN = "03";
+            hourRN = "3";
+            meridiemRN = "PM";
             break;
         case 16:
-            hourRN = "04";
+            hourRN = "4";
+            meridiemRN = "PM";
             break;
         case 17:
-            hourRN = "05";
+            hourRN = "5";
+            meridiemRN = "PM";
             break;
         case 18:
-            hourRN = "06";
+            hourRN = "6";
+            meridiemRN = "PM";
             break;
         case 19:
-            hourRN = "07";
+            hourRN = "7";
+            meridiemRN = "PM";
             break;
         case 20:
-            hourRN = "08";
+            hourRN = "8";
+            meridiemRN = "PM";
             break;
         case 21:
-            hourRN = "09";
+            hourRN = "9";
+            meridiemRN = "PM";
             break;
         case 22:
             hourRN = "10";
+            meridiemRN = "PM";
             break;
         case 23:
             hourRN = "11";
+            meridiemRN = "PM";
             break;
     }
     let minutesRN = today.getMinutes();

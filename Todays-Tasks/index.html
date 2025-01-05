@@ -1,136 +1,63 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
+  <head>
 
-    <head>
+    <!--TITLE-->
+      <title> Today </title>
 
-        <!-- TITLE -->
-            <title>
-                Today
-            </title>
-        
-        <!-- CSS -->
-            <link
-                href = "../.stylesheets/common.css"
-                rel = "stylesheet"
-                type = "text/css"
-            >
-            <link
-                href = "../.stylesheets/todays-tasks.css"
-                rel = "stylesheet"
-                type = "text/css"
-            >
+    <!--CSS-->
+      <link href="../.stylesheets/common.css" rel="stylesheet" type="text/css">
+      <link href="../.stylesheets/todays-tasks.css" rel="stylesheet" type="text/css">
 
-        <!-- OTHER-->
-            <meta
-                charset = "utf-8"
-                name = "viewport"
-                content = "
-                    width = device-width,
-                    initial-scale = 1
-                "
-            >
+    <!--OTHER-->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    </head>
+  </head>
+  <body>
 
-    <body>
+    <!--NAV-TAB-->
+      <div id="nav-tab">
+        <div>
+          <button onclick="document.location='http://penguin.linux.test/My-Projects/Todo-List/All-Tasks/'"> All </button>
+          <button onclick="document.location='http://penguin.linux.test/My-Projects/Todo-List/Todays-Tasks/'"> Tdy </button>
+          <button onclick="document.location='http://penguin.linux.test/My-Projects/Todo-List/Archived-Tasks/'"> Arc </button>
+        </div>
+        <div>
+          <button id="darkMode" style="display:block;" onclick="darkMode()"> Dar </button>
+          <button id="lightMode" style="display:none;" onclick="lightMode()"> Lig </button>
+        </div>
+      </div>
 
-        <!-- NAV-TAB -->
-            <div id = "nav-tab">
+    <!--CONTAINER-->
+      <div id="container">
 
-                <div>
-                    <button
-                        onclick = "
-                            document.location = 'http://penguin.linux.test/My-Projects/Todo-List/All-Tasks/'
-                        "
-                    >
-                        All
-                    </button>
-                    <button
-                        onclick = "
-                            document.location = 'http://penguin.linux.test/My-Projects/Todo-List/Todays-Tasks/'
-                        "
-                    >
-                        Tdy
-                    </button>
-                    <button
-                        onclick = "
-                            document.location = 'http://penguin.linux.test/My-Projects/Todo-List/Archived-Tasks/'
-                        "
-                    >
-                        Arc
-                    </button>
-                </div>
-
-                <div>
-                    <button
-                        id = "darkMode"
-                        style = "
-                            display: block;
-                        "
-                        onclick = "darkMode()"
-                    >
-                        Dar
-                    </button>
-                    <button
-                        id = "lightMode"
-                        style = "
-                            display: none;
-                        "
-                        onclick = "lightMode()"
-                    >
-                        Lig
-                    </button>
-                </div>
-
+        <!--ROW-1-->
+          <div id="row-1">
+            <div id="clock-container">
+              <div id="week" class="clock"></div>
+              <div id="date" class="clock"></div>
+              <div id="time" class="clock"></div>
             </div>
-        
-        <!-- CONTAINER -->
-            <div id = "container">
+          </div>
 
-                <!-- ROW-1 -->
-                    <div id = "row-1">
-                        <div id = "clock-container">
-                            <div
-                                id = "week" 
-                                class = "clock"
-                            >
-                            </div>
-                            <div
-                                id = "date" 
-                                class = "clock"
-                            >
-                            </div>
-                            <div
-                                id = "time" 
-                                class = "clock"
-                            >
-                            </div>
-                        </div>
-                    </div>
+        <!--ROW-2-->
+          <div id="row-3">
 
-                <!-- ROW-2 -->
-                    <div id = "row-3">
+            <!--MATRIX-->
+              <div class="matrix">
+                <div id="quadrant">
+                  <ul id="taskList"></ul>
+                </div>
+              </div>
+          
+          </div>
 
-                        <!-- MATRIX -->
-                            <div class = "matrix">
+      </div>
 
-                                <div id = "quadrant">
-                                    <ul id = "taskList">
-                                    </ul>
-                                </div>
+    <!--JAVASCRIPT-->
+      <script src="../.scripts/common.js"></script>
+      <script src="../.scripts/todays-tasks.js"></script>
 
-                            </div>
-
-                    </div>
-
-            </div>
-
-        <!-- JAVASCRIPT -->
-            <script src = "../.scripts/common.js">
-            </script>
-            <script src = "../.scripts/todays-tasks.js">
-            </script>
-
-    </body>
-
+  </body>
 </html>

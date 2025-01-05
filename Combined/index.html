@@ -10,7 +10,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--CSS-->
-      <link href="combined.css" rel="stylesheet" type="text/css" />
+      <link href="style.css" rel="stylesheet" type="text/css" />
 
   </head>
   <body>
@@ -18,9 +18,9 @@
     <!--NAVTAB-->
       <div id="navtab">
         <div>
-          <button onclick=""> All </button>
-          <button onclick=""> Tdy </button>
-          <button onclick=""> Arc </button>
+          <button onclick="viewAll()"> All </button>
+          <button onclick="viewTdy()"> Tdy </button>
+          <button onclick="viewArc()"> Arc </button>
         </div>
         <div>
           <button id="darkMode" onclick="darkMode()"> Dar </button>
@@ -31,65 +31,76 @@
     <!--CONTAINER-->
       <div id="container">
 
-        <!--ROW1-->
-          <div id="row1">
-            <div id="clocks">
+        <!--TIMEBAR-->
+          <div id="timebar">
+            <div id="clock-container">
               <div id="week"></div>
               <div id="date"></div>
               <div id="time"></div>
             </div>
           </div>
 
-        <!--ROW2-->
-          <div id="row2">
-            <div> Deadline </div>
-            <div> No Deadline </div>
-          </div>
+        <!--MULTIPLE-->
+          <div id="matrix-container">
 
-        <!--ROW3-->
-          <div id="row3">
-
-            <!--Y-AXIS-->
-              <div id="y-axis">
-                <div> Long-term Impact </div>
-                <div> No Long-term Impact </div>
+            <!--MULTIPLE-ROW1-->
+              <div id="matrix-x-axis">
+                <div> Deadline </div>
+                <div> No Deadline </div>
               </div>
 
-            <!--MATRIX-->
-              <div class="matrix">
-                <div class="quadrant">
-                  <ul id="quadrant1">
-                    <li></li>
-                  </ul>
-                </div>
-                <div class="quadrant">
-                  <ul id="quadrant2">
-                    <li></li>
-                  </ul>
-                </div>
-                <div class="quadrant">
-                  <ul id="quadrant3">
-                    <li></li>
-                  </ul>
-                </div>
-                <div class="quadrant">
-                  <ul id="quadrant4">
-                    <li></li>
-                  </ul>
-                </div>
-              </div>
+            <!--MULTIPLE-ROW1-->
+              <div id="matrix-subcontainer">
+
+                <!--MULTIPLE-Y-AXIS-->
+                  <div id="matrix-y-axis">
+                    <div> Long-term Impact </div>
+                    <div> No Long-term Impact </div>
+                  </div>
+
+                <!--MULTIPLE-->
+                  <div id="matrix">
+                    <div class="quadrant">
+                      <ul id="quadrant1"></ul>
+                    </div>
+                    <div class="quadrant">
+                      <ul id="quadrant2">
+                      </ul>
+                    </div>
+                    <div class="quadrant">
+                      <ul id="quadrant3">
+                      </ul>
+                    </div>
+                    <div class="quadrant">
+                      <ul id="quadrant4">
+                      </ul>
+                    </div>
+                  </div>
+
+              </div> 
+
+          </div>
+        
+        <!--SINGLE-->
+          <div id="single" style="display:none">
+
+            <!--SINGLE-ROW1-->
+              <div id="s-row1"></div>
+
+              <!--SINGLE-ROW2-->
+                <div id="s-row2"></div>
 
           </div>
 
-        <!--ROW4-->
-          <div id="row4">
+        <!--INPUTBAR-->
+          <div id="inputbar">
             <input id="userInput" onchange="preprocessInput()"  type="text" placeholder="Task;   Deadline;   Schedule;   Impact" />
           </div>
 
       </div>
 
     <!--JAVASCRIPT-->
-      <script src="combined.js"></script>
+      <script src="script.js" defer></script>
 
   </body>
 </html>
