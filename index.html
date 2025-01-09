@@ -3,7 +3,7 @@
   <head>
 
     <!--TITLE-->
-      <title> Combined </title>
+      <title> Todo List </title>
 
     <!--META-->
       <meta charset="UTF-8" />
@@ -15,20 +15,20 @@
   </head>
   <body>
 
-    <!--NAVTAB-->
+    <!--NAVBAR-->
       <div id="navbar">
         <div>
           <button onclick="viewAll()"> All </button>
           <button onclick="viewTdy()"> Tdy </button>
-          <button onclick="viewArc()"> Arc </button>
         </div>
         <div>
+          <button onclick="viewArc()"> Arc </button>
           <button id="darkMode" onclick="darkMode()"> Dar </button>
           <button id="lightMode" onclick="lightMode()"> Lig </button>
         </div>
       </div>
 
-    <!--CONTAINER-->
+    <!--MAIN-CONTAINER-->
       <div id="main-container">
 
         <!--TIMEBAR-->
@@ -40,7 +40,7 @@
             </div>
           </div>
 
-        <!--MATRIX-->
+        <!--VIEW-MATRIX-->
           <div id="view-matrix" class="views">
 
             <!--MATRIX-HEADER-->
@@ -49,7 +49,7 @@
                 <div> No Deadline </div>
               </div>
 
-            <!--MATRIX-SUBCONTAINER-->
+            <!--MATRIX-CONTAINER-->
               <div id="matrix-container">
 
                 <!--MULTIPLE-Y-AXIS-->
@@ -64,16 +64,13 @@
                       <ul id="quadrant1" class="todolist"></ul>
                     </div>
                     <div class="quadrant">
-                      <ul id="quadrant2" class="todolist">
-                      </ul>
+                      <ul id="quadrant2" class="todolist"></ul>
                     </div>
                     <div class="quadrant">
-                      <ul id="quadrant3" class="todolist">
-                      </ul>
+                      <ul id="quadrant3" class="todolist"></ul>
                     </div>
                     <div class="quadrant">
-                      <ul id="quadrant4" class="todolist">
-                      </ul>
+                      <ul id="quadrant4" class="todolist"></ul>
                     </div>
                   </div>
 
@@ -81,36 +78,23 @@
 
           </div>
 
-        <!--SINGLELIST-CONTAINER-->
+        <!--VIEW-SINGLELIST-->
           <div id="view-singlelist" class="views">
 
             <!--SINGLELIST-HEADER-->
               <div id="singlelist-header">
                 <div id="singlelist-header-container">
-                  <div> Quadrant </div>
+                  <div> Priority </div>
                   <div> Deadline </div>
                   <div> Schedule </div>
                   <div> Task </div>
                 </div>
               </div>
 
-            <!--SINGLELIST-ROW2-->
+            <!--SINGLELIST-CONTAINER-->
               <div id="singlelist-container">
                 <div id="singlelist-box">
-                  <ul id="singlelist" class="todolist">
-                    <li class="taskli">
-                      <div class="col-info"> Quadrant </div>
-                      <div class="col-info"> Deadline </div>
-                      <div class="col-info"> Schedule </div>
-                      <div class="col-task"> Task </div>
-                      <div class="col-update">
-                        <button class="col-update-buttons"> T </button>
-                        <button class="col-update-buttons"> A </button>
-                        <button class="col-update-buttons"> E </button>
-                        <button class="col-update-buttons"> X </button>
-                      </div>
-                    </li>
-                  </ul>
+                  <ul id="singlelist" class="todolist"></ul>
                 </div>
               </div>
 

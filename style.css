@@ -62,7 +62,9 @@
 
                         --singlelist-header-container-height: 100%;
                         --singlelist-header-container-width: var(--singlelist-box-width);
-                        --singlelist-header-container-margin: 0 var(--singlelist-box-margin-right) 0 var(--singlelist-box-margin-left);
+                        --singlelist-header-container-margin: 0;
+                        --singlelist-header-container-margin-left: var(--singlelist-box-margin-left);
+                        --singlelist-header-container-margin-right: var(--singlelist-box-margin-right); 
 
                     --singlelist-container-height: var(--matrix-container-height);
 
@@ -122,12 +124,20 @@ body {
     flex-flow: column nowrap;
     align-items: center;
 
+    position: relative;
+
     background-color: var(--color-background-main);
 }
 
 #navbar div {
     display: flex;
     flex-flow: column nowrap;
+}
+
+#navbar div:last-child {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 #navbar div button {
@@ -143,6 +153,10 @@ body {
 }
 
 #navbar div button:last-child {
+    margin-bottom: var(--navbar-div-button-margin);
+}
+
+#navbar div:last-child button:nth-last-child(2) {
     margin-bottom: var(--navbar-div-button-margin);
 }
 
@@ -276,6 +290,8 @@ body {
     height: var(--singlelist-header-container-height);
     width: var(--singlelist-header-container-width);
     margin: var(--singlelist-header-container-margin);
+    margin-left: var(--singlelist-header-container-margin-left);
+    margin-right: var(--singlelist-header-container-margin-right);
 
     display: flex;
     flex-flow: row nowrap;
@@ -291,7 +307,7 @@ body {
 }
 
 #singlelist-header-container div:last-child {
-    width: 100%;
+    min-width: calc(500px - (var(--navbar-width) + var(--navbar-border-right) + var(--singlelist-header-container-margin-left) + var(--singlelist-header-container-margin-right)));
 }
 
 #singlelist-container {
@@ -335,6 +351,10 @@ body {
     flex-flow: row nowrap;
 
     position: relative;
+}
+
+.taskli:hover {
+    cursor: grab;
 }
 
 .col-info {
@@ -435,4 +455,11 @@ li:hover > .col-update {
 
 #userInput:focus {
     outline: 2px solid var(--color-userInput-focus);
+}
+
+/************************ DRAGGING ************************/
+
+.dragging {
+    cursor: grabbing;
+    opacity: 0.5;
 }

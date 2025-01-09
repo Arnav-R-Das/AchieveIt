@@ -17,20 +17,20 @@ const archivedTasksQuadrant1 = JSON.parse(localStorage.getItem('archivedTasksQua
 const archivedTasksQuadrant2 = JSON.parse(localStorage.getItem('archivedTasksQuadrant2')) || [];
 const archivedTasksQuadrant3 = JSON.parse(localStorage.getItem('archivedTasksQuadrant3')) || [];
 const archivedTasksQuadrant4 = JSON.parse(localStorage.getItem('archivedTasksQuadrant4')) || [];
-const colorMode = JSON.parse(localStorage.getItem('colorMode')) || [];
 
 const views = [
     [allTasksQuadrant1, allTasksQuadrant2, allTasksQuadrant3, allTasksQuadrant4],
     [todaysTasks],
     [archivedTasksQuadrant1, archivedTasksQuadrant2, archivedTasksQuadrant3, archivedTasksQuadrant4]
 ]
-var viewController = 0;
+
+const settings = JSON.parse(localStorage.getItem('settings')) || [0, false];
+// settings[0]: views
+// settings[1]: settings
 
 /*********************** Initial Function calls ***********************/
 
-viewTdy();
 displayTasks();
-// selectAllLi();
 
 /************************** PreprocessInput ***************************/
 
@@ -104,25 +104,25 @@ function preprocessInput() {
                             validTask = validTask.concat(";", validateTask[i]);
                         }
 
-                        if (viewController == 0 || viewController == 2) {
+                        if (settings[0] == 0 || settings[0] == 2) {
                             if (validateTask[1] != "") {
                                 if (validateTask[3] == "/") {
-                                    views[viewController][0].push(validTask);
+                                    views[settings[0]][0].push(validTask);
                                 }
                                 else {
-                                    views[viewController][2].push(validTask);
+                                    views[settings[0]][2].push(validTask);
                                 }
                             }
                             else {
                                 if (validateTask[3] == "/") {
-                                    views[viewController][1].push(validTask);
+                                    views[settings[0]][1].push(validTask);
                                 }
                                 else {
-                                    views[viewController][3].push(validTask); 
+                                    views[settings[0]][3].push(validTask); 
                                 }
                             }
                         }
-                        else if (viewController == 1) {
+                        else if (settings[0] == 1) {
                             todaysTasks.push(validTask);
                         }
 
@@ -217,18 +217,17 @@ function validateDate(x) {
 }
 */
 
-/**************************** DisplayAllTasks ****************************/
+/**************************** DisplayTasks ***************************/
 
 function displayTasks() {
 
     // Delete all existing 'li'
     [quadrant1, quadrant2, quadrant3, quadrant4, singlelist].forEach(q => q.innerHTML = '');
 
-    let lists = views[viewController];
+    let lists = views[settings[0]];
     
-    for (var i = 0; i < views[viewController].length; i++) {
+    for (var i = 0; i < views[settings[0]].length; i++) {
         for (var j = 0, len = lists[i].length; j < len; j++) {
-
 
             // Split input into elements of array
             let splitTask = lists[i][j].split(";");
@@ -238,7 +237,7 @@ function displayTasks() {
 
             // Identify quadrant
             let list;
-            if (viewController == 0 || viewController == 2) {
+            if (settings[0] == 0 || settings[0] == 2) {
                 list = i == 0 ? quadrant1 : i == 1 ? quadrant2 : i == 2 ? quadrant3 : quadrant4;
             }
             else {
@@ -251,7 +250,7 @@ function displayTasks() {
             list.appendChild(listItem);
             
             // CreateElement - div - divQuadrant
-            if (viewController == 1) {
+            if (settings[0] == 1) {
                 const divQuadrant = document.createElement('div');
                 if (splitTask[1] != "") {
                     if (splitTask[3] == "/") {
@@ -274,7 +273,7 @@ function displayTasks() {
             }
 
             // CreateElement - div - divDeadline
-            if (splitTask[1] != "" || viewController == 1) {
+            if (splitTask[1] != "" || settings[0] == 1) {
                 const divDeadline = document.createElement('div');
                 divDeadline.textContent = splitTask[1];
                 divDeadline.className = 'col-info';
@@ -303,8 +302,8 @@ function displayTasks() {
             todayButton.textContent = 'T';
             todayButton.className = 'col-update-buttons';
             todayButton.addEventListener('click', () => {
-                if (viewController == 0 || viewController == 2) {
-                    let i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : views[viewController][3];
+                if (settings[0] == 0 || settings[0] == 2) {
+                    let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : views[settings[0]][3];
                     todaysTasks.push(i[index]);
                     i.splice(index, 1);
                 }
@@ -323,19 +322,19 @@ function displayTasks() {
             archiveButton.textContent = 'A';
             archiveButton.className = 'col-update-buttons';
             archiveButton.addEventListener('click', () => {
-                var i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : views[viewController][3];
-                if (viewController == 0) {
-                    var j = list == quadrant1 ? views[2][0] : list == quadrant2 ? views[2][1] : list == quadrant3 ? views[2][2] : views[2][3];
+                let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : views[settings[0]][3];
+                if (settings[0] == 0) {
+                    let j = list == quadrant1 ? archivedTasksQuadrant1 : list == quadrant2 ? archivedTasksQuadrant2 : list == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
                     j.push(i[index]);
                     i.splice(index, 1);
                 }
-                else if (viewController == 1) {
-                    var i = splitTask[1] != "" && splitTask[3] == "/" ? archivedTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? archivedTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+                else if (settings[0] == 1) {
+                    let i = splitTask[1] != "" && splitTask[3] == "/" ? archivedTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? archivedTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
                     i.push(todaysTasks[index]);
                     todaysTasks.splice(index, 1);
                 }
-                else if (viewController == 2) {
-                    var j = list == quadrant1 ? views[0][0] : list == quadrant2 ? views[0][1] : list == quadrant3 ? views[0][2] : views[0][3];
+                else if (settings[0] == 2) {
+                    let j = list == quadrant1 ? allTasksQuadrant1 : list == quadrant2 ? allTasksQuadrant2 : list == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
                     j.push(i[index]);
                     i.splice(index, 1);
                 }
@@ -349,7 +348,7 @@ function displayTasks() {
             editButton.textContent = 'E';
             editButton.className = 'col-update-buttons';
             editButton.addEventListener('click', () => {
-                var i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : list == quadrant4 ? views[viewController][3] : todaysTasks;
+                let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
                 userInput.value = i[index];
                 userInput.focus();
                 i.splice(index, 1);
@@ -363,7 +362,7 @@ function displayTasks() {
             deleteButton.textContent = 'X';
             deleteButton.className = 'col-update-buttons';
             deleteButton.addEventListener("click", () => {
-                var i = list == quadrant1 ? views[viewController][0] : list == quadrant2 ? views[viewController][1] : list == quadrant3 ? views[viewController][2] : list == quadrant4 ? views[viewController][3] : todaysTasks;
+                let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
                 i.splice(index, 1);
                 saveTasks();
                 displayTasks();
@@ -371,6 +370,8 @@ function displayTasks() {
             divUpdate.appendChild(deleteButton);
         }
     }
+
+    attachDragAndDrop();
 }
 
 /**************************** LocalStorage ****************************/
@@ -389,98 +390,105 @@ function saveTasks() {
 
 /**************************** Drag & Drop *****************************/
 
-/*
-let draggedItem = null;
-
-function selectAllLi() {
-
-    const allListItems = document.querySelectorAll('li');
-
-    allListItems.forEach(item => {
-        item.addEventListener('dragstart', handleDragStart);
-        item.addEventListener('dragover', handleDragOver);
-        item.addEventListener('drop', handleDrop);
-        item.addEventListener('dragend', handleDragEnd);
+function attachDragAndDrop() {
+    [quadrant1, quadrant2, quadrant3, quadrant4, singlelist].forEach((quadrant, index) => {
+        quadrant.dataset.index = index;
+        enableDragAndDrop(quadrant);
     });
 }
 
-function handleDragStart(e) {
-    draggedItem = this;
-    setTimeout(() => this.classList.add('dragging'), 0);
+function enableDragAndDrop(quadrant) {
+    const tasks = quadrant.querySelectorAll('.taskli');
+
+    tasks.forEach(task => {
+        task.setAttribute('draggable', true);
+
+        task.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.dataset.index);
+            e.target.classList.add('dragging');
+        });
+
+        task.addEventListener('dragend', (e) => {
+            e.target.classList.remove('dragging');
+        });
+    });
+
+    quadrant.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(quadrant, e.clientY);
+        const draggingElement = quadrant.querySelector('.dragging');
+
+        if (afterElement == null) {
+            quadrant.appendChild(draggingElement);
+        } else {
+            quadrant.insertBefore(draggingElement, afterElement);
+        }
+    });
+    
+    quadrant.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const newOrder = Array.from(quadrant.querySelectorAll('.taskli')).map(task => task.textContent.trim());
+        const quadrantIndex = parseInt(quadrant.dataset.index, 10);
+
+        views[settings[0]][quadrantIndex] = newOrder;
+        saveTasks();
+    });
 }
 
-function handleDragOver(e) {
-    e.preventDefault();
-    
-    const hoveringItem = this;
-    const list = this.parentElement;
-    const draggingItem = document.querySelector('.dragging');
-    const afterElement = getDragAfterElement(list, e.clientY);
-    
-    if (afterElement == null) {
-        list.appendChild(draggingItem);
-    } else {
-        list.insertBefore(draggingItem, afterElement);
-    }
-}
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.taskli:not(.dragging)')];
 
-function handleDrop() {
-    this.classList.remove('dragging');
-}
-
-function handleDragEnd() {
-    this.classList.remove('dragging');
-    
-    // Save tasks after drag ends
-    saveTasks();
-    displayTasks();
-}
-
-function getDragAfterElement(list, y) {
-    const draggableElements = [...list.querySelectorAll('li:not(.dragging)')];
-    
     return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
         const offset = y - box.top - box.height / 2;
-        
+
         if (offset < 0 && offset > closest.offset) {
             return { offset: offset, element: child };
         } else {
             return closest;
         }
-    },
-    { offset: Number.NEGATIVE_INFINITY }
-    ).element;
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
-*/
-
 /******************************* Views ********************************/
+
+if (settings[0] == 0) {
+    viewAll();
+}
+else if (settings[0] == 1) {
+    viewTdy();
+}
+else if (settings[0] == 2) {
+    viewArc();
+}
 
 function viewAll() {
     document.getElementById('view-singlelist').style.display = 'none';
     document.getElementById('view-matrix').style.display = 'block';
-    viewController = 0;
+    settings[0] = 0;
+    localStorage.setItem('settings', JSON.stringify(settings));
     displayTasks();
 }
 
 function viewTdy() {
     document.getElementById('view-matrix').style.display = 'none';
     document.getElementById('view-singlelist').style.display = 'block';
-    viewController = 1;
+    settings[0] = 1;
+    localStorage.setItem('settings', JSON.stringify(settings));
     displayTasks();
 }
 
 function viewArc() {
     document.getElementById('view-singlelist').style.display = 'none';
     document.getElementById('view-matrix').style.display = 'block';
-    viewController = 2;
+    settings[0] = 2;
+    localStorage.setItem('settings', JSON.stringify(settings));
     displayTasks();
 }
 
 /**************************** Color Modes *****************************/
 
-if (colorMode[0]) {
+if (settings[1]) {
     darkMode();
 }
 else {
@@ -497,8 +505,8 @@ function darkMode() {
     document.querySelector(':root').style.setProperty('--color-background-main', 'hsl(0, 0%, 0%)');
     document.querySelector(':root').style.setProperty('--color-background-list', 'hsl(0, 0%, 10%)');
 
-    colorMode[0] = true;
-    localStorage.setItem('colorMode', JSON.stringify(colorMode));
+    settings[1] = true;
+    localStorage.setItem('settings', JSON.stringify(settings));
 
 }
 
@@ -512,8 +520,8 @@ function lightMode() {
     document.querySelector(':root').style.setProperty('--color-background-main', 'hsl(0, 0%, 95%)');
     document.querySelector(':root').style.setProperty('--color-background-list', 'hsl(0, 0%, 100%)');
 
-    colorMode[0] = false;
-    localStorage.setItem('colorMode', JSON.stringify(colorMode));
+    settings[1] = false;
+    localStorage.setItem('settings', JSON.stringify(settings));
 
 }
 
