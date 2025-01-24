@@ -55,8 +55,8 @@
 /**/                        --quadrant-margin-right: calc(var(--standard-gutter) * 2);
 /**/                        --quadrant-margin-bottom: calc(var(--standard-gutter) * 2);
 
-                                --quadrant-ul-padding: 0;
-                                --quadrant-ul-margin: 0;
+                                --todolist-padding: 0;
+                                --todolist-margin: 0;
 
                     --singlelist-header-height: var(--matrix-header-height);
 
@@ -92,11 +92,12 @@
 
     /* COLORS */
 
-/**/    --color-font: hsl(0, 0%, 0%);
-/**/    --color-border: hsl(0, 0%, 85%);
-/**/    --color-background-main: hsl(0, 0%, 95%);
-/**/    --color-background-list: hsl(0, 0%, 100%);
+/**/    --color-font: '';
+/**/    --color-border: '';
 /**/    --color-userInput-focus: hsl(0, 0%, 50%);
+/**/    --background-color-main: '';
+/**/    --background-color-list: '';
+/**/    --background-color-list-highlight: '';
 
 }
 
@@ -126,7 +127,7 @@ body {
 
     position: relative;
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #navbar div {
@@ -146,7 +147,7 @@ body {
     margin: var(--navbar-div-button-margin) var(--navbar-div-button-margin) 0;
 
     font-family: var(--standard-font-family);
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
     color: var(--color-font);
     border: none;
     border-radius: 5px;
@@ -180,7 +181,7 @@ body {
     flex-flow: row nowrap;
     justify-content: center;
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #clock-container {
@@ -221,7 +222,7 @@ body {
     flex-flow: row nowrap;
     justify-content: end;
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #matrix-header div {
@@ -242,7 +243,7 @@ body {
 #matrix-y-axis {
     width: var(--matrix-y-axis-width);
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #matrix-y-axis div {
@@ -261,7 +262,7 @@ body {
 
     display: flex;
     flex-flow: row wrap;
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 .quadrant {
@@ -271,7 +272,7 @@ body {
     margin-right: var(--quadrant-margin-right);
     margin-bottom: var(--quadrant-margin-bottom);
 
-    background-color: var(--color-background-list);
+    background-color: var(--background-color-list);
     outline: 1px solid var(--color-border);
     border-radius: 20px;
     overflow-wrap: anywhere;
@@ -283,7 +284,7 @@ body {
 #singlelist-header {
     height: var(--singlelist-header-height);
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #singlelist-header-container {
@@ -307,13 +308,13 @@ body {
 }
 
 #singlelist-header-container div:last-child {
-    min-width: calc(500px - (var(--navbar-width) + var(--navbar-border-right) + var(--singlelist-header-container-margin-left) + var(--singlelist-header-container-margin-right)));
+    min-width: calc(600px - (var(--navbar-width) + var(--navbar-border-right) + var(--singlelist-header-container-margin-left) + var(--singlelist-header-container-margin-right)));
 }
 
 #singlelist-container {
     height: var(--singlelist-container-height);
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #singlelist-box {
@@ -324,7 +325,7 @@ body {
     margin-right: var(--singlelist-box-margin-right);
     margin-bottom: var(--singlelist-box-bottom);
 
-    background-color: var(--color-background-list);
+    background-color: var(--background-color-list);
     outline: 1px solid var(--color-border);
     border-radius: 20px;
     overflow-wrap: anywhere;
@@ -335,8 +336,8 @@ body {
 /*************************** LI ***************************/
 
 .todolist {
-    padding: var(--quadrant-ul-padding);
-    margin: var(--quadrant-ul-margin);
+    padding: var(--todolist-padding);
+    margin: var(--todolist-margin);
 
     list-style-type: none;
 }
@@ -358,9 +359,10 @@ body {
 }
 
 .col-info {
-    height: calc(14px + 10px + 10px);
+    height: 14px;
     min-width: 100px;
-    margin: 0 0;
+    max-width: 100px;
+    margin: 10px 0;
 
     overflow: hidden;
     text-align: center;
@@ -388,8 +390,8 @@ body {
     height: calc(14px + 10px + 10px);
 
     visibility: hidden;
-    background-color: var(--color-background-list);
-    box-shadow: -20px 0px 10px -5px var(--color-background-list);
+    background-color: var(--background-color-list);
+    box-shadow: -20px 0px 10px -5px var(--background-color-list);
 }
 
 li:hover > .col-update {
@@ -405,7 +407,7 @@ li:hover > .col-update {
     border: none;
     outline: 1px solid var(--color-border);
     border-radius: 50%;
-    background-color: var(--color-background-list);
+    background-color: var(--background-color-list);
     color: var(--color-border);
     font-weight: 900;
     cursor: pointer;
@@ -421,7 +423,7 @@ li:hover > .col-update {
 
 .col-update-buttons:hover {
     background-color: var(--color-border);
-    color: var(--color-background-list);
+    color: var(--background-color-list);
 }
 
 /************************ INPUTBAR ************************/
@@ -433,7 +435,7 @@ li:hover > .col-update {
     display: flex;
     justify-content: center;
 
-    background-color: var(--color-background-main);
+    background-color: var(--background-color-main);
 }
 
 #userInput {
@@ -445,7 +447,7 @@ li:hover > .col-update {
     margin: var(--userInput-margin);
 
     outline: 1px solid var(--color-border);
-    background-color: var(--color-background-list);
+    background-color: var(--background-color-list);
     color: var(--color-font);
 }
 
