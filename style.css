@@ -163,6 +163,7 @@ body {
 
 #navbar div button:hover {
     background-color: var(--color-border);
+    /* outline: 1px solid var(--color-border); */
 }
 
 /********************* MAIN-CONTAINER *********************/
@@ -277,6 +278,12 @@ body {
     border-radius: 20px;
     overflow-wrap: anywhere;
     overflow-y: scroll;
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+
+.quadrant::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
 /*********************** SINGLELIST ***********************/
@@ -330,6 +337,12 @@ body {
     border-radius: 20px;
     overflow-wrap: anywhere;
     overflow-y: scroll;
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+
+#singlelist-box::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
 

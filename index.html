@@ -3,7 +3,7 @@
   <head>
 
     <!--TITLE-->
-      <title> Todo List </title>
+      <title> My Todo List </title>
 
     <!--META-->
       <meta charset="UTF-8" />
@@ -18,11 +18,11 @@
     <!--NAVBAR-->
       <div id="navbar">
         <div>
-          <button onclick="viewAll()"> All </button>
-          <button onclick="viewTdy()"> Tdy </button>
+          <button id="All" onclick="viewAll()"> All </button>
+          <button id="Tdy" onclick="viewTdy()"> Tdy </button>
         </div>
         <div>
-          <button onclick="viewArc()"> Arc </button>
+          <button id="Arc" onclick="viewArc()"> Arc </button>
           <button id="darkMode" onclick="darkMode()"> Dar </button>
           <button id="lightMode" onclick="lightMode()"> Lig </button>
         </div>
@@ -102,7 +102,7 @@
 
         <!--INPUTBAR-->
           <div id="inputbar">
-            <input id="userInput" onchange="preprocessInput()"  type="text" placeholder="Task;   Deadline;   Schedule;   Impact" />
+            <input id="userInput" type="text" placeholder="Task;   Deadline;   Schedule;   Impact" />
           </div>
 
       </div>

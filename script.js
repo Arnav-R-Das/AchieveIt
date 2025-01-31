@@ -29,6 +29,15 @@
             // settings[0]: views
             // settings[1]: settings
 
+/*************************** EventListeners ***************************/
+
+    // Insert/Update input
+        userInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                preprocessInput();
+            }
+        });
+
 /*********************** Initial Function calls ***********************/
 
     // Display tasks
@@ -483,6 +492,9 @@
         function viewAll() {
             document.getElementById('view-singlelist').style.display = 'none';
             document.getElementById('view-matrix').style.display = 'block';
+            document.getElementById('All').style.outline = '1px solid var(--color-border)';
+            document.getElementById('Tdy').style.outline = 'none';
+            document.getElementById('Arc').style.outline = 'none';
             settings[0] = 0;
             localStorage.setItem('settings', JSON.stringify(settings));
             displayTasks();
@@ -490,6 +502,9 @@
         function viewTdy() {
             document.getElementById('view-matrix').style.display = 'none';
             document.getElementById('view-singlelist').style.display = 'block';
+            document.getElementById('Tdy').style.outline = '1px solid var(--color-border)';
+            document.getElementById('All').style.outline = 'none';
+            document.getElementById('Arc').style.outline = 'none';
             settings[0] = 1;
             localStorage.setItem('settings', JSON.stringify(settings));
             displayTasks();
@@ -497,6 +512,9 @@
         function viewArc() {
             document.getElementById('view-singlelist').style.display = 'none';
             document.getElementById('view-matrix').style.display = 'block';
+            document.getElementById('Arc').style.outline = '1px solid var(--color-border)';
+            document.getElementById('All').style.outline = 'none';
+            document.getElementById('Tdy').style.outline = 'none';
             settings[0] = 2;
             localStorage.setItem('settings', JSON.stringify(settings));
             displayTasks();
