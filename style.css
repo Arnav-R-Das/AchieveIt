@@ -97,6 +97,7 @@
 /**/    --color-userInput-focus: hsl(0, 0%, 50%);
 /**/    --background-color-main: '';
 /**/    --background-color-list: '';
+/**/    --background-color-list-hover: '';
 /**/    --background-color-list-highlight: '';
 
 }
@@ -314,6 +315,12 @@ body {
     font-weight: bold;
 }
 
+/*
+#singlelist-header-container div:first-child {
+    min-width: 25px;
+}
+*/
+
 #singlelist-header-container div:last-child {
     min-width: calc(600px - (var(--navbar-width) + var(--navbar-border-right) + var(--singlelist-header-container-margin-left) + var(--singlelist-header-container-margin-right)));
 }
@@ -345,7 +352,6 @@ body {
     display: none; /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
-
 /*************************** LI ***************************/
 
 .todolist {
@@ -368,24 +374,31 @@ body {
 }
 
 .taskli:hover {
-    cursor: grab;
+    background-color: var(--background-color-list-hover);
 }
 
 .col-info {
-    height: 14px;
+    height: 16px;
     min-width: 100px;
-    max-width: 100px;
-    margin: 10px 0;
+    max-width: 75px;
+    margin: 9px 0;
 
     overflow: hidden;
     text-align: center;
     align-content: center;
 }
 
+.highlightImpactfulTask {
+    min-width: 25px;
+    max-width: 25px;
+
+    text-align: right;
+}
+
 .col-task {
-    height: 14px;
+    height: 16px;
     width: 100%;
-    margin: 10px 0;
+    margin: 9px 0;
     padding: 0px 30px;
 
     overflow: hidden;
@@ -403,8 +416,8 @@ body {
     height: calc(14px + 10px + 10px);
 
     visibility: hidden;
-    background-color: var(--background-color-list);
-    box-shadow: -20px 0px 10px -5px var(--background-color-list);
+    background-color: var(--background-color-list-hover);
+    box-shadow: -20px 0px 10px -5px var(--background-color-list-hover);
 }
 
 li:hover > .col-update {
@@ -420,10 +433,9 @@ li:hover > .col-update {
     border: none;
     outline: 1px solid var(--color-border);
     border-radius: 50%;
-    background-color: var(--background-color-list);
+    background-color: var(--background-color-list-hover);
     color: var(--color-border);
     font-weight: 900;
-    cursor: pointer;
 }
 
 .col-update-buttons:first-child {
@@ -437,6 +449,21 @@ li:hover > .col-update {
 .col-update-buttons:hover {
     background-color: var(--color-border);
     color: var(--background-color-list);
+}
+
+/**************** HIGHLIGHTIMPACTFULTASK2 *****************
+
+.highlightImpactfulTask2 {
+    background-color: var(--background-color-list-highlight);
+}
+
+.highlightImpactfulTask2 .col-update{
+    background-color: var(--background-color-list-highlight);
+    box-shadow: -20px 0px 10px -5px var(--background-color-list-highlight);
+}
+
+.highlightImpactfulTask2 .col-update-buttons {
+    background-color: var(--background-color-list-highlight);
 }
 
 /************************ INPUTBAR ************************/
@@ -466,6 +493,7 @@ li:hover > .col-update {
 
 #userInput:hover {
     box-shadow: 0px 0px 5px var(--color-userInput-focus);
+    cursor: default;
 }
 
 #userInput:focus {
@@ -474,7 +502,3 @@ li:hover > .col-update {
 
 /************************ DRAGGING ************************/
 
-.dragging {
-    cursor: grabbing;
-    opacity: 0.5;
-}

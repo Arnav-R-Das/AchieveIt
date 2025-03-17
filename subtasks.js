@@ -13,17 +13,32 @@ show();
 
 /***************************** Functions ******************************/
 
+    // Indentation
+        function newline() {
+
+                let newInput = userInput.value;
+
+                let splitInput = newInput.split("\n");
+
+                let i = 0;
+                let len = splitInput.length;
+                
+            // Check
+                let text = "0: " + splitInput[i];
+                i++;
+                while (i < len) {
+                    text += "\n" + i + ": " + splitInput[i];
+                    i++;
+                }
+                alert(text);
+
+        }
+
     // Preprocess input
         function input() {
             alert("Input taken");
-            userInput.value = "";
+            userInput.value= "";
 
-            // let newInput = userInput.value;
-
-            // let splitInput = newInput.split("\n");
-            // // alert(splitInput);
-
-            // // alert(splitInput[0]);
             
             // subtasks.push(splitInput);
             // save();
@@ -51,7 +66,7 @@ show();
                                 } else {
                                     listItem.className = 'subtask-4';
                                 }
-                                listItem.textContent = a + "\t" + b + "\t" + c + "\t" + d + "\t" + e + "\t|\t" + subtasks[a][b][c][d][e];
+                                listItem.textContent = /*a + "\t" + b + "\t" + c + "\t" + d + "\t" + e + "\t|\t" +*/ subtasks[a][b][c][d][e];
                                 list.appendChild(listItem);
                             }
                         }
@@ -65,27 +80,49 @@ show();
             localStorage.setItem('subtasks', JSON.stringify(subtasks));
         }
 
-
 /*************************** EventListeners ***************************/
 
-    // Keyboard shortcuts: userInput
-        userInput.addEventListener("keydown", function (e) {
-            if (e.key === "Enter") {
-                if (e.shiftKey) {
+    // UserInput
 
-                        // Validate subtasks
-                    alert("Shift + Enter");
+        // userInput.addEventListener("focus", function () {
+        //     if (userInput.value == "") {
+        //         userInput.value="|||"
+        //     }
+        // })
+        // userInput.addEventListener("blur", function () {
+        //     if (userInput.value == "|||") {
+        //         userInput.value="";
+        //     }
+        // })
+
+        userInput.addEventListener("keydown", function (e) {
+            // Enter key
+                if (e.key === "Enter") {
+                    // Insert newline
+                        if (e.shiftKey) {
+                            newline();
+                        }
+                    // Take input
+                        else {
+                            e.preventDefault();
+                            input();
+                        }
                 }
-                else {
-                    input();
+            // Tab key
+                else if (e.key === "Tab") {
+                    // Backward indent
+                        if (e.shiftKey) {
+                            alert("Shift + Tab");
+                        }
+                    // Forward indent
+                        else {
+                            alert("Tab");
+                        }
                 }
-            }
-            if (e.key === "Tab") {
-                if (e.shiftKey) {
-                    alert("Shift + Tab");
+            // Prevent incorrect format
+                else if (e.key === ";") {
+                    e.preventDefault();
+                    // alert("Cannot enter;");
+                    userInput.value += " ; "
                 }
-                else {
-                    alert("Tab");
-                }
-            }
         });

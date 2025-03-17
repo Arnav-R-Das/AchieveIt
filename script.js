@@ -1,3 +1,11 @@
+// +-------+--------+--------------------+-----------+---------------------+
+// |       | Scope  | Declare before use | Redeclare |        Notes        |
+// +-------+--------+--------------------+-----------+---------------------+
+// |  var  | Global |    No (hoisted)    |    Can    | Most mistake-prone  |
+// | const | Block  |        Yes         |   Can't   |                     |
+// |  let  | Block  |        Yes         |   Can't   | Least mistake-prone |
+// +-------+--------+--------------------+-----------+---------------------+
+
 
 /************************** Global Variables **************************/
 
@@ -26,17 +34,8 @@
             [archivedTasksQuadrant1, archivedTasksQuadrant2, archivedTasksQuadrant3, archivedTasksQuadrant4]
         ]
         const settings = JSON.parse(localStorage.getItem('settings')) || [0, false];
-            // settings[0]: views
-            // settings[1]: settings
-
-/*************************** EventListeners ***************************/
-
-    // Insert/Update input
-        userInput.addEventListener("keydown", function (e) {
-            if (e.key === "Enter") {
-                preprocessInput();
-            }
-        });
+        // settings[0]: views
+        // settings[1]: color modes
 
 /*********************** Initial Function calls ***********************/
 
@@ -59,113 +58,109 @@
             darkMode();
         }
         else {
-            lightMode();
+                lightMode();
         }
 
 /***************************** Functions ******************************/
 
     // Preprocess input
         function preprocessInput() {
+            let newTask = userInput.value;          // Take input
+            let validateTask = newTask.split(";");  // Split Input
+            let len = validateTask.length;
 
-            // Take input
-            let newTask = userInput.value;
-
-            // Split Input
-            let validateTask = newTask.split(";");
-
-            // Validate Input
-            var len = validateTask.length;
-            if (len != 4) {
-                if (len < 4) {
-                    len = 4 - len;
-                    if (len == 1) {
-                        alert("1 missing semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+            // Validate semicolons
+                if (len != 4) {
+                    if (len < 4) {
+                        len = 4 - len;
+                        if (len == 1) {
+                            alert("1 missing semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                        }
+                        else {
+                            alert(len + " missing semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");}
                     }
                     else {
-                        alert(len + " missing semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");}
-                }
-                else {
-                    len = len - 4;
-                    if (len == 1) {
-                        alert("1 extra semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                        len = len - 4;
+                        if (len == 1) {
+                            alert("1 extra semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                        }
+                        else {
+                            alert(len + " extra semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                        }
                     }
-                    else {
-                        alert(len + " extra semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
-                    }
-                }
-            }
-            else {
-
-                // Trim Whitespace
-                var i = 0;
-                for (; i < 4; i++) {
-                    validateTask[i] = validateTask[i].trim();
-                }
-
-                // Validate Task
-                if (validateTask[0] == "") {
-                    alert("Can't add an empty task. \nEnter a task.");
                 }
                 else {
 
-                    // Validate Deadline
-                    // if (validateDate(validateTask[1])) {
-                    //     alert("Please correct the format of DEADLINE");
-                    // }
-                    // else {
+                    // Trim whitespace
+                        for (let i = 0; i < 4; i++) {
+                            validateTask[i] = validateTask[i].trim();
+                        }
 
-                        // Validate Schedule
-                        // if (validateDate(validateTask[2])) {
-                        //     alert("Please correct the format of SCHEDULE");
-                        // }
-                        // else {
+                    // Validate task
+                        if (validateTask[0] == "") {
+                            alert("Can't add an empty task. \nEnter a task.");
+                        }
+                        else {
 
-                            // Validate Impact
-                            if (validateTask[3] != "/" && validateTask[3] != "") {
-                                alert("For tasks with Long-term Impact \n>>> Enter / \n\nFor tasks with No Long-term Impact \n>>> Leave it empty");
-                            }
-                            else {
+                            // Validate deadline
+                                // if (validateDate(validateTask[1])) {
+                                //     alert("Please correct the format of DEADLINE");
+                                // }
+                                // else {
 
-                                // Concatinate Validated Task
-                                let validTask = "";
-                                var i = 0;
-                                validTask = validTask.concat(" ", validateTask[i]).trim();
-                                i++;
-                                for (; i < 4; i++) {
-                                    validTask = validTask.concat(";", validateTask[i]);
-                                }
+                                    // Validate schedule
+                                        // if (validateDate(validateTask[2])) {
+                                        //     alert("Please correct the format of SCHEDULE");
+                                        // }
+                                        // else {
 
-                                if (settings[0] == 0 || settings[0] == 2) {
-                                    if (validateTask[1] != "") {
-                                        if (validateTask[3] == "/") {
-                                            views[settings[0]][0].push(validTask);
-                                        }
-                                        else {
-                                            views[settings[0]][2].push(validTask);
-                                        }
-                                    }
-                                    else {
-                                        if (validateTask[3] == "/") {
-                                            views[settings[0]][1].push(validTask);
-                                        }
-                                        else {
-                                            views[settings[0]][3].push(validTask); 
-                                        }
-                                    }
-                                }
-                                else if (settings[0] == 1) {
-                                    todaysTasks.push(validTask);
-                                }
+                                            // Validate impact
+                                                if (validateTask[3] != "/" && validateTask[3] != "") {
+                                                    alert("For tasks with Long-term Impact \n>>> Enter / \n\nFor tasks with No Long-term Impact \n>>> Leave it empty");
+                                                }
+                                                else {
 
-                                saveTasks();
-                                displayTasks();
-                                userInput.value = '';
-                            }
+                                                    // Concatinate validated task
+                                                        let validTask = "";
+                                                        let j = 0;
+                                                        
+                                                        validTask = validTask.concat(" ", validateTask[j]).trim();
+                                                        j++;
+                                                        for (; j < 4; j++) {
+                                                            validTask = validTask.concat(";", validateTask[j]);
+                                                        }
 
-                        // }
-                    // }
+                                                        if (settings[0] == 0 || settings[0] == 2) {
+                                                            if (validateTask[1] != "") {
+                                                                if (validateTask[3] == "/") {
+                                                                    views[settings[0]][0].push(validTask);
+                                                                }
+                                                                else {
+                                                                    views[settings[0]][2].push(validTask);
+                                                                }
+                                                            }
+                                                            else {
+                                                                if (validateTask[3] == "/") {
+                                                                    views[settings[0]][1].push(validTask);
+                                                                }
+                                                                else {
+                                                                    views[settings[0]][3].push(validTask); 
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (settings[0] == 1) {
+                                                            todaysTasks.push(validTask);
+                                                        }
+
+                                                        saveTasks();
+                                                        displayTasks();
+                                                        userInput.value = '';
+                                                }
+
+                                        // }
+                                // }
+                        }
                 }
-            }
         }
         /*
         function validateDate(x) {
@@ -251,169 +246,183 @@
         function displayTasks() {
 
             // Delete all existing 'li'
-            [quadrant1, quadrant2, quadrant3, quadrant4, singlelist].forEach(q => q.innerHTML = '');
-
-            let lists = views[settings[0]];
+                [quadrant1, quadrant2, quadrant3, quadrant4, singlelist].forEach(q => q.innerHTML = '');
             
-            for (var i = 0; i < views[settings[0]].length; i++) {
-                for (var j = 0, len = lists[i].length; j < len; j++) {
+            // ...
+                let lists = views[settings[0]];
+                for (let i = 0; i < views[settings[0]].length; i++) {
+                    for (let j = 0, len = lists[i].length; j < len; j++) {
 
-                    // Split each element of the array into Task, Deadline, Schedule & Impact
-                    let splitTask = lists[i][j].split(";");
+                            let splitTask = lists[i][j].split(";");  // Split each element of the array into Task, Deadline, Schedule & Impact
+                            let index = j;                           // Index
+                            let list;                                // Identify quadrant
 
-                    // Index
-                    let index = j;
-
-                    // Identify quadrant
-                    let list;
-                    if (settings[0] == 0 || settings[0] == 2) {
-                        list = i == 0 ? quadrant1 : i == 1 ? quadrant2 : i == 2 ? quadrant3 : quadrant4;
-                    }
-                    else {
-                        list = singlelist;
-                    }
-
-                    // Create li element
-                    const listItem = document.createElement('li');
-                    listItem.className = 'taskli';
-                    list.appendChild(listItem);
-                    
-                    /* CreateElement - div - divQuadrant
-                    if (settings[0] == 1) {
-                        const divQuadrant = document.createElement('div');
-                        if (splitTask[1] != "") {
-                            if (splitTask[3] == "/") {
-                                divQuadrant.textContent = "1";
+                        // Identify quadrant
+                            if (settings[0] == 0 || settings[0] == 2) {
+                                list = i == 0 ? quadrant1 : i == 1 ? quadrant2 : i == 2 ? quadrant3 : quadrant4;
                             }
                             else {
-                                divQuadrant.textContent = "3";
+                                list = singlelist;
                             }
-                        }
-                        else if (splitTask[1] == "") {
-                            if (splitTask[3] == "/") {
-                                divQuadrant.textContent = "2";
+
+                        // Create li element
+                            const listItem = document.createElement('li');
+                            listItem.className = 'taskli';
+                            listItem.draggable = true;
+                            listItem.addEventListener('dragstart', handleDragStart);
+                            listItem.addEventListener('dragover', handleDragOver);
+                            listItem.addEventListener('drop', handleDrop);
+                            listItem.addEventListener('dragend', handleDragEnd);
+                            list.appendChild(listItem);
+
+                        // Highlight impactful tasks in Today's view (using symbol)
+                            // if (settings[0] == 1) {
+                            //     const divImpact = document.createElement('div');
+                            //     if (splitTask[3] == "/") {
+                            //         divImpact.textContent = "*";
+                            //     }
+                            //     divImpact.className = 'col-info';
+                            //     divImpact.classList.add("highlightImpactfulTask");
+                            //     listItem.appendChild(divImpact);
+                            // }
+                        // Highlight impactful tasks in Today's view (using numbering)
+                            if (settings[0] == 1) {
+                                const divQuadrant = document.createElement('div');
+                                if (splitTask[1] != "") {
+                                    if (splitTask[3] == "/") {
+                                        divQuadrant.textContent = "‼️"; // Quadrant 1
+                                    }
+                                    else {
+                                        divQuadrant.textContent = ""; // Quadrant 3 
+                                    }
+                                }
+                                else if (splitTask[1] == "") {
+                                    if (splitTask[3] == "/") {
+                                        divQuadrant.textContent = "⭐"; // Quadrant 2 
+                                    }
+                                    else {
+                                        divQuadrant.textContent = ""; // Quadrant 4 
+                                    }
+                                }
+                                divQuadrant.className = 'col-info';
+                                listItem.appendChild(divQuadrant);
                             }
-                            else {
-                                divQuadrant.textContent = "4";
+                        // Highlight impactful tasks in Today's view (using background color)
+                            // if (settings[0] == 1 && splitTask[3] == "/") {
+                            //     listItem.classList.add("highlightImpactfulTask2");
+                            // }
+
+                        // Create "Deadline" div
+                            if (splitTask[1] != "" || settings[0] == 1) {
+                                const divDeadline = document.createElement('div');
+                                divDeadline.textContent = splitTask[1];
+                                divDeadline.className = 'col-info';
+                                listItem.appendChild(divDeadline);
                             }
-                        }
-                        divQuadrant.className = 'col-info';
-                        listItem.appendChild(divQuadrant);
-                    }
-                    */
+                        
+                        // Create "Schedule" div
+                            const divSchedule = document.createElement('div');
+                            divSchedule.textContent = splitTask[2];
+                            divSchedule.className = 'col-info';
+                            listItem.appendChild(divSchedule);
+                        
+                        // Create "Task" div
+                            const divTask = document.createElement('div');
+                            divTask.textContent = splitTask[0];
+                            divTask.className = 'col-task';
+                            listItem.appendChild(divTask);
 
-                    // Create "Deadline" div
-                    if (splitTask[1] != "" || settings[0] == 1) {
-                        const divDeadline = document.createElement('div');
-                        divDeadline.textContent = splitTask[1];
-                        divDeadline.className = 'col-info';
-                        listItem.appendChild(divDeadline);
-                    }
-                    
-                    // Create "Schedule" div
-                    const divSchedule = document.createElement('div');
-                    divSchedule.textContent = splitTask[2];
-                    divSchedule.className = 'col-info';
-                    listItem.appendChild(divSchedule);
-                    
-                    // Create "Task" div
-                    const divTask = document.createElement('div');
-                    divTask.textContent = splitTask[0];
-                    divTask.className = 'col-task';
-                    listItem.appendChild(divTask);
+                        // Create "Update" div
+                            const divUpdate = document.createElement('div');
+                            divUpdate.className = 'col-update';
+                            listItem.appendChild(divUpdate);
 
-                    // Create "Update" div
-                    const divUpdate = document.createElement('div');
-                    divUpdate.className = 'col-update';
-                    listItem.appendChild(divUpdate);
+                        // Create "Move to/from today" button
+                            const todayButton = document.createElement('button');
+                            todayButton.textContent = 'T';
+                            todayButton.className = 'col-update-buttons';
+                            todayButton.addEventListener('click', () => {
+                                if (settings[0] == 0 || settings[0] == 2) {
+                                    let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : views[settings[0]][3];
+                                    todaysTasks.push(i[index]);
+                                    i.splice(index, 1);
+                                }
+                                else {
+                                    let i = splitTask[1] != "" && splitTask[3] == "/" ? allTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? allTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? allTasksQuadrant3 : allTasksQuadrant4;
+                                    i.push(todaysTasks[index]);
+                                    todaysTasks.splice(index, 1);
+                                }
+                                saveTasks();
+                                displayTasks();
+                            })
+                            divUpdate.appendChild(todayButton);
 
-                    // Create "Move to/from today" button
-                    const todayButton = document.createElement('button');
-                    todayButton.textContent = 'T';
-                    todayButton.className = 'col-update-buttons';
-                    todayButton.addEventListener('click', () => {
-                        if (settings[0] == 0 || settings[0] == 2) {
-                            let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : views[settings[0]][3];
-                            todaysTasks.push(i[index]);
-                            i.splice(index, 1);
-                        }
-                        else {
-                            let i = splitTask[1] != "" && splitTask[3] == "/" ? allTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? allTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? allTasksQuadrant3 : allTasksQuadrant4;
-                            i.push(todaysTasks[index]);
-                            todaysTasks.splice(index, 1);
-                        }
-                        saveTasks();
-                        displayTasks();
-                    })
-                    divUpdate.appendChild(todayButton);
+                        // Create "Archive/Unarchive" button
+                            const archiveButton = document.createElement('button');
+                            archiveButton.textContent = 'A';
+                            archiveButton.className = 'col-update-buttons';
+                            archiveButton.addEventListener('click', () => {
+                                let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : views[settings[0]][3];
+                                if (settings[0] == 0) {
+                                    let j = list == quadrant1 ? archivedTasksQuadrant1 : list == quadrant2 ? archivedTasksQuadrant2 : list == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+                                    j.push(i[index]);
+                                    i.splice(index, 1);
+                                }
+                                else if (settings[0] == 1) {
+                                    let i = splitTask[1] != "" && splitTask[3] == "/" ? archivedTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? archivedTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
+                                    i.push(todaysTasks[index]);
+                                    todaysTasks.splice(index, 1);
+                                }
+                                else if (settings[0] == 2) {
+                                    let j = list == quadrant1 ? allTasksQuadrant1 : list == quadrant2 ? allTasksQuadrant2 : list == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
+                                    j.push(i[index]);
+                                    i.splice(index, 1);
+                                }
+                                saveTasks();
+                                displayTasks();
+                            })
+                            divUpdate.appendChild(archiveButton);
 
-                    // Create "Archive/Unarchive" button
-                    const archiveButton = document.createElement('button');
-                    archiveButton.textContent = 'A';
-                    archiveButton.className = 'col-update-buttons';
-                    archiveButton.addEventListener('click', () => {
-                        let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : views[settings[0]][3];
-                        if (settings[0] == 0) {
-                            let j = list == quadrant1 ? archivedTasksQuadrant1 : list == quadrant2 ? archivedTasksQuadrant2 : list == quadrant3 ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
-                            j.push(i[index]);
-                            i.splice(index, 1);
-                        }
-                        else if (settings[0] == 1) {
-                            let i = splitTask[1] != "" && splitTask[3] == "/" ? archivedTasksQuadrant1 : splitTask[1] == "" && splitTask[3] == "/" ? archivedTasksQuadrant2 : splitTask[1] != "" && splitTask[3] == "" ? archivedTasksQuadrant3 : archivedTasksQuadrant4;
-                            i.push(todaysTasks[index]);
-                            todaysTasks.splice(index, 1);
-                        }
-                        else if (settings[0] == 2) {
-                            let j = list == quadrant1 ? allTasksQuadrant1 : list == quadrant2 ? allTasksQuadrant2 : list == quadrant3 ? allTasksQuadrant3 : allTasksQuadrant4;
-                            j.push(i[index]);
-                            i.splice(index, 1);
-                        }
-                        saveTasks();
-                        displayTasks();
-                    })
-                    divUpdate.appendChild(archiveButton);
+                        // Create "Edit" button
+                            const editButton = document.createElement('button');
+                            editButton.textContent = 'E';
+                            editButton.className = 'col-update-buttons';
+                            editButton.addEventListener('click', () => {
+                                if (userInput.value != "") {
+                                    alert("User input isn't empty");
+                                    userInput.focus;
+                                }
+                                else {
+                                    let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
+                                    // Split
+                                        let j = i[index].split(";");
+                                    // Concatinate
+                                        let k = j[0];
+                                        for (let l = 1; l < 4; l++) {
+                                            k = k.concat(" ; ", j[l]);
+                                        }
+                                    userInput.value = k;
+                                    userInput.focus();
+                                    i.splice(index, 1);
+                                    saveTasks();
+                                    displayTasks();
+                                }
+                            })
+                            divUpdate.appendChild(editButton);
 
-                    // Create "Edit" button
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'E';
-                    editButton.className = 'col-update-buttons';
-                    editButton.addEventListener('click', () => {
-                        let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
-                        userInput.value = i[index];
-                        userInput.focus();
-                        i.splice(index, 1);
-                        saveTasks();
-                        displayTasks();
-                    })
-                    divUpdate.appendChild(editButton);
-
-                    // Create "Delete" button
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'X';
-                    deleteButton.className = 'col-update-buttons';
-                    deleteButton.addEventListener("click", () => {
-                        let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
-                        i.splice(index, 1);
-                        saveTasks();
-                        displayTasks();
-                    });
-                    divUpdate.appendChild(deleteButton);
-
-                    // Highlight impactful tasks in Today's view
-                    if (settings[0] == 1 && splitTask[3] == "/") {
-                        listItem.style.setProperty('background-color', 'var(--background-color-list-highlight)');
-                        divUpdate.style.setProperty('background-color', 'var(--background-color-list-highlight)');
-                        divUpdate.style.setProperty('box-shadow', '-20px 0px 10px -5px var(--background-color-list-highlight)');
-
-                        todayButton.style.setProperty('background-color', 'var(--background-color-list-highlight)');
-                        archiveButton.style.setProperty('background-color', 'var(--background-color-list-highlight)');
-                        editButton.style.setProperty('background-color', 'var(--background-color-list-highlight)');
-                        deleteButton.style.setProperty('background-color', 'var(--background-color-list-highlight)');
+                        // Create "Delete" button
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'X';
+                            deleteButton.className = 'col-update-buttons';
+                            deleteButton.addEventListener("click", () => {
+                                let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
+                                i.splice(index, 1);
+                                saveTasks();
+                                displayTasks();
+                            });
+                            divUpdate.appendChild(deleteButton);
                     }
                 }
-            }
-
-            attachDragAndDrop();
         }
 
     // Save to localstorage
@@ -430,71 +439,52 @@
         }
 
     // Drag & drop
-        function attachDragAndDrop() {
-            [quadrant1, quadrant2, quadrant3, quadrant4, singlelist].forEach((quadrant, index) => {
-                quadrant.dataset.index = index;
-                enableDragAndDrop(quadrant);
-            });
+        let draggedItemIndex = null;
+        function handleDragStart(e) {
+            draggedItemIndex = Array.from(this.parentNode.children).indexOf(this);
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
         }
-        function enableDragAndDrop(quadrant) {
-            const tasks = quadrant.querySelectorAll('.taskli');
-
-            tasks.forEach(task => {
-                task.setAttribute('draggable', true);
-
-                task.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', e.target.dataset.index);
-                    e.target.classList.add('dragging');
-                });
-
-                task.addEventListener('dragend', (e) => {
-                    e.target.classList.remove('dragging');
-                });
-            });
-
-            quadrant.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                const afterElement = getDragAfterElement(quadrant, e.clientY);
-                const draggingElement = quadrant.querySelector('.dragging');
-
-                if (afterElement == null) {
-                    quadrant.appendChild(draggingElement);
-                } else {
-                    quadrant.insertBefore(draggingElement, afterElement);
-                }
-            });
-            
-            quadrant.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const newOrder = Array.from(quadrant.querySelectorAll('.taskli')).map(task => task.textContent.trim());
-                const quadrantIndex = parseInt(quadrant.dataset.index, 10);
-
-                views[settings[0]][quadrantIndex] = newOrder;
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('drop-target');
+            const targetItemIndex = Array.from(this.parentNode.children).indexOf(this);
+            const list = this.parentNode;
+            const lists = views[settings[0]];
+            let listIndex;
+            if (settings[0] === 0 || settings[0] === 2) {
+                listIndex = list === quadrant1 ? 0 :
+                            list === quadrant2 ? 1 :
+                            list === quadrant3 ? 2 :
+                            list === quadrant4 ? 3 : -1;
+            } else if (settings[0] === 1) {
+                listIndex = 0;
+            }
+            if (draggedItemIndex !== targetItemIndex && listIndex !== -1) {
+                const taskArray = lists[listIndex];
+                const [movedItem] = taskArray.splice(draggedItemIndex, 1);
+                taskArray.splice(targetItemIndex, 0, movedItem);
                 saveTasks();
-            });
+                displayTasks();
+            }
         }
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.taskli:not(.dragging)')];
-
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        function handleDragEnd() {
+            draggedItemIndex = null;
         }
 
     // Switch views
         function viewAll() {
             document.getElementById('view-singlelist').style.display = 'none';
             document.getElementById('view-matrix').style.display = 'block';
+
             document.getElementById('All').style.outline = '1px solid var(--color-border)';
             document.getElementById('Tdy').style.outline = 'none';
             document.getElementById('Arc').style.outline = 'none';
+
             settings[0] = 0;
             localStorage.setItem('settings', JSON.stringify(settings));
             displayTasks();
@@ -502,9 +492,11 @@
         function viewTdy() {
             document.getElementById('view-matrix').style.display = 'none';
             document.getElementById('view-singlelist').style.display = 'block';
+
             document.getElementById('Tdy').style.outline = '1px solid var(--color-border)';
             document.getElementById('All').style.outline = 'none';
             document.getElementById('Arc').style.outline = 'none';
+
             settings[0] = 1;
             localStorage.setItem('settings', JSON.stringify(settings));
             displayTasks();
@@ -512,44 +504,69 @@
         function viewArc() {
             document.getElementById('view-singlelist').style.display = 'none';
             document.getElementById('view-matrix').style.display = 'block';
+
             document.getElementById('Arc').style.outline = '1px solid var(--color-border)';
             document.getElementById('All').style.outline = 'none';
             document.getElementById('Tdy').style.outline = 'none';
+
             settings[0] = 2;
             localStorage.setItem('settings', JSON.stringify(settings));
             displayTasks();
         }
 
+    
+    // Copy
+        function copy() {
+            let copyText = "";
+            let i = settings[0];
+
+            for (let j = 0; j < views[i].length; j++) {
+                for (let k = 0; k < views[i][j].length; k++) {
+                    let splitTask = views[i][j][k].split(";");
+                    copyText += "\n- " + splitTask[0];
+                }
+                copyText += "\n";
+            }
+
+            const temporaryTextarea = document.createElement('textarea');
+            temporaryTextarea.value = copyText;
+            document.body.appendChild(temporaryTextarea);
+            temporaryTextarea.select();
+            temporaryTextarea.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand('copy');
+            document.body.removeChild(temporaryTextarea);
+        }
+
     // Switch color modes
         function darkMode() {
-
             document.getElementById('darkMode').style.display = 'none';
             document.getElementById('lightMode').style.display = 'block';
 
             document.querySelector(':root').style.setProperty('--color-font', 'hsl(0, 0%, 100%)');
             document.querySelector(':root').style.setProperty('--color-border', 'hsl(0, 0%, 25%)');
+
             document.querySelector(':root').style.setProperty('--background-color-main', 'hsl(0, 0%, 0%)');
             document.querySelector(':root').style.setProperty('--background-color-list', 'hsl(0, 0%, 10%)');
-            document.querySelector(':root').style.setProperty('--background-color-list-highlight', 'hsl(0, 0%, 7.5%)');
+            // document.querySelector(':root').style.setProperty('--background-color-list-highlight', 'hsl(0, 0%, 6%)');
+            document.querySelector(':root').style.setProperty('--background-color-list-hover', 'hsl(0, 0%, 5%)');
 
             settings[1] = true;
             localStorage.setItem('settings', JSON.stringify(settings));
-
         }
         function lightMode() {
-
             document.getElementById('lightMode').style.display = 'none';
             document.getElementById('darkMode').style.display = 'block';
 
             document.querySelector(':root').style.setProperty('--color-font', 'hsl(0, 0%, 0%)');
             document.querySelector(':root').style.setProperty('--color-border', 'hsl(0, 0%, 75%)');
+            
             document.querySelector(':root').style.setProperty('--background-color-main', 'hsl(0, 0%, 90%)');
             document.querySelector(':root').style.setProperty('--background-color-list', 'hsl(0, 0%, 100%)');
-            document.querySelector(':root').style.setProperty('--background-color-list-highlight', 'hsl(0, 0%, 97.5%)');
+            // document.querySelector(':root').style.setProperty('--background-color-list-highlight', 'hsl(0, 0%, 95.5%)');
+            document.querySelector(':root').style.setProperty('--background-color-list-hover', 'hsl(0, 0%, 95%)');
 
             settings[1] = false;
             localStorage.setItem('settings', JSON.stringify(settings));
-
         }
 
 /******************************* Loops ********************************/
@@ -694,3 +711,79 @@
             document.getElementById('time').textContent = hourRN + ":" + minutesRN + " " + meridiemRN;
 
         }, 1000);
+
+/*************************** EventListeners ***************************/
+
+    // In addEventListener, function(x) {} is same as (x) => {}
+
+    // Insert/Update input
+        userInput.addEventListener("focus", () => {
+            if (userInput.value == "") {
+                userInput.value = " ;  ;  ; ";
+            }
+            // Give time to let the browser process
+            setTimeout(() => {
+                userInput.setSelectionRange(0, 0);
+                userInput.focus();
+            }, 0);
+        });
+        userInput.addEventListener("blur", () => {
+            let x = userInput.value.split(";");
+            let flag = 0;
+            for (let i = 0; i < x.length; i++) {
+                if (x[i].trim() != "") {
+                    flag += 1;
+                }   
+            }
+            if (flag == 0) {
+                userInput.value="";
+            }
+        })
+        userInput.addEventListener("keydown", (e) => {
+            switch(e.key) {
+                // case 'ArrowLeft':
+                //     break;
+                case 'ArrowRight':
+                    const cursorPosition = this.selectionStart;
+                    const inputValue = this.value;
+                    const nextThreeChars = inputValue.substring(cursorPosition, cursorPosition + 3);
+                    alert(nextThreeChars);
+                    if (nextThreeChars == " ; ") {
+                        userInput.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
+                    }
+                    break;
+                // case 'Backspace':
+                //     ...
+                //     if (...) {
+                //         e.preventDefault();
+                //     }
+                //     break;
+                // case 'Delete':
+                //     ...
+                //     if (...) {
+                //         e.preventDefault();
+                //     }
+                //     break;
+                case "Enter":
+                    if (e.shiftKey) {
+                        alert("Subtask");
+                    }
+                    else {
+                        preprocessInput();
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (e.shiftKey) {
+                        e.preventDefault();
+                    }
+                    break;
+                // case ";":
+                //     e.preventDefault();
+                //     userInput.value += " ; "
+                //     break;
+                // case ".":
+                //     e.preventDefault();
+                //     userInput.value += " ➤ "
+                //     break;
+            }
+        });

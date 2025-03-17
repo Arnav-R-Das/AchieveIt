@@ -13,6 +13,7 @@ body {
 
 textarea {
     width: calc(100% - (10px * 4));
+    height: 200px;
     padding: 10px;
     margin: 10px;
     border: none;
@@ -20,6 +21,7 @@ textarea {
     resize: none;
 
     background-color: lightgray;
+    font-family: monospace;
 }
 
 li {

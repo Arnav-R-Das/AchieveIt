@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Preview</title>
+    <style>
+        /* Basic styles for the task list */
+        #quadrant1, #quadrant2 {
+            list-style: none;
+            padding: 0;
+        }
+        .taskli {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            cursor: grab;
+        }
+        /* Style for the preview element */
+        .taskli-preview {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.8;
+            z-index: 1000;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="quadrant1">
+        <div class="taskli" draggable="true">Task 1</div>
+        <div class="taskli" draggable="true">Task 2</div>
+    </div>
+    <div id="quadrant2">
+        <div class="taskli" draggable="true">Task 3</div>
+        <div class="taskli" draggable="true">Task 4</div>
+    </div>
+
+    <script>
+        let draggedItem = null;
+        let previewElement = null;
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            // Create a clone for the preview
+            previewElement = this.cloneNode(true);
+            previewElement.classList.add('taskli-preview');
+            document.body.appendChild(previewElement);
+            // Set initial position
+            previewElement.style.left = `${e.clientX}px`;
+            previewElement.style.top = `${e.clientY}px`;
+            // Hide the original item
+            this.style.opacity = '0.4';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            // Update preview position
+            if (previewElement) {
+                previewElement.style.left = `${e.clientX}px`;
+                previewElement.style.top = `${e.clientY}px`;
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            if (draggedItem && previewElement) {
+                // Remove the preview
+                previewElement.remove();
+                previewElement = null;
+                // Restore the original item
+                draggedItem.style.opacity = '1';
+                // Move the dragged item to the new location
+                this.appendChild(draggedItem);
+                draggedItem = null;
+            }
+        }
+
+        function handleDragEnd() {
+            if (previewElement) {
+                previewElement.remove();
+                previewElement = null;
+            }
+            if (draggedItem) {
+                draggedItem.style.opacity = '1';
+                draggedItem = null;
+            }
+        }
+
+        // Attach event listeners to all taskli elements
+        document.querySelectorAll('.taskli').forEach(task => {
+            task.addEventListener('dragstart', handleDragStart);
+            task.addEventListener('dragover', handleDragOver);
+            task.addEventListener('drop', handleDrop);
+            task.addEventListener('dragend', handleDragEnd);
+        });
+    </script>
+</body>
+</html>
