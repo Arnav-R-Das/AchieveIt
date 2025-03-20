@@ -39,7 +39,6 @@
 
 /*********************** Initial Function calls ***********************/
 
-    // Display tasks
         displayTasks();
 
     // Switch views
@@ -58,7 +57,7 @@
             darkMode();
         }
         else {
-                lightMode();
+            lightMode();
         }
 
 /***************************** Functions ******************************/
@@ -154,7 +153,11 @@
 
                                                         saveTasks();
                                                         displayTasks();
-                                                        userInput.value = '';
+                                                        userInput.value = " ;  ;  ; ";
+                                                        setTimeout(() => {
+                                                            userInput.setSelectionRange(0, 0);
+                                                            userInput.focus();
+                                                        }, 0);
                                                 }
 
                                         // }
@@ -721,7 +724,6 @@
             if (userInput.value == "") {
                 userInput.value = " ;  ;  ; ";
             }
-            // Give time to let the browser process
             setTimeout(() => {
                 userInput.setSelectionRange(0, 0);
                 userInput.focus();
@@ -739,26 +741,78 @@
                 userInput.value="";
             }
         })
+        document.addEventListener("keydown", (e) => {
+            if (e.target.tagName === 'INPUT') {
+                return;
+            }
+            else {
+                switch (e.key) {
+                    case "Enter":
+                        e.preventDefault();
+                        userInput.focus();
+                        break;
+                    case " ":
+                        e.preventDefault();
+                        userInput.focus();
+                        break;
+                    case "a":
+                        e.preventDefault();
+                        viewAll();
+                        break;
+                    case "s":
+                        e.preventDefault();
+                        viewTdy();
+                        break;
+                    case "d":
+                        e.preventDefault();
+                        viewArc();
+                        break;
+                    case "l":
+                        e.preventDefault();
+                        if (settings[1]) {
+                            lightMode();
+                        }
+                        else {
+                            darkMode();
+                        }
+                        break;
+                    // case "z":
+                    //     Undo edit, reorder, move to all/tdy/arc, delete (upto last 10)
+                    //     break;
+                    case "c":
+                        e.preventDefault();
+                        copy();
+                        break;
+                }
+            }
+        })
         userInput.addEventListener("keydown", (e) => {
-            switch(e.key) {
-                // case 'ArrowLeft':
+            switch (e.key) {
+                case "Escape":
+                    userInput.blur();
+                    break;
+                // case "ArrowLeft":
                 //     break;
-                case 'ArrowRight':
-                    const cursorPosition = this.selectionStart;
-                    const inputValue = this.value;
-                    const nextThreeChars = inputValue.substring(cursorPosition, cursorPosition + 3);
-                    alert(nextThreeChars);
-                    if (nextThreeChars == " ; ") {
-                        userInput.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
+                case "ArrowRight":
+                    if (e.shiftKey) {
+                    }
+                    else {
+                        const cursorPosition = this.selectionStart;
+                        const inputValue = this.value;
+                        const nextThreeChars = inputValue.substring(cursorPosition, cursorPosition + 3);
+                        alert(nextThreeChars);
+                        if (nextThreeChars == " ; ") {
+                            userInput.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
+                        }
                     }
                     break;
-                // case 'Backspace':
+                // case "Backspace":
                 //     ...
                 //     if (...) {
                 //         e.preventDefault();
                 //     }
                 //     break;
-                // case 'Delete':
+                // case "Delete":
                 //     ...
                 //     if (...) {
                 //         e.preventDefault();
@@ -770,11 +824,6 @@
                     }
                     else {
                         preprocessInput();
-                    }
-                    break;
-                case "ArrowLeft":
-                    if (e.shiftKey) {
-                        e.preventDefault();
                     }
                     break;
                 // case ";":
