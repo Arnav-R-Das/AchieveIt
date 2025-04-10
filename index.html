@@ -18,14 +18,17 @@
     <!--NAVBAR-->
       <div id="navbar">
         <div>
-          <button id="All" onclick="viewAll()"> All </button>
-          <button id="Tdy" onclick="viewTdy()"> Tdy </button>
-          <button id="Tdy" onclick="copy()"> Cpy </button>
+          <button id="All" class="navbar-button" onclick="switchView('All', 'matrix', 0)"> All </button>
+          <button id="Rep" class="navbar-button" onclick="alert('Repeated tasks coming soon')"> Rep </button>
+          <button id="Tdy" class="navbar-button" onclick="switchView('Tdy', 'singlelist', 1)"> Tdy </button>
         </div>
         <div>
-          <button id="Arc" onclick="viewArc()"> Arc </button>
-          <button id="darkMode" onclick="darkMode()"> Dar </button>
-          <button id="lightMode" onclick="lightMode()"> Lig </button>
+          <button id="Upc" class="navbar-button" onclick="alert('Upcoming tasks coming soon')"> Upc </button>
+          <button id="Arc" class="navbar-button" onclick="switchView('Arc', 'matrix', 2)"> Arc </button>
+          <button id="Com" class="navbar-button" onclick="alert('Completed tasks coming soon')"> Com </button>
+          <button id="Cpy" class="navbar-button" onclick="copy()"> Cpy </button>
+          <button id="darkMode" class="navbar-button" onclick="darkMode()"> Dar </button>
+          <button id="lightMode" class="navbar-button" onclick="lightMode()"> Lig </button>
         </div>
       </div>
 

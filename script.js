@@ -43,13 +43,13 @@
 
     // Switch views
         if (settings[0] == 0) {
-            viewAll();
+            switchView('All', 'matrix', 0);
         }
         else if (settings[0] == 1) {
-            viewTdy();
+            switchView('Tdy', 'singlelist', 1);
         }
         else if (settings[0] == 2) {
-            viewArc();
+            switchView('Arc', 'matrix', 2);
         }
 
     // Switch color modes
@@ -328,7 +328,7 @@
                             divSchedule.textContent = splitTask[2];
                             divSchedule.className = 'col-info';
                             listItem.appendChild(divSchedule);
-                        
+                            
                         // Create "Task" div
                             const divTask = document.createElement('div');
                             divTask.textContent = splitTask[0];
@@ -480,41 +480,29 @@
         }
 
     // Switch views
-        function viewAll() {
-            document.getElementById('view-singlelist').style.display = 'none';
-            document.getElementById('view-matrix').style.display = 'block';
+        function switchView(a, b, c) {
+            
+            // a = Highlight selected navbar button
+                let e = document.querySelectorAll(".navbar-button");
+                e.forEach(e => {
+                    e.style.outline = 'none';
+                });
+                document.getElementById(a).style.outline = '1px solid var(--color-border)';
 
-            document.getElementById('All').style.outline = '1px solid var(--color-border)';
-            document.getElementById('Tdy').style.outline = 'none';
-            document.getElementById('Arc').style.outline = 'none';
+            // b = Matrix / Singlelist
+                if (b == 'matrix') {
+                    document.getElementById('view-singlelist').style.display = 'none';
+                    document.getElementById('view-matrix').style.display = 'block';
+                }
+                else if ( b == 'singlelist') {
+                    document.getElementById('view-matrix').style.display = 'none';
+                    document.getElementById('view-singlelist').style.display = 'block';
+                }
 
-            settings[0] = 0;
-            localStorage.setItem('settings', JSON.stringify(settings));
-            displayTasks();
-        }
-        function viewTdy() {
-            document.getElementById('view-matrix').style.display = 'none';
-            document.getElementById('view-singlelist').style.display = 'block';
-
-            document.getElementById('Tdy').style.outline = '1px solid var(--color-border)';
-            document.getElementById('All').style.outline = 'none';
-            document.getElementById('Arc').style.outline = 'none';
-
-            settings[0] = 1;
-            localStorage.setItem('settings', JSON.stringify(settings));
-            displayTasks();
-        }
-        function viewArc() {
-            document.getElementById('view-singlelist').style.display = 'none';
-            document.getElementById('view-matrix').style.display = 'block';
-
-            document.getElementById('Arc').style.outline = '1px solid var(--color-border)';
-            document.getElementById('All').style.outline = 'none';
-            document.getElementById('Tdy').style.outline = 'none';
-
-            settings[0] = 2;
-            localStorage.setItem('settings', JSON.stringify(settings));
-            displayTasks();
+            // c = Save last viewed
+                settings[0] = c;
+                localStorage.setItem('settings', JSON.stringify(settings));
+                displayTasks();
         }
 
     
@@ -717,9 +705,76 @@
 
 /*************************** EventListeners ***************************/
 
-    // In addEventListener, function(x) {} is same as (x) => {}
+    // Note: In addEventListener, function(x) {} is same as (x) => {}
 
-    // Insert/Update input
+    // Document
+        document.addEventListener("keydown", (e) => {
+            if (e.target.tagName === 'INPUT') {
+                return;
+            }
+            else {
+                switch (e.key) {
+                    case "Enter":
+                    case " ":
+                        e.preventDefault();
+                        userInput.focus();
+                        break;
+
+                    case "a":
+                    case "A":
+                        e.preventDefault();
+                        switchView('All', 'matrix', 0);
+                        break;
+                    case "s":
+                    case "S":
+                        e.preventDefault();
+                        alert("Repeated tasks coming soon");
+                        break;
+                    case "d":
+                    case "D":
+                        e.preventDefault();
+                        switchView('Tdy', 'singlelist', 1);
+                        break;
+                    case "f":
+                    case "F":
+                        e.preventDefault();
+                        alert("Upcoming tasks coming soon");
+                        break;
+                    case "g":
+                    case "G":
+                        e.preventDefault();
+                        switchView('Arc', 'matrix', 2);
+                        break;
+                    case "h":
+                    case "H":
+                        e.preventDefault();
+                        alert("Completed tasks coming soon");
+                        break;
+                        
+                    case "l":
+                    case "L":
+                        e.preventDefault();
+                        if (settings[1]) {
+                            lightMode();
+                        }
+                        else {
+                            darkMode();
+                        }
+                        break;
+                    // case "z":
+                    // case "Z"
+                    //     Undo edit, reorder, move to all/tdy/arc, delete (upto last 10)
+                    //     break;
+                    case "c":
+                    case "C":
+                        e.preventDefault();
+                        copy();
+                        break;
+                }
+            }
+        })
+
+    // UserInput
         userInput.addEventListener("focus", () => {
             if (userInput.value == "") {
                 userInput.value = " ;  ;  ; ";
@@ -739,51 +794,6 @@
             }
             if (flag == 0) {
                 userInput.value="";
-            }
-        })
-        document.addEventListener("keydown", (e) => {
-            if (e.target.tagName === 'INPUT') {
-                return;
-            }
-            else {
-                switch (e.key) {
-                    case "Enter":
-                        e.preventDefault();
-                        userInput.focus();
-                        break;
-                    case " ":
-                        e.preventDefault();
-                        userInput.focus();
-                        break;
-                    case "a":
-                        e.preventDefault();
-                        viewAll();
-                        break;
-                    case "s":
-                        e.preventDefault();
-                        viewTdy();
-                        break;
-                    case "d":
-                        e.preventDefault();
-                        viewArc();
-                        break;
-                    case "l":
-                        e.preventDefault();
-                        if (settings[1]) {
-                            lightMode();
-                        }
-                        else {
-                            darkMode();
-                        }
-                        break;
-                    // case "z":
-                    //     Undo edit, reorder, move to all/tdy/arc, delete (upto last 10)
-                    //     break;
-                    case "c":
-                        e.preventDefault();
-                        copy();
-                        break;
-                }
             }
         })
         userInput.addEventListener("keydown", (e) => {

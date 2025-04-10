@@ -34,20 +34,20 @@ li {
 
 .subtask-1 {
     margin-left: calc(var(--indentation) * 1);
-    background-color: purple;
+    background-color: yellow;
 }
 
 .subtask-2 {
     margin-left: calc(var(--indentation) * 2);
-    background-color: blue;
+    background-color: green;
 }
 
 .subtask-3 {
     margin-left: calc(var(--indentation) * 3);
-    background-color: yellow;
+    background-color: blue;
 }
 
 .subtask-4 {
     margin-left: calc(var(--indentation) * 4);
-    background-color: green;
+    background-color: violet;
 }
