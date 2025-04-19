@@ -39,18 +39,8 @@
 
 /*********************** Initial Function calls ***********************/
 
+        switchView(settings[0]);
         displayTasks();
-
-    // Switch views
-        if (settings[0] == 0) {
-            switchView('All', 'matrix', 0);
-        }
-        else if (settings[0] == 1) {
-            switchView('Tdy', 'singlelist', 1);
-        }
-        else if (settings[0] == 2) {
-            switchView('Arc', 'matrix', 2);
-        }
 
     // Switch color modes
         if (settings[1]) {
@@ -165,8 +155,7 @@
                         }
                 }
         }
-        /*
-        function validateDate(x) {
+        /* function validateDate(x) {
             // Month
             let month = x.toLowerCase();
             switch(month) {
@@ -242,8 +231,7 @@
                 default:
                     alert("Not found");
             }
-        }
-        */
+        } */
 
     // Display tasks
         function displayTasks() {
@@ -480,7 +468,18 @@
         }
 
     // Switch views
-        function switchView(a, b, c) {
+        function switchView(x) {
+            if (x == 0) {
+                switchView2('Eis', 'matrix', 0);
+            }
+            else if (x == 1) {
+                switchView2('Tdy', 'singlelist', 1);
+            }
+            else if (x == 2) {
+                switchView2('Arc', 'matrix', 2);
+            }
+        }
+        function switchView2(a, b, c) {
             
             // a = Highlight selected navbar button
                 let e = document.querySelectorAll(".navbar-button");
@@ -567,139 +566,163 @@
 
             let today = new Date();
 
-            // let yearRN = today.getFullYear();
-            switch(today.getMonth()) {
-                case 0:
-                    monthRN = "JAN";
-                    break;
-                case 1:
-                    monthRN = "FEB";
-                    break;
-                case 2:
-                    monthRN = "MAR";
-                    break;
-                case 3:
-                    monthRN = "APR";
-                    break;
-                case 4:
-                    monthRN = "MAY";
-                    break;
-                case 5:
-                    monthRN = "JUN";
-                    break;
-                case 6:
-                    monthRN = "JUL";
-                    break;
-                case 7:
-                    monthRN = "AUG";
-                    break;
-                case 8:
-                    monthRN = "SEP";
-                    break;
-                case 9:
-                    monthRN = "OCT";
-                    break;
-                case 10:
-                    monthRN = "NOV";
-                    break;
-                case 11:
-                    monthRN = "DEC";
-                    break;
-            }
-            // let dayRN = today().getDay();
-            let dateRN = today.getDate();
-            let meridiemRN = "AM";
-            let hourRN = today.getHours();
-            switch(hourRN) {
-                case 0:
-                    hourRN = "12";
-                    break;
-                case 12:
-                    meridiemRN = "PM";
-                    break;
-                case 13:
-                    hourRN = "1";
-                    meridiemRN = "PM";
-                    break;
-                case 14:
-                    hourRN = "2";
-                    meridiemRN = "PM";
-                    break;
-                case 15:
-                    hourRN = "3";
-                    meridiemRN = "PM";
-                    break;
-                case 16:
-                    hourRN = "4";
-                    meridiemRN = "PM";
-                    break;
-                case 17:
-                    hourRN = "5";
-                    meridiemRN = "PM";
-                    break;
-                case 18:
-                    hourRN = "6";
-                    meridiemRN = "PM";
-                    break;
-                case 19:
-                    hourRN = "7";
-                    meridiemRN = "PM";
-                    break;
-                case 20:
-                    hourRN = "8";
-                    meridiemRN = "PM";
-                    break;
-                case 21:
-                    hourRN = "9";
-                    meridiemRN = "PM";
-                    break;
-                case 22:
-                    hourRN = "10";
-                    meridiemRN = "PM";
-                    break;
-                case 23:
-                    hourRN = "11";
-                    meridiemRN = "PM";
-                    break;
-            }
-            let minutesRN = today.getMinutes();
-            switch (minutesRN) {
-                case 0:
-                    minutesRN = "00";
-                    break;
-                case 1:
-                    minutesRN = "01";
-                    break;
-                case 2:
-                    minutesRN = "02";
-                    break;
-                case 3:
-                    minutesRN = "03";
-                    break;
-                case 4:
-                    minutesRN = "04";
-                    break;
-                case 5:
-                    minutesRN = "05";
-                    break;
-                case 6:
-                    minutesRN = "06";
-                    break;
-                case 7:
-                    minutesRN = "07";
-                    break;
-                case 8:
-                    minutesRN = "08";
-                    break;
-                case 9:
-                    minutesRN = "09";
-                    break;
-            }
-            // let secondsRN = today.getSeconds();
-            
-            document.getElementById('week').textContent = "W?";
-            document.getElementById('date').textContent = monthRN + " " + dateRN;
-            document.getElementById('time').textContent = hourRN + ":" + minutesRN + " " + meridiemRN;
+            // Week
+                document.getElementById('week').textContent = "W?";
+
+            // Date
+                switch(today.getMonth()) {
+                    case 0:
+                        monthRN = "JAN";
+                        break;
+                    case 1:
+                        monthRN = "FEB";
+                        break;
+                    case 2:
+                        monthRN = "MAR";
+                        break;
+                    case 3:
+                        monthRN = "APR";
+                        break;
+                    case 4:
+                        monthRN = "MAY";
+                        break;
+                    case 5:
+                        monthRN = "JUN";
+                        break;
+                    case 6:
+                        monthRN = "JUL";
+                        break;
+                    case 7:
+                        monthRN = "AUG";
+                        break;
+                    case 8:
+                        monthRN = "SEP";
+                        break;
+                    case 9:
+                        monthRN = "OCT";
+                        break;
+                    case 10:
+                        monthRN = "NOV";
+                        break;
+                    case 11:
+                        monthRN = "DEC";
+                        break;
+                }
+                let dateRN = today.getDate();
+                switch(today.getDay()) {
+                    case 0:
+                        dayRN = "SUN";
+                        break;
+                    case 1:
+                        dayRN = "MON";
+                        break;
+                    case 2:
+                        dayRN = "TUE";
+                        break;
+                    case 3:
+                        dayRN = "WED";
+                        break;
+                    case 4:
+                        dayRN = "THU";
+                        break;
+                    case 5:
+                        dayRN = "FRI";
+                        break;
+                    case 6:
+                        dayRN = "SAT";
+                        break;
+                }
+                document.getElementById('date').textContent = monthRN + " " + dateRN + ", " + dayRN;
+
+            // Time
+                let meridiemRN = "AM";
+                let hourRN = today.getHours();
+                switch(hourRN) {
+                    case 0:
+                        hourRN = "12";
+                        break;
+                    case 12:
+                        meridiemRN = "PM";
+                        break;
+                    case 13:
+                        hourRN = "1";
+                        meridiemRN = "PM";
+                        break;
+                    case 14:
+                        hourRN = "2";
+                        meridiemRN = "PM";
+                        break;
+                    case 15:
+                        hourRN = "3";
+                        meridiemRN = "PM";
+                        break;
+                    case 16:
+                        hourRN = "4";
+                        meridiemRN = "PM";
+                        break;
+                    case 17:
+                        hourRN = "5";
+                        meridiemRN = "PM";
+                        break;
+                    case 18:
+                        hourRN = "6";
+                        meridiemRN = "PM";
+                        break;
+                    case 19:
+                        hourRN = "7";
+                        meridiemRN = "PM";
+                        break;
+                    case 20:
+                        hourRN = "8";
+                        meridiemRN = "PM";
+                        break;
+                    case 21:
+                        hourRN = "9";
+                        meridiemRN = "PM";
+                        break;
+                    case 22:
+                        hourRN = "10";
+                        meridiemRN = "PM";
+                        break;
+                    case 23:
+                        hourRN = "11";
+                        meridiemRN = "PM";
+                        break;
+                }
+                let minutesRN = today.getMinutes();
+                switch (minutesRN) {
+                    case 0:
+                        minutesRN = "00";
+                        break;
+                    case 1:
+                        minutesRN = "01";
+                        break;
+                    case 2:
+                        minutesRN = "02";
+                        break;
+                    case 3:
+                        minutesRN = "03";
+                        break;
+                    case 4:
+                        minutesRN = "04";
+                        break;
+                    case 5:
+                        minutesRN = "05";
+                        break;
+                    case 6:
+                        minutesRN = "06";
+                        break;
+                    case 7:
+                        minutesRN = "07";
+                        break;
+                    case 8:
+                        minutesRN = "08";
+                        break;
+                    case 9:
+                        minutesRN = "09";
+                        break;
+                }
+                document.getElementById('time').textContent = hourRN + ":" + minutesRN + " " + meridiemRN;
 
         }, 1000);
 
@@ -720,35 +743,37 @@
                         userInput.focus();
                         break;
 
-                    case "a":
-                    case "A":
+                    case "ArrowUp":
                         e.preventDefault();
-                        switchView('All', 'matrix', 0);
+                        settings[0] = 0;
+                        switchView(settings[0]);
                         break;
-                    case "s":
-                    case "S":
+                    case "ArrowDown":
                         e.preventDefault();
-                        alert("Repeated tasks coming soon");
+                        settings[0] = 2;
+                        switchView(settings[0]);
                         break;
-                    case "d":
-                    case "D":
+                    case "ArrowLeft":
                         e.preventDefault();
-                        switchView('Tdy', 'singlelist', 1);
+                        if (settings[0] > 0) {
+                            settings[0]--;
+                            switchView(settings[0]);
+                        }
+                        else {
+                            settings[0] = 2;
+                            switchView(settings[0]);
+                        }
                         break;
-                    case "f":
-                    case "F":
+                    case "ArrowRight":
                         e.preventDefault();
-                        alert("Upcoming tasks coming soon");
-                        break;
-                    case "g":
-                    case "G":
-                        e.preventDefault();
-                        switchView('Arc', 'matrix', 2);
-                        break;
-                    case "h":
-                    case "H":
-                        e.preventDefault();
-                        alert("Completed tasks coming soon");
+                        if (settings[0] < 2) {
+                            settings[0]++;
+                            switchView(settings[0]);
+                        }
+                        else {
+                            settings[0] = 0;
+                            switchView(settings[0]);
+                        }
                         break;
                         
                     case "l":
