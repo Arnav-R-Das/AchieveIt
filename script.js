@@ -55,26 +55,26 @@
     // Preprocess input
         function preprocessInput() {
             let newTask = userInput.value;          // Take input
-            let validateTask = newTask.split(";");  // Split Input
+            let validateTask = newTask.split("|");  // Split Input
             let len = validateTask.length;
 
-            // Validate semicolons
+            // Validate pipes
                 if (len != 4) {
                     if (len < 4) {
                         len = 4 - len;
                         if (len == 1) {
-                            alert("1 missing semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                            alert("1 pipe missing \n\nEnter the Task, Deadline, Schedule and Impact seperated by pipes ( | ) \n\n>>> Task | Deadline | Schedule | Impact");
                         }
                         else {
-                            alert(len + " missing semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");}
+                            alert(len + " pipes missing \n\nEnter the Task, Deadline, Schedule and Impact seperated by pipes ( | ) \n\n>>> Task | Deadline | Schedule | Impact");}
                     }
                     else {
                         len = len - 4;
                         if (len == 1) {
-                            alert("1 extra semicolon \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                            alert("1 extra pipes \n\nEnter the Task, Deadline, Schedule and Impact seperated by pipes ( | ) \n\n>>> Task | Deadline | Schedule | Impact");
                         }
                         else {
-                            alert(len + " extra semicolons \n\nEnter the Task, Deadline, Schedule and Impact seperated by semicolons ( ; ) \n\n>>> Task ; Deadline ; Schedule ; Impact");
+                            alert(len + " extra pipes \n\nEnter the Task, Deadline, Schedule and Impact seperated by pipes ( | ) \n\n>>> Task | Deadline | Schedule | Impact");
                         }
                     }
                 }
@@ -116,7 +116,7 @@
                                                         validTask = validTask.concat(" ", validateTask[j]).trim();
                                                         j++;
                                                         for (; j < 4; j++) {
-                                                            validTask = validTask.concat(";", validateTask[j]);
+                                                            validTask = validTask.concat("|", validateTask[j]);
                                                         }
 
                                                         if (settings[0] == 0 || settings[0] == 2) {
@@ -143,7 +143,7 @@
 
                                                         saveTasks();
                                                         displayTasks();
-                                                        userInput.value = " ;  ;  ; ";
+                                                        userInput.value = " |  |  | ";
                                                         setTimeout(() => {
                                                             userInput.setSelectionRange(0, 0);
                                                             userInput.focus();
@@ -244,7 +244,7 @@
                 for (let i = 0; i < views[settings[0]].length; i++) {
                     for (let j = 0, len = lists[i].length; j < len; j++) {
 
-                            let splitTask = lists[i][j].split(";");  // Split each element of the array into Task, Deadline, Schedule & Impact
+                            let splitTask = lists[i][j].split("|");  // Split each element of the array into Task, Deadline, Schedule & Impact
                             let index = j;                           // Index
                             let list;                                // Identify quadrant
 
@@ -386,11 +386,11 @@
                                 else {
                                     let i = list == quadrant1 ? views[settings[0]][0] : list == quadrant2 ? views[settings[0]][1] : list == quadrant3 ? views[settings[0]][2] : list == quadrant4 ? views[settings[0]][3] : todaysTasks;
                                     // Split
-                                        let j = i[index].split(";");
+                                        let j = i[index].split("|");
                                     // Concatinate
                                         let k = j[0];
                                         for (let l = 1; l < 4; l++) {
-                                            k = k.concat(" ; ", j[l]);
+                                            k = k.concat(" | ", j[l]);
                                         }
                                     userInput.value = k;
                                     userInput.focus();
@@ -485,8 +485,10 @@
                 let e = document.querySelectorAll(".navbar-button");
                 e.forEach(e => {
                     e.style.outline = 'none';
+                    // e.style.backgroundColor = 'var(--color-primary)';
                 });
                 document.getElementById(a).style.outline = '1px solid var(--color-border)';
+                // document.getElementById(a).style.backgroundColor = 'var(--color-tertiary)';
 
             // b = Matrix / Singlelist
                 if (b == 'matrix') {
@@ -532,13 +534,12 @@
             document.getElementById('darkMode').style.display = 'none';
             document.getElementById('lightMode').style.display = 'block';
 
+            document.querySelector(':root').style.setProperty('--color-primary', 'hsl(0, 0%, 0%)');
+            document.querySelector(':root').style.setProperty('--color-secondary', 'hsl(0, 0%, 10%)');
+            document.querySelector(':root').style.setProperty('--color-tertiary', 'hsl(0, 0%, 5%)');
+            // document.querySelector(':root').style.setProperty('--color-tertiary', 'hsl(125, 50%, 15%)');
             document.querySelector(':root').style.setProperty('--color-font', 'hsl(0, 0%, 100%)');
             document.querySelector(':root').style.setProperty('--color-border', 'hsl(0, 0%, 25%)');
-
-            document.querySelector(':root').style.setProperty('--background-color-main', 'hsl(0, 0%, 0%)');
-            document.querySelector(':root').style.setProperty('--background-color-list', 'hsl(0, 0%, 10%)');
-            // document.querySelector(':root').style.setProperty('--background-color-list-highlight', 'hsl(0, 0%, 6%)');
-            document.querySelector(':root').style.setProperty('--background-color-list-hover', 'hsl(0, 0%, 5%)');
 
             settings[1] = true;
             localStorage.setItem('settings', JSON.stringify(settings));
@@ -546,18 +547,42 @@
         function lightMode() {
             document.getElementById('lightMode').style.display = 'none';
             document.getElementById('darkMode').style.display = 'block';
-
+            
+            document.querySelector(':root').style.setProperty('--color-primary', 'hsl(0, 0%, 90%)');
+            document.querySelector(':root').style.setProperty('--color-secondary', 'hsl(0, 0%, 100%)');
+            document.querySelector(':root').style.setProperty('--color-tertiary', 'hsl(0, 0%, 95%)');
+            // document.querySelector(':root').style.setProperty('--color-tertiary', 'hsl(125, 50%, 80%)');
             document.querySelector(':root').style.setProperty('--color-font', 'hsl(0, 0%, 0%)');
             document.querySelector(':root').style.setProperty('--color-border', 'hsl(0, 0%, 75%)');
-            
-            document.querySelector(':root').style.setProperty('--background-color-main', 'hsl(0, 0%, 90%)');
-            document.querySelector(':root').style.setProperty('--background-color-list', 'hsl(0, 0%, 100%)');
-            // document.querySelector(':root').style.setProperty('--background-color-list-highlight', 'hsl(0, 0%, 95.5%)');
-            document.querySelector(':root').style.setProperty('--background-color-list-hover', 'hsl(0, 0%, 95%)');
 
             settings[1] = false;
             localStorage.setItem('settings', JSON.stringify(settings));
         }
+
+    // Replace
+        /* function replace() {
+            let replace = [allTasksQuadrant1, allTasksQuadrant2, allTasksQuadrant3, allTasksQuadrant4, todaysTasks, archivedTasksQuadrant1, archivedTasksQuadrant2, archivedTasksQuadrant3, archivedTasksQuadrant4]
+            for (i = 0; i < 9; i++) {
+                for (j = 0; j < replace[i].length; j++) {
+
+                    // Split
+                        let splitTask = replace[i][j].split(""); // Specify what I want to replace
+
+                    // Concatinate
+                        let concatTask = "";
+                        let l = 0;
+                        concatTask = concatTask.concat(" ", splitTask[0]).trim();
+                        l++;
+                        for (; l < splitTask.length; l++) {
+                            concatTask = concatTask.concat("...", splitTask[l]); // Specify what I want to replace it by
+                        }
+
+                    // Save
+                        replace[i][j] = concatTask;
+                        saveTasks();
+                }
+            }
+        } */
 
 /******************************* Loops ********************************/
 
@@ -730,79 +755,110 @@
 
     // Note: In addEventListener, function(x) {} is same as (x) => {}
 
-    // Document
+    // Keydown
         document.addEventListener("keydown", (e) => {
-            if (e.target.tagName === 'INPUT') {
-                return;
-            }
-            else {
-                switch (e.key) {
-                    case "Enter":
-                    case " ":
-                        e.preventDefault();
-                        userInput.focus();
-                        break;
 
-                    case "ArrowUp":
-                        e.preventDefault();
-                        settings[0] = 0;
-                        switchView(settings[0]);
-                        break;
-                    case "ArrowDown":
-                        e.preventDefault();
-                        settings[0] = 2;
-                        switchView(settings[0]);
-                        break;
-                    case "ArrowLeft":
-                        e.preventDefault();
-                        if (settings[0] > 0) {
-                            settings[0]--;
-                            switchView(settings[0]);
-                        }
-                        else {
-                            settings[0] = 2;
-                            switchView(settings[0]);
-                        }
-                        break;
-                    case "ArrowRight":
-                        e.preventDefault();
-                        if (settings[0] < 2) {
-                            settings[0]++;
-                            switchView(settings[0]);
-                        }
-                        else {
+            // When userInput IS in focus
+                if (e.target.id === 'userInput') {
+                    switch (e.key) {
+
+                        case " ":
+                        case "Space":
+                            if (e.ctrlKey) {
+                                e.preventDefault();
+                                userInput.blur();
+                            }
+                            break;
+
+                        case "Enter":
+                            if (e.shiftKey) {
+                                e.preventDefault();
+                                userInput.value += "\n - "
+                            }
+                            else {
+                                preprocessInput();
+                            }
+                            break;
+                    }
+                    return;
+                }
+
+            // When userInput is NOT in focus
+                else {
+                    switch (e.key) {
+
+                        case "Enter":
+                        case "Space":
+                        case " ":
+                            e.preventDefault();
+                            userInput.focus();
+                            break;
+
+                        case "ArrowUp":
+                            e.preventDefault();
                             settings[0] = 0;
                             switchView(settings[0]);
-                        }
-                        break;
-                        
-                    case "l":
-                    case "L":
-                        e.preventDefault();
-                        if (settings[1]) {
-                            lightMode();
-                        }
-                        else {
-                            darkMode();
-                        }
-                        break;
-                    // case "z":
-                    // case "Z"
-                    //     Undo edit, reorder, move to all/tdy/arc, delete (upto last 10)
-                    //     break;
-                    case "c":
-                    case "C":
-                        e.preventDefault();
-                        copy();
-                        break;
+                            break;
+
+                        case "ArrowDown":
+                            e.preventDefault();
+                            settings[0] = 2;
+                            switchView(settings[0]);
+                            break;
+
+                        case "ArrowLeft":
+                            e.preventDefault();
+                            if (settings[0] > 0) {
+                                settings[0]--;
+                                switchView(settings[0]);
+                            }
+                            else {
+                                settings[0] = 2;
+                                switchView(settings[0]);
+                            }
+                            break;
+
+                        case "ArrowRight":
+                            e.preventDefault();
+                            if (settings[0] < 2) {
+                                settings[0]++;
+                                switchView(settings[0]);
+                            }
+                            else {
+                                settings[0] = 0;
+                                switchView(settings[0]);
+                            }
+                            break;
+                            
+                        case "l":
+                        case "L":
+                            e.preventDefault();
+                            if (settings[1]) {
+                                lightMode();
+                            }
+                            else {
+                                darkMode();
+                            }
+                            break;
+
+                        // case "z":
+                        // case "Z"
+                        //     Undo edit, reorder, move to all/tdy/arc, delete (upto last 10)
+                        //     break;
+                        case "c":
+                        case "C":
+                            e.preventDefault();
+                            copy();
+                            break;
+                    }
+                    return;
                 }
-            }
         })
 
     // UserInput
         userInput.addEventListener("focus", () => {
             if (userInput.value == "") {
-                userInput.value = " ;  ;  ; ";
+                userInput.value = " |  |  | ";
             }
             setTimeout(() => {
                 userInput.setSelectionRange(0, 0);
@@ -810,7 +866,7 @@
             }, 0);
         });
         userInput.addEventListener("blur", () => {
-            let x = userInput.value.split(";");
+            let x = userInput.value.split("|");
             let flag = 0;
             for (let i = 0; i < x.length; i++) {
                 if (x[i].trim() != "") {
@@ -821,53 +877,3 @@
                 userInput.value="";
             }
         })
-        userInput.addEventListener("keydown", (e) => {
-            switch (e.key) {
-                case "Escape":
-                    userInput.blur();
-                    break;
-                // case "ArrowLeft":
-                //     break;
-                case "ArrowRight":
-                    if (e.shiftKey) {
-                    }
-                    else {
-                        const cursorPosition = this.selectionStart;
-                        const inputValue = this.value;
-                        const nextThreeChars = inputValue.substring(cursorPosition, cursorPosition + 3);
-                        alert(nextThreeChars);
-                        if (nextThreeChars == " ; ") {
-                            userInput.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
-                        }
-                    }
-                    break;
-                // case "Backspace":
-                //     ...
-                //     if (...) {
-                //         e.preventDefault();
-                //     }
-                //     break;
-                // case "Delete":
-                //     ...
-                //     if (...) {
-                //         e.preventDefault();
-                //     }
-                //     break;
-                case "Enter":
-                    if (e.shiftKey) {
-                        alert("Subtask");
-                    }
-                    else {
-                        preprocessInput();
-                    }
-                    break;
-                // case ";":
-                //     e.preventDefault();
-                //     userInput.value += " ; "
-                //     break;
-                // case ".":
-                //     e.preventDefault();
-                //     userInput.value += " ➤ "
-                //     break;
-            }
-        });

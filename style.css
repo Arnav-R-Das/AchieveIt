@@ -5,13 +5,12 @@
 
     /* COLORS */
 
+        --color-primary: '';
+        --color-secondary: '';
+        --color-tertiary: '';
         --color-font: '';
         --color-border: '';
         --color-userInput-focus: hsl(0, 0%, 50%);
-        --background-color-main: '';
-        --background-color-list: '';
-        --background-color-list-hover: '';
-        --background-color-list-highlight: '';
 
     /* BOX MODEL:  Height, Width, Padding, Border, Margin */
 
@@ -129,7 +128,7 @@ body {
 
     position: relative;
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #navbar div {
@@ -151,7 +150,7 @@ body {
     margin: var(--navbar-button-margin) var(--navbar-button-margin) 0;
 
     font-family: var(--standard-font-family);
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
     color: var(--color-font);
 }
 
@@ -164,7 +163,7 @@ body {
 }
 
 .navbar-button:hover {
-    background-color: var(--color-border);
+    background-color: var(--color-secondary);
     /* outline: 1px solid var(--color-border); */
 }
 
@@ -184,7 +183,7 @@ body {
     flex-flow: row nowrap;
     justify-content: center;
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #clock-container {
@@ -225,7 +224,7 @@ body {
     flex-flow: row nowrap;
     justify-content: end;
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #matrix-header div {
@@ -246,7 +245,7 @@ body {
 #matrix-y-axis {
     width: var(--matrix-y-axis-width);
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #matrix-y-axis div {
@@ -265,7 +264,7 @@ body {
 
     display: flex;
     flex-flow: row wrap;
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 .quadrant {
@@ -275,7 +274,7 @@ body {
     margin-right: var(--quadrant-margin-right);
     margin-bottom: var(--quadrant-margin-bottom);
 
-    background-color: var(--background-color-list);
+    background-color: var(--color-secondary);
     outline: 1px solid var(--color-border);
     border-radius: 20px;
     overflow-wrap: anywhere;
@@ -293,7 +292,7 @@ body {
 #singlelist-header {
     height: var(--singlelist-header-height);
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #singlelist-header-container {
@@ -329,7 +328,7 @@ body {
 #singlelist-container {
     height: var(--singlelist-container-height);
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #singlelist-box {
@@ -340,7 +339,7 @@ body {
     margin-right: var(--singlelist-box-margin-right);
     margin-bottom: var(--singlelist-box-bottom);
 
-    background-color: var(--background-color-list);
+    background-color: var(--color-secondary);
     outline: var(--standard-border);
     border-radius: 20px;
     overflow-wrap: anywhere;
@@ -375,7 +374,7 @@ body {
 }
 
 .taskli:hover {
-    background-color: var(--background-color-list-hover);
+    background-color: var(--color-tertiary);
 }
 
 .col-info {
@@ -418,8 +417,8 @@ body {
     height: calc(14px + 10px + 10px);
 
     visibility: hidden;
-    background-color: var(--background-color-list-hover);
-    box-shadow: -20px 0px 10px -5px var(--background-color-list-hover);
+    background-color: var(--color-tertiary);
+    box-shadow: -20px 0px 10px -5px var(--color-tertiary);
 }
 
 li:hover > .col-update {
@@ -434,9 +433,11 @@ li:hover > .col-update {
 
     border: none;
     outline: var(--standard-border);
+    /* outline: 1px solid var(--color-border); */
     border-radius: 50%;
-    background-color: var(--background-color-list-hover);
+    background-color: var(--color-tertiary);
     color: var(--color-border);
+    /* color: var(--color-font); */
     font-weight: 900;
 }
 
@@ -450,22 +451,22 @@ li:hover > .col-update {
 
 .col-update-buttons:hover {
     background-color: var(--color-border);
-    color: var(--background-color-list);
+    color: var(--color-secondary);
 }
 
 /**************** HIGHLIGHTIMPACTFULTASK2 *****************
 
 .highlightImpactfulTask2 {
-    background-color: var(--background-color-list-highlight);
+    background-color: var(--color-secondary-highlight);
 }
 
 .highlightImpactfulTask2 .col-update{
-    background-color: var(--background-color-list-highlight);
-    box-shadow: -20px 0px 10px -5px var(--background-color-list-highlight);
+    background-color: var(--color-secondary-highlight);
+    box-shadow: -20px 0px 10px -5px var(--color-secondary-highlight);
 }
 
 .highlightImpactfulTask2 .col-update-buttons {
-    background-color: var(--background-color-list-highlight);
+    background-color: var(--color-secondary-highlight);
 }
 
 /************************ INPUTBAR ************************/
@@ -477,11 +478,13 @@ li:hover > .col-update {
     display: flex;
     justify-content: center;
 
-    background-color: var(--background-color-main);
+    background-color: var(--color-primary);
 }
 
 #userInput {
     height: var(--userInput-height);
+    min-height: var(--userInput-height);
+    max-height: 100px;
     width: var(--userInput-width);
     padding-left: var(--userInput-padding-left);
     border: var(--userInput-border);
@@ -489,7 +492,7 @@ li:hover > .col-update {
     margin: var(--userInput-margin);
 
     outline: var(--standard-border);
-    background-color: var(--background-color-list);
+    background-color: var(--color-secondary);
     color: var(--color-font);
 }
 

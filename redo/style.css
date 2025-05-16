@@ -1,0 +1,258 @@
+/* {
+
+  /*Box Model
+  margin: ;
+  border: ;
+  height: ;
+  width: ;
+  padding: ;
+
+  
+    background-color: ;
+    color: ;
+    font-size: rem;
+} */
+
+:root {
+
+  /* Common */
+    --font-size: 14px;
+    --border-width: 1px;
+    --margin: 32px;
+
+  /* Components */
+
+    /* Nav */
+      --nav-button-height-and-width: 48px;
+      --nav-button-margin-top-and-bottom: 4px;
+      --nav-button-margin-left-and-right: 8px;
+
+    /* InputBar */
+      --textInput-margin: var(--margin);
+      --textInput-height: 48px; /* Same as nav button's height */
+
+    /* Main */
+      --main-width: calc(100vw - (var(--nav-button-height-and-width) + (2 * var(--nav-button-margin-left-and-right)) + var(--border-width))); /* Same for #inputBar */
+
+        /* Clock */
+          --clock-div-margin: var(--margin);
+          --clock-height: 48px;
+ 
+        /* Views */
+          --views-margin: var(--margin);
+          --views-gutter: 8px;
+
+
+  /* Color Palette */
+    /*  */
+      --color-primary:        hsl(  0,   0%,   0%);
+      --color-secondary:      hsl(  0,   0%,  10%);
+      --color-tertiary:       hsl(  0,   0%,   5%);
+      --color-border:         hsl(  0,   0%,  25%);
+    /* Font */
+      --color-font-highlight: hsl(  0,   0%, 100%);
+      --color-font-base:      hsl(  0,   0%,  80%);
+      --color-font-tonedown:  hsl(  0,   0%,  60%);
+    /*  */
+      --color-danger:         hsl(  0, 100%,  25%);
+      --color-warning:        hsl( 60, 100%,  25%);
+      --color-success:        hsl(120, 100%,  25%);
+      --color-info:           hsl(180, 100%,  25%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  font-size: var(--font-size);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+
+  color: var(--color-font-base);
+}
+
+/************************* NAVBAR *************************/
+
+nav {
+  border-right: var(--border-width) solid var(--color-border);
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+
+  background-color: var(--color-primary);
+  outline: 1px solid red;
+}
+
+nav > div {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.nav-button {
+  margin: calc(var(--nav-button-margin-left-and-right) / 2) var(--nav-button-margin-left-and-right);
+  border: none;
+  height: var(--nav-button-height-and-width);
+  width:  var(--nav-button-height-and-width);
+
+  border-radius: 25%;
+
+  background-color: var(--color-primary);
+  color: var(--color-font-base);
+}
+
+nav > div:first-child > .nav-button:first-child {
+  margin-top: calc(2 * var(--nav-button-margin-left-and-right));
+}
+
+nav > div:last-child > .nav-button:last-child {
+  margin-bottom: calc(2 * var(--nav-button-margin-left-and-right));
+}
+
+.nav-button:hover:not(.selected_button) {
+  background-color: var(--color-tertiary);
+}
+
+/************************ INPUTBAR ************************/
+
+#inputBar {
+  width: var(--main-width);
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+
+  background-color: var(--color-primary);
+}
+
+.textInput {
+  border: none;
+  margin: calc(var(--textInput-margin) / 2) var(--textInput-margin) var(--textInput-margin);
+  height: (var(--textInput-height));
+  padding: calc((var(--textInput-height) - var(--font-size)) / 2) 16px;
+
+  border-radius: calc(var(--textInput-height) / 2);
+
+  background-color: var(--color-secondary);
+  color: var(--color-font-base);
+}
+
+.textInput:focus {
+  outline: 2px solid var(--color-info);
+  /* outline: none; */
+}
+
+#input-task {
+  width: calc(100% - ((2 * var(--margin)) + (2 * var(--views-gutter)))); /* Temp */
+}
+
+/************************** MAIN **************************/
+
+main {
+  height: calc(100vh - (var(--textInput-height) + (1.5 * var(--textInput-margin))));
+  width: var(--main-width);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  /* overflow: hidden; */
+
+  background-color: var(--color-primary);
+}
+
+/************************** CLOCK *************************
+
+#clock {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+#clock > div {
+  margin: var(--clock-div-margin) 0;
+  width: 160px;
+
+  text-align: center;
+  align-content: center;
+}*/
+
+/************************** VIEWS **************************/
+
+#views {
+  /* height: calc(100% - (var(--font-size) + (2 * var(--clock-div-margin)))); */
+  height: 100%;
+
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/************************* MATRIX *************************/
+
+.quadrant {
+  height: calc(50% - ((var(--views-margin) / 1.5) + var(--views-gutter)));
+  width:  calc(50% - (var(--views-margin) + var(--views-gutter)));
+
+  border-radius: 16px;
+
+  background-color: var(--color-secondary);
+}
+
+.quadrant > p {
+  height: 100%;
+
+  text-align: center;
+  align-content: center;
+
+  color: var(--color-font-tonedown);
+}
+
+#view-quadrant1 {
+  margin: var(--views-margin) var(--views-gutter) var(--views-gutter) var(--views-margin);
+}
+
+#view-quadrant2 {
+  margin: var(--views-margin) var(--views-margin) var(--views-gutter) var(--views-gutter);
+}
+
+#view-quadrant3 {
+  margin: var(--views-gutter) var(--views-gutter) calc(var(--views-margin) / 2) var(--views-margin);
+}
+
+#view-quadrant4 {
+  margin:  var(--views-gutter) var(--views-margin) calc(var(--views-margin) / 2) var(--views-gutter);
+}
+
+/************************** LIST **************************/
+
+#list {
+  margin: var(--views-margin) var(--views-margin)  calc(var(--views-margin) / 2);
+  height: calc(100% - (var(--views-margin) * 1.5));
+  width:  calc(100% - var(--views-margin));
+
+  border-radius: 16px;
+
+  background-color: var(--color-secondary);
+}
+
+#list > p {
+  height: 100%;
+
+  text-align: center;
+  align-content: center;
+
+  color: var(--color-font-tonedown);
+}

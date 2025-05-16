@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+      <title> AchvIt - Redo </title>
+      <link rel="icon" type="image/svg+xml" href="images/logo.png" />
+
+    <!-- META -->
+      <meta name="author" content="Arnav Das" />
+      <meta name="description" content="A task management system" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta charset="UTF-8" />
+
+    <!-- CSS -->
+      <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <!-- JAVASCRIPT -->
+      <script src="script.js" defer></script>
+
+  </head>
+  <body>
+
+    <!-- NAV -->
+      <nav>
+        <div>
+          <button class="nav-button" onclick="" id="button-matrix" > Eis </button>
+          <button class="nav-button" onclick="" id="button-list" > Tdy </button>
+          <button class="nav-button" onclick="" id="button-archive" > Arc </button>
+        </div>
+        <div>
+          <button class="nav-button" onclick="" id="button-copy"       > Cpy </button>
+          <button class="nav-button" onclick="" id="button-darkMode"  > Dar </button>
+          <button class="nav-button" onclick="" id="button-lightMode" > Lig </button>
+        </div>
+      </nav>
+
+    <!-- MAIN -->
+      <main>
+
+        <!-- CLOCK -->
+          <!-- <div id="clock">
+            <div>May 14, Wed</div>
+            <div>10:30 PM</div>
+          </div> -->
+
+        <!-- VIEWS -->
+          <div id="views">
+
+            <!-- MATRIX -->
+              <div id="view-quadrant1" class="quadrant"><p>Important<br>and Urgent</p></div>
+              <div id="view-quadrant2" class="quadrant"><p>Important,<br>but not Urgent</p></div>
+              <div id="view-quadrant3" class="quadrant"><p>Not Important,<br>but Urgent</p></div>
+              <div id="view-quadrant4" class="quadrant"><p>Neither Important,<br>nor Urgent</p></div>
+
+            <!-- LIST -->
+              <div id="list"><p>Today's tasks</p></div>
+
+          </div>
+
+      </main>
+    
+
+    <!-- INPUTBAR -->
+      <div id="inputBar">
+        <input    type="text"     id="input-task"     class="textInput" placeholder="Task"     />
+        <!--         
+        <textarea name=""         id="input-textarea" class="textInput" placeholder="Textarea" ></textarea>
+        <input    type="text"     id="input-deadline" class="textInput" placeholder="Deadline" />
+        <input    type="text"     id="input-schedule" class="textInput" placeholder="Schedule" />
+        <input    type="checkbox" id="input-impact"                                            />
+        -->
+      </div>
+
+  </body>
+</html>
