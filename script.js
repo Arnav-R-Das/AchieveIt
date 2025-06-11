@@ -514,7 +514,7 @@
 
             for (let j = 0; j < views[i].length; j++) {
                 for (let k = 0; k < views[i][j].length; k++) {
-                    let splitTask = views[i][j][k].split(";");
+                    let splitTask = views[i][j][k].split("|");
                     copyText += "\n- " + splitTask[0];
                 }
                 copyText += "\n";
@@ -591,9 +591,6 @@
 
             let today = new Date();
 
-            // Week
-                document.getElementById('week').textContent = "W?";
-
             // Date
                 switch(today.getMonth()) {
                     case 0:
@@ -634,6 +631,9 @@
                         break;
                 }
                 let dateRN = today.getDate();
+                document.getElementById('date').textContent = monthRN + " " + dateRN;
+
+            // Day
                 switch(today.getDay()) {
                     case 0:
                         dayRN = "SUN";
@@ -657,7 +657,7 @@
                         dayRN = "SAT";
                         break;
                 }
-                document.getElementById('date').textContent = monthRN + " " + dateRN + ", " + dayRN;
+                document.getElementById('day').textContent = dayRN;
 
             // Time
                 let meridiemRN = "AM";
